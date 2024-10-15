@@ -1,0 +1,207 @@
+{
+  "recentFiles": [
+    {
+      "basename": "虚幻引擎目录",
+      "path": "虚幻引擎/虚幻引擎目录.md"
+    },
+    {
+      "basename": "Lumen",
+      "path": "虚幻引擎/渲染/Lumen.md"
+    },
+    {
+      "basename": "GPU渲染管线",
+      "path": "虚幻引擎/渲染/GPU渲染管线.md"
+    },
+    {
+      "basename": "合并阶段",
+      "path": "虚幻引擎/渲染/GPU渲染管线/合并阶段.md"
+    },
+    {
+      "basename": "监督学习（Supervised learning）",
+      "path": "人工智能/理论&实践/深度学习/原理/监督学习（Supervised learning）.md"
+    },
+    {
+      "basename": "GPU架构",
+      "path": "虚幻引擎/渲染/GPU架构.md"
+    },
+    {
+      "basename": "Frame Graph",
+      "path": "虚幻引擎/渲染/Frame Graph.md"
+    },
+    {
+      "basename": "贴图压缩",
+      "path": "虚幻引擎/渲染/贴图压缩.md"
+    },
+    {
+      "basename": "DirectX Texture Compression",
+      "path": "虚幻引擎/渲染/贴图压缩/DirectX Texture Compression.md"
+    },
+    {
+      "basename": "可见性裁剪",
+      "path": "虚幻引擎/渲染/可见性裁剪.md"
+    },
+    {
+      "basename": "场景空间管理",
+      "path": "虚幻引擎/渲染/场景空间管理.md"
+    },
+    {
+      "basename": "编码游戏逻辑",
+      "path": "虚幻引擎/GamePlay/复杂的游戏性及其基本要素/编码游戏逻辑.md"
+    },
+    {
+      "basename": "转向（Steering Behaviors）",
+      "path": "虚幻引擎/GamePlay/基础AI系统/转向（Steering Behaviors）.md"
+    },
+    {
+      "basename": "经典决策系统",
+      "path": "虚幻引擎/GamePlay/基础AI系统/经典决策系统.md"
+    },
+    {
+      "basename": "寻路系统（Seek System）",
+      "path": "虚幻引擎/GamePlay/基础AI系统/寻路系统（Seek System）.md"
+    },
+    {
+      "basename": "基础AI系统",
+      "path": "虚幻引擎/GamePlay/基础AI系统.md"
+    },
+    {
+      "basename": "高级AI系统",
+      "path": "虚幻引擎/GamePlay/高级AI系统.md"
+    },
+    {
+      "basename": "复杂的游戏性及其基本要素",
+      "path": "虚幻引擎/GamePlay/复杂的游戏性及其基本要素.md"
+    },
+    {
+      "basename": "事件机制",
+      "path": "虚幻引擎/GamePlay/复杂的游戏性及其基本要素/事件机制.md"
+    },
+    {
+      "basename": "机器学习基础",
+      "path": "人工智能/理论&实践/机器学习/机器学习基础.md"
+    },
+    {
+      "basename": "深度学习（deep learning）总览",
+      "path": "人工智能/理论&实践/深度学习/深度学习（deep learning）总览.md"
+    },
+    {
+      "basename": "Blender插件",
+      "path": "杂项/Blender插件.md"
+    },
+    {
+      "basename": "未命名",
+      "path": "Temp/渲染管线/未命名.md"
+    },
+    {
+      "basename": "渲染系统",
+      "path": "虚幻引擎/渲染/渲染系统.md"
+    },
+    {
+      "basename": "人工智能总览",
+      "path": "人工智能/人工智能总览.md"
+    },
+    {
+      "basename": "人工智能学习路径",
+      "path": "人工智能/人工智能学习路径.md"
+    },
+    {
+      "basename": "Torch深度学习框架",
+      "path": "人工智能/框架&工具/Torch深度学习框架.md"
+    },
+    {
+      "basename": "线性代数",
+      "path": "人工智能/理论&实践/数学基础/线性代数/线性代数.md"
+    },
+    {
+      "basename": "数学基础",
+      "path": "人工智能/理论&实践/数学基础/数学基础.md"
+    },
+    {
+      "basename": "Gradio用户界面",
+      "path": "人工智能/框架&工具/Gradio用户界面.md"
+    },
+    {
+      "basename": "yolov5目标检测模型",
+      "path": "人工智能/框架&工具/yolov5目标检测模型.md"
+    },
+    {
+      "basename": "Streamlit交互式Web",
+      "path": "人工智能/框架&工具/Streamlit交互式Web.md"
+    },
+    {
+      "basename": "Labelimg数据标注工具",
+      "path": "人工智能/框架&工具/Labelimg数据标注工具.md"
+    },
+    {
+      "basename": "Labelimg数据标注工具-1",
+      "path": "附件/Labelimg数据标注工具-1.png"
+    },
+    {
+      "basename": "yolov5运行流程-1",
+      "path": "附件/yolov5运行流程-1.png"
+    },
+    {
+      "basename": "Block Compression n",
+      "path": "虚幻引擎/渲染/贴图压缩/Block Compression n.md"
+    },
+    {
+      "basename": "Nanite",
+      "path": "虚幻引擎/渲染/Nanite.md"
+    },
+    {
+      "basename": "视锥裁剪",
+      "path": "虚幻引擎/渲染/可见性裁剪/视锥裁剪.md"
+    },
+    {
+      "basename": "GPU Driven Render Pipeline",
+      "path": "虚幻引擎/渲染/Nanite/GPU Driven Render Pipeline.md"
+    },
+    {
+      "basename": "Virtualized Geometry Nanite",
+      "path": "虚幻引擎/渲染/Nanite/Virtualized Geometry Nanite.md"
+    },
+    {
+      "basename": "Visibility Buffer",
+      "path": "虚幻引擎/渲染/Nanite/Visibility Buffer.md"
+    },
+    {
+      "basename": "Surface Caching",
+      "path": "虚幻引擎/渲染/Lumen/Lumen流程/Surface Caching.md"
+    },
+    {
+      "basename": "Shadow",
+      "path": "虚幻引擎/渲染/渲染系统/阴影/Shadow.md"
+    },
+    {
+      "basename": "BRDF模型",
+      "path": "虚幻引擎/渲染/渲染系统/光照/BRDF模型.md"
+    },
+    {
+      "basename": "泛光",
+      "path": "虚幻引擎/渲染/渲染系统/后处理/泛光.md"
+    },
+    {
+      "basename": "基于物理相机",
+      "path": "虚幻引擎/渲染/渲染系统/基于物理渲染/基于物理相机.md"
+    },
+    {
+      "basename": "粒子常见属性",
+      "path": "虚幻引擎/渲染/渲染系统/视效/粒子常见属性.md"
+    },
+    {
+      "basename": "屏幕空间环境光屏蔽",
+      "path": "虚幻引擎/渲染/渲染系统/环境光屏蔽/屏幕空间环境光屏蔽.md"
+    },
+    {
+      "basename": "参与介度",
+      "path": "虚幻引擎/渲染/渲染系统/大气/参与介度.md"
+    },
+    {
+      "basename": "体积雾",
+      "path": "虚幻引擎/渲染/渲染系统/雾效/体积雾.md"
+    }
+  ],
+  "omittedPaths": [],
+  "maxLength": null,
+  "openType": "tab"
+}

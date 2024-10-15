@@ -1,0 +1,11 @@
+{
+  "types": {
+    "aliases": "aliases",
+    "cssclasses": "multitext",
+    "tags": "tags",
+    "excalidraw-plugin": "text",
+    "复选框": "checkbox",
+    "日期": "date",
+    "日期和时间": "datetime"
+  }
+}
