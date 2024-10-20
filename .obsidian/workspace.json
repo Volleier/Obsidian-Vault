@@ -35,8 +35,8 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "人工智能/理论&实践/机器学习/机器学习内容.md",
-                    "mode": "preview",
+                    "file": "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
+                    "mode": "source",
                     "source": false
                   }
                 }
@@ -198,11 +198,13 @@
   },
   "active": "8f19bc361332ed85",
   "lastOpenFiles": [
-    "人工智能/理论&实践/机器学习/深度学习/循环神经网络（RNN）.md",
+    "附件/人工智能/卷积神经网络-1.gif",
     "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
+    "人工智能/理论&实践/机器学习/机器学习内容.md",
+    "附件/人工智能",
+    "人工智能/理论&实践/机器学习/深度学习/循环神经网络（RNN）.md",
     "人工智能/理论&实践/机器学习/深度学习/生成对抗网络（GAN）.md",
     "人工智能/理论&实践/机器学习/监督学习（Supervised learning）.md",
-    "人工智能/理论&实践/机器学习/机器学习内容.md",
     "人工智能/人工智能学习路径.md",
     "人工智能/人工智能总览.md",
     "人工智能/理论&实践/机器学习/深度学习（deep learning）总览.md",
@@ -231,9 +233,7 @@
     "人工智能/理论&实践/数学基础/概率论",
     "人工智能/理论&实践/数学基础/微积分",
     "虚幻引擎/GamePlay/基础AI系统.md",
-    "虚幻引擎/GamePlay/高级AI系统.md",
     "GamePlay/复杂的游戏性及其基本要素",
-    "GamePlay",
     "附件/Labelimg数据标注工具-1.png",
     "Pasted image 20240909114111.png",
     "附件/yolov5运行流程-1.png",
@@ -243,7 +243,6 @@
     "测试文件夹/PengLaiSi.png",
     "appendix/虚幻5C++架构_1.png",
     "appendix/VS解决方案内容_1.png",
-    "appendix/VS解决方案内容_2.png",
-    "appendix/Screenshot 2024-01-05 141158.png"
+    "appendix/VS解决方案内容_2.png"
   ]
 }
