@@ -28,7 +28,7 @@ Torch安装默认是cpu版本的，gpu版本需要额外下载
    nvidia-smi.exe
 ```
 选择Cuda的对应版本，在Conda环境中运行Command（Conda命令）
-![[../../附件/yolov5运行流程-1.png]]
+![[yolov5运行流程-1.png]]
 检查torch是否被正确安装，在对应环境中输入下列cmd命令
 ```cmd
 pip list

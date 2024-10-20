@@ -15,7 +15,7 @@ LabelImg 是一个开源的图像标注工具，使用 Python 编写，支持图
    python labelimg.py
 	```
 4. 修改设置方便使用
-   ![[../../附件/Labelimg数据标注工具-1.png]]
+   ![[Labelimg数据标注工具-1.png]]
 5. **大多数情况下记得把yolo格式点上**
 
 ## Labelimg使用

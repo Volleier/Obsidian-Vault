@@ -2,7 +2,7 @@
   "promptDelete": false,
   "newFileLocation": "current",
   "newFileFolderPath": "C:\\Users\\12066\\OneDrive\\Documents",
-  "attachmentFolderPath": "appendix",
-  "newLinkFormat": "absolute",
+  "attachmentFolderPath": "附件",
+  "newLinkFormat": "shortest",
   "alwaysUpdateLinks": true
 }

@@ -39,24 +39,24 @@ Dropout层是一种正则化技术，通过在训练过程中随机丢弃一部�
 5. 全连接层：综合特征进行分类或回归。
 6. 输出层：输出最终的预测结果。
 
-# 4. 常见的CNN模型
+# 常见的CNN模型
 
-## 4.1 LeNet-5
+## LeNet-5
 LeNet-5是最早的卷积神经网络之一，由Yann LeCun等人提出，主要用于手写数字识别。
 
-## 4.2 AlexNet
+## AlexNet
 AlexNet在2012年的ImageNet竞赛中取得了显著的成绩，推动了深度学习的发展。它引入了ReLU激活函数和Dropout层。
 
-## 4.3 VGGNet
+## VGGNet
 VGGNet通过使用较小的卷积核（3x3）和较深的网络结构（16-19层），在多个图像分类任务中表现出色。
 
-## 4.4 ResNet
+## ResNet
 ResNet引入了残差连接（Residual Connection），解决了深层网络中的梯度消失问题，使得网络可以更深。
 
-## 4.5 Inception（GoogLeNet）
+## Inception（GoogLeNet）
 Inception网络通过引入Inception模块，在同一层中使用不同尺寸的卷积核，捕捉不同尺度的特征。
 
-# 5. 应用领域
+# 应用领域
 
 - 图像分类：如手写数字识别、物体识别等。
 - 目标检测：如人脸检测、行人检测等。

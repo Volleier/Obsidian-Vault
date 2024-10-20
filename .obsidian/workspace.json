@@ -15,18 +15,28 @@
                 "id": "8f19bc361332ed85",
                 "type": "leaf",
                 "state": {
-                  "type": "markdown",
+                  "type": "image",
                   "state": {
-                    "file": "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
-                    "mode": "source",
-                    "backlinks": true,
-                    "source": false
+                    "file": "附件/人工智能/Labelimg数据标注工具-1.png"
                   },
-                  "icon": "lucide-file",
-                  "title": "卷积神经网络（CNN）"
+                  "icon": "lucide-image",
+                  "title": "Labelimg数据标注工具-1"
+                }
+              },
+              {
+                "id": "20a669570ee261c5",
+                "type": "leaf",
+                "state": {
+                  "type": "image",
+                  "state": {
+                    "file": "附件/人工智能/yolov5运行流程-1.png"
+                  },
+                  "icon": "lucide-image",
+                  "title": "yolov5运行流程-1"
                 }
               }
-            ]
+            ],
+            "currentTab": 1
           },
           {
             "id": "e9086719bf5aedf5",
@@ -36,14 +46,12 @@
                 "id": "84202b7547bdc73f",
                 "type": "leaf",
                 "state": {
-                  "type": "markdown",
+                  "type": "image",
                   "state": {
-                    "file": "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
-                    "mode": "source",
-                    "source": false
+                    "file": "附件/人工智能/yolov5运行流程-1.png"
                   },
-                  "icon": "lucide-file",
-                  "title": "卷积神经网络（CNN）"
+                  "icon": "lucide-image",
+                  "title": "yolov5运行流程-1"
                 }
               }
             ],
@@ -153,11 +161,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md"
-              },
+              "state": {},
               "icon": "lucide-list",
-              "title": "卷积神经网络（CNN） 的大纲"
+              "title": "大纲"
             }
           },
           {
@@ -166,7 +172,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -176,7 +181,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "卷积神经网络（CNN） 的反向链接列表"
+              "title": "反向链接"
             }
           },
           {
@@ -185,16 +190,15 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "卷积神经网络（CNN） 的出链列表"
+              "title": "出链"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       },
       {
         "id": "1a086eec2191a964",
@@ -232,7 +236,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 311.5
+    "width": 323.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -250,10 +254,15 @@
       "remotely-save:Remotely Save": false
     }
   },
-  "active": "44daeadf0d9bf908",
+  "active": "b315f0dc68a0db2d",
   "lastOpenFiles": [
-    "附件/人工智能/卷积神经网络-1.gif",
+    "附件/人工智能/yolov5运行流程-1.png",
+    "附件/人工智能/Labelimg数据标注工具-1.png",
+    "附件/GeneralRoadmap.png",
     "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
+    "附件/TCP三次握手.png",
+    "附件/虚幻引擎",
+    "附件/人工智能/卷积神经网络-1.gif",
     "人工智能/理论&实践/机器学习/机器学习内容.md",
     "附件/人工智能",
     "人工智能/理论&实践/机器学习/深度学习/循环神经网络（RNN）.md",
@@ -287,16 +296,12 @@
     "人工智能/理论&实践/数学基础/概率论",
     "人工智能/理论&实践/数学基础/微积分",
     "虚幻引擎/GamePlay/基础AI系统.md",
-    "GamePlay/复杂的游戏性及其基本要素",
-    "附件/Labelimg数据标注工具-1.png",
     "Pasted image 20240909114111.png",
-    "附件/yolov5运行流程-1.png",
     "Pasted image 20240909113817.png",
     "appendix/反射_1.jpg",
     "测试文件夹/测试白板.canvas",
     "测试文件夹/PengLaiSi.png",
     "appendix/虚幻5C++架构_1.png",
-    "appendix/VS解决方案内容_1.png",
-    "appendix/VS解决方案内容_2.png"
+    "appendix/VS解决方案内容_1.png"
   ]
 }
