@@ -1,52 +1,24 @@
 {
   "recentFiles": [
     {
-      "basename": "yolov5运行流程-1",
-      "path": "附件/人工智能/yolov5运行流程-1.png"
-    },
-    {
-      "basename": "Labelimg数据标注工具-1",
-      "path": "附件/人工智能/Labelimg数据标注工具-1.png"
-    },
-    {
-      "basename": "GeneralRoadmap",
-      "path": "附件/GeneralRoadmap.png"
+      "basename": "生成对抗网络（GAN）",
+      "path": "人工智能/理论&实践/机器学习/深度学习/生成对抗网络（GAN）.md"
     },
     {
       "basename": "卷积神经网络（CNN）",
       "path": "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md"
     },
     {
-      "basename": "卷积神经网络-1",
-      "path": "附件/人工智能/卷积神经网络-1.gif"
-    },
-    {
       "basename": "机器学习内容",
       "path": "人工智能/理论&实践/机器学习/机器学习内容.md"
-    },
-    {
-      "basename": "循环神经网络（RNN）",
-      "path": "人工智能/理论&实践/机器学习/深度学习/循环神经网络（RNN）.md"
-    },
-    {
-      "basename": "生成对抗网络（GAN）",
-      "path": "人工智能/理论&实践/机器学习/深度学习/生成对抗网络（GAN）.md"
     },
     {
       "basename": "监督学习（Supervised learning）",
       "path": "人工智能/理论&实践/机器学习/监督学习（Supervised learning）.md"
     },
     {
-      "basename": "人工智能学习路径",
-      "path": "人工智能/人工智能学习路径.md"
-    },
-    {
-      "basename": "人工智能总览",
-      "path": "人工智能/人工智能总览.md"
-    },
-    {
-      "basename": "Blender插件",
-      "path": "杂项/Blender插件.md"
+      "basename": "虚幻引擎目录",
+      "path": "虚幻引擎/虚幻引擎目录.md"
     },
     {
       "basename": "Lumen",
@@ -55,10 +27,6 @@
     {
       "basename": "GPU渲染管线",
       "path": "虚幻引擎/渲染/GPU渲染管线.md"
-    },
-    {
-      "basename": "虚幻引擎目录",
-      "path": "虚幻引擎/虚幻引擎目录.md"
     },
     {
       "basename": "合并阶段",
@@ -121,12 +89,24 @@
       "path": "虚幻引擎/GamePlay/复杂的游戏性及其基本要素/事件机制.md"
     },
     {
+      "basename": "Blender插件",
+      "path": "杂项/Blender插件.md"
+    },
+    {
       "basename": "未命名",
       "path": "Temp/渲染管线/未命名.md"
     },
     {
       "basename": "渲染系统",
       "path": "虚幻引擎/渲染/渲染系统.md"
+    },
+    {
+      "basename": "人工智能总览",
+      "path": "人工智能/人工智能总览.md"
+    },
+    {
+      "basename": "人工智能学习路径",
+      "path": "人工智能/人工智能学习路径.md"
     },
     {
       "basename": "Torch深度学习框架",
@@ -199,6 +179,18 @@
     {
       "basename": "基于物理相机",
       "path": "虚幻引擎/渲染/渲染系统/基于物理渲染/基于物理相机.md"
+    },
+    {
+      "basename": "粒子常见属性",
+      "path": "虚幻引擎/渲染/渲染系统/视效/粒子常见属性.md"
+    },
+    {
+      "basename": "屏幕空间环境光屏蔽",
+      "path": "虚幻引擎/渲染/渲染系统/环境光屏蔽/屏幕空间环境光屏蔽.md"
+    },
+    {
+      "basename": "参与介度",
+      "path": "虚幻引擎/渲染/渲染系统/大气/参与介度.md"
     }
   ],
   "omittedPaths": [],
