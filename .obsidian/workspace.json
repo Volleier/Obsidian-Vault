@@ -17,7 +17,7 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "虚幻引擎/渲染/Lumen.md",
+                    "file": "人工智能/理论&实践/机器学习/机器学习基础.md",
                     "mode": "source",
                     "source": false
                   }
@@ -35,7 +35,7 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "虚幻引擎/渲染/GPU渲染管线.md",
+                    "file": "人工智能/理论&实践/机器学习/机器学习基础.md",
                     "mode": "preview",
                     "source": false
                   }
@@ -151,7 +151,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "虚幻引擎/渲染/Lumen.md"
+                "file": "人工智能/理论&实践/机器学习/机器学习基础.md"
               }
             }
           },
@@ -161,7 +161,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "虚幻引擎/渲染/Lumen.md",
+                "file": "人工智能/理论&实践/机器学习/机器学习基础.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -178,7 +178,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "虚幻引擎/渲染/Lumen.md",
+                "file": "人工智能/理论&实践/机器学习/机器学习基础.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -239,8 +239,10 @@
   },
   "active": "0b28f377fa2af852",
   "lastOpenFiles": [
-    "虚幻引擎/虚幻引擎目录.md",
+    "虚幻引擎/渲染/Lumen.md",
+    "人工智能/理论&实践/机器学习/机器学习基础.md",
     "虚幻引擎/渲染/GPU渲染管线.md",
+    "虚幻引擎/虚幻引擎目录.md",
     "虚幻引擎/渲染/GPU渲染管线/合并阶段.md",
     "人工智能/理论&实践/深度学习/原理/监督学习（Supervised learning）.md",
     "虚幻引擎/渲染/GPU架构.md",
@@ -264,14 +266,12 @@
     "GamePlay",
     "虚幻引擎/GamePlay/复杂的游戏性及其基本要素/事件机制.md",
     "虚幻引擎/GamePlay/复杂的游戏性及其基本要素/可视化脚本.md",
-    "人工智能/理论&实践/机器学习/机器学习基础.md",
     "人工智能/理论&实践/深度学习/深度学习（deep learning）总览.md",
     "杂项/Blender插件.md",
     "Temp/渲染管线/未命名.md",
     "虚幻引擎/渲染/渲染系统.md",
     "Temp/渲染管线",
     "Temp",
-    "人工智能/人工智能总览.md",
     "人工智能/理论&实践/数学基础/线性代数",
     "人工智能/理论&实践/机器学习",
     "人工智能/理论&实践/数学基础",
