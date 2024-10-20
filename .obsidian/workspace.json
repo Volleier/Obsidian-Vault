@@ -139,6 +139,35 @@
                 "file": "人工智能/理论&实践/机器学习/深度学习/生成对抗网络（GAN）.md"
               }
             }
+          },
+          {
+            "id": "d003af99b5f617d0",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "人工智能/理论&实践/机器学习/深度学习/生成对抗网络（GAN）.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "144e027dcd78be90",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "人工智能/理论&实践/机器学习/深度学习/生成对抗网络（GAN）.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
           }
         ],
         "currentTab": 1
@@ -179,6 +208,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "obsidian-git:Open Git source control": false,
       "zk-prefixer:创建时间戳笔记": false,
       "random-note:开始漫游笔记": false,
       "switcher:打开快速切换": false,
