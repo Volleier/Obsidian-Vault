@@ -17,13 +17,13 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "技术美术/技术美术总览.md",
+                    "file": "虚幻引擎/GamePlay/基础AI系统.md",
                     "mode": "source",
                     "backlinks": true,
                     "source": false
                   },
                   "icon": "lucide-file",
-                  "title": "技术美术总览"
+                  "title": "基础AI系统"
                 }
               }
             ]
@@ -150,10 +150,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "技术美术/技术美术总览.md"
+                "file": "虚幻引擎/GamePlay/基础AI系统.md"
               },
               "icon": "lucide-list",
-              "title": "技术美术总览 的大纲"
+              "title": "基础AI系统 的大纲"
             }
           },
           {
@@ -246,10 +246,14 @@
       "remotely-save:Remotely Save": false
     }
   },
-  "active": "8f19bc361332ed85",
+  "active": "44daeadf0d9bf908",
   "lastOpenFiles": [
-    "Temp/渲染管线/未命名.md",
+    "虚幻引擎/GamePlay/任务系统",
+    "虚幻引擎/GamePlay/AI系统",
+    "虚幻引擎/GamePlay/高级AI系统.md",
+    "虚幻引擎/面向数据编程与任务系统/实体-组件-系统 ECS/Unreal Mass框架/实体Entity实现.md",
     "技术美术/技术美术总览.md",
+    "Temp/渲染管线/未命名.md",
     "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
     "2024-10-22.md",
     "附件/人工智能/yolov5运行流程-1.png",
@@ -267,7 +271,6 @@
     "虚幻引擎/渲染/Nanite/Visibility Buffer",
     "虚幻引擎/渲染/Nanite/Virtualized Geometry Nanite",
     "虚幻引擎/渲染/Niagara",
-    "虚幻引擎/渲染/Frame Graph",
     "附件/GeneralRoadmap.png",
     "附件/TCP三次握手.png",
     "附件/人工智能/卷积神经网络-1.gif",
@@ -287,9 +290,6 @@
     "虚幻引擎/渲染/贴图压缩.md",
     "虚幻引擎/渲染/贴图压缩/DirectX Texture Compression.md",
     "虚幻引擎/渲染/可见性裁剪.md",
-    "虚幻引擎/渲染/场景空间管理.md",
-    "虚幻引擎/GamePlay/复杂的游戏性及其基本要素/编码游戏逻辑.md",
-    "虚幻引擎/GamePlay/基础AI系统/转向（Steering Behaviors）.md",
     "Pasted image 20240909114111.png",
     "Pasted image 20240909113817.png",
     "appendix/反射_1.jpg",

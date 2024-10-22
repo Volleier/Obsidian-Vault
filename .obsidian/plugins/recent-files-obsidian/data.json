@@ -1,6 +1,18 @@
 {
   "recentFiles": [
     {
+      "basename": "基础AI系统",
+      "path": "虚幻引擎/GamePlay/基础AI系统.md"
+    },
+    {
+      "basename": "高级AI系统",
+      "path": "虚幻引擎/GamePlay/高级AI系统.md"
+    },
+    {
+      "basename": "实体Entity实现",
+      "path": "虚幻引擎/面向数据编程与任务系统/实体-组件-系统 ECS/Unreal Mass框架/实体Entity实现.md"
+    },
+    {
       "basename": "技术美术总览",
       "path": "技术美术/技术美术总览.md"
     },
@@ -106,23 +118,15 @@
     },
     {
       "basename": "转向（Steering Behaviors）",
-      "path": "虚幻引擎/GamePlay/基础AI系统/转向（Steering Behaviors）.md"
+      "path": "虚幻引擎/GamePlay/AI系统/基础AI系统/转向（Steering Behaviors）.md"
     },
     {
       "basename": "经典决策系统",
-      "path": "虚幻引擎/GamePlay/基础AI系统/经典决策系统.md"
+      "path": "虚幻引擎/GamePlay/AI系统/基础AI系统/经典决策系统.md"
     },
     {
       "basename": "寻路系统（Seek System）",
-      "path": "虚幻引擎/GamePlay/基础AI系统/寻路系统（Seek System）.md"
-    },
-    {
-      "basename": "基础AI系统",
-      "path": "虚幻引擎/GamePlay/基础AI系统.md"
-    },
-    {
-      "basename": "高级AI系统",
-      "path": "虚幻引擎/GamePlay/高级AI系统.md"
+      "path": "虚幻引擎/GamePlay/AI系统/基础AI系统/寻路系统（Seek System）.md"
     },
     {
       "basename": "复杂的游戏性及其基本要素",
