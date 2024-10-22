@@ -15,13 +15,12 @@
                 "id": "8f19bc361332ed85",
                 "type": "leaf",
                 "state": {
-                  "type": "markdown",
+                  "type": "image",
                   "state": {
-                    "file": "人工智能/理论&实践/机器学习/深度学习/生成对抗网络（GAN）.md",
-                    "mode": "source",
-                    "backlinks": true,
-                    "source": false
-                  }
+                    "file": "附件/人工智能/Labelimg数据标注工具-1.png"
+                  },
+                  "icon": "lucide-image",
+                  "title": "Labelimg数据标注工具-1"
                 }
               }
             ]
@@ -34,8 +33,12 @@
                 "id": "84202b7547bdc73f",
                 "type": "leaf",
                 "state": {
-                  "type": "empty",
-                  "state": {}
+                  "type": "image",
+                  "state": {
+                    "file": "附件/人工智能/yolov5运行流程-1.png"
+                  },
+                  "icon": "lucide-image",
+                  "title": "yolov5运行流程-1"
                 }
               }
             ],
@@ -63,7 +66,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
             }
           },
           {
@@ -78,7 +83,9 @@
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
             }
           },
           {
@@ -86,7 +93,9 @@
             "type": "leaf",
             "state": {
               "type": "bookmarks",
-              "state": {}
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
             }
           }
         ]
@@ -101,14 +110,16 @@
             "type": "leaf",
             "state": {
               "type": "recent-files",
-              "state": {}
+              "state": {},
+              "icon": "clock",
+              "title": "Recent Files"
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 278.5
+    "width": 283.5
   },
   "right": {
     "id": "f13bb476cbe2b2d2",
@@ -127,7 +138,9 @@
               "state": {
                 "sortOrder": "frequency",
                 "useHierarchy": true
-              }
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
             }
           },
           {
@@ -135,13 +148,45 @@
             "type": "leaf",
             "state": {
               "type": "outline",
+              "state": {},
+              "icon": "lucide-list",
+              "title": "大纲"
+            }
+          },
+          {
+            "id": "c6ba285576311001",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
               "state": {
-                "file": "人工智能/理论&实践/机器学习/深度学习/生成对抗网络（GAN）.md"
-              }
+                "file": "附件/人工智能/Labelimg数据标注工具-1.png",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Labelimg数据标注工具-1 的反向链接列表"
+            }
+          },
+          {
+            "id": "534f51671d8d4d7e",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "出链"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       },
       {
         "id": "1a086eec2191a964",
@@ -153,7 +198,9 @@
             "type": "leaf",
             "state": {
               "type": "graph",
-              "state": {}
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "关系图谱"
             }
           }
         ]
@@ -168,17 +215,20 @@
             "type": "leaf",
             "state": {
               "type": "calendar",
-              "state": {}
+              "state": {},
+              "icon": "calendar-with-checkmark",
+              "title": "Calendar"
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 289.5
+    "width": 323.5
   },
   "left-ribbon": {
     "hiddenItems": {
+      "obsidian-git:Open Git source control": false,
       "zk-prefixer:创建时间戳笔记": false,
       "random-note:开始漫游笔记": false,
       "switcher:打开快速切换": false,
@@ -194,24 +244,37 @@
   },
   "active": "8f19bc361332ed85",
   "lastOpenFiles": [
-    "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
-    "人工智能/理论&实践/机器学习/机器学习内容.md",
-    "人工智能/理论&实践/机器学习/监督学习（Supervised learning）.md",
-    "虚幻引擎/虚幻引擎目录.md",
-    "2024-10-20.md",
-    "虚幻引擎/渲染/Lumen.md",
-    "conflict-files-obsidian-git.md",
+    "玩转Obsidian/Obsidian/为笔记添加别名.md",
+    "人工智能/理论&实践/机器学习/深度学习/生成对抗网络（GAN）.md",
+    "Temp/渲染管线/未命名.md",
+    "Temp/渲染管线",
+    "Temp",
+    "虚幻引擎/网络/网络基础/网络拓扑",
+    "虚幻引擎/渲染/Lumen/GI算法",
+    "人工智能/理论&实践/数学基础/微积分",
+    "人工智能/理论&实践/数学基础/概率论",
+    "虚幻引擎/渲染/Nanite/Visibility Buffer",
+    "虚幻引擎/渲染/Nanite/Virtualized Geometry Nanite",
+    "虚幻引擎/渲染/Niagara",
+    "虚幻引擎/渲染/Frame Graph",
     "附件/人工智能/yolov5运行流程-1.png",
     "附件/人工智能/Labelimg数据标注工具-1.png",
+    "附件/GeneralRoadmap.png",
+    "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
+    "附件/TCP三次握手.png",
     "附件/人工智能/卷积神经网络-1.gif",
-    "附件/人工智能",
-    "人工智能/理论&实践/机器学习/深度学习（deep learning）总览.md",
-    "人工智能/理论&实践/机器学习/深度学习/生成对抗网络（GAN）.md",
+    "人工智能/理论&实践/机器学习/机器学习内容.md",
     "人工智能/理论&实践/机器学习/深度学习/循环神经网络（RNN）.md",
-    "人工智能/理论&实践/机器学习/深度学习",
+    "人工智能/理论&实践/机器学习/监督学习（Supervised learning）.md",
+    "人工智能/人工智能学习路径.md",
+    "人工智能/人工智能总览.md",
+    "人工智能/理论&实践/机器学习/深度学习（deep learning）总览.md",
+    "人工智能/理论&实践/机器学习/深度学习（deep learning）总览.md",
+    "杂项/Blender插件.md",
+    "虚幻引擎/渲染/Lumen.md",
     "虚幻引擎/渲染/GPU渲染管线.md",
+    "虚幻引擎/虚幻引擎目录.md",
     "虚幻引擎/渲染/GPU渲染管线/合并阶段.md",
-    "人工智能/理论&实践/深度学习/原理/监督学习（Supervised learning）.md",
     "虚幻引擎/渲染/GPU架构.md",
     "虚幻引擎/渲染/Frame Graph.md",
     "虚幻引擎/渲染/贴图压缩.md",
@@ -220,22 +283,9 @@
     "虚幻引擎/渲染/场景空间管理.md",
     "虚幻引擎/GamePlay/复杂的游戏性及其基本要素/编码游戏逻辑.md",
     "虚幻引擎/GamePlay/基础AI系统/转向（Steering Behaviors）.md",
-    "虚幻引擎/渲染/Niagara",
     "虚幻引擎/GamePlay/基础AI系统/经典决策系统.md",
     "虚幻引擎/GamePlay/基础AI系统/寻路系统（Seek System）.md",
-    "人工智能/理论&实践/数学基础/概率论",
-    "人工智能/理论&实践/数学基础/微积分",
-    "虚幻引擎/GamePlay/基础AI系统.md",
-    "虚幻引擎/GamePlay/高级AI系统.md",
-    "虚幻引擎/GamePlay/复杂的游戏性及其基本要素.md",
-    "GamePlay/复杂的游戏性及其基本要素",
-    "GamePlay",
-    "Temp/渲染管线",
-    "Temp",
-    "人工智能/理论&实践/数学基础/线性代数",
-    "附件/Labelimg数据标注工具-1.png",
     "Pasted image 20240909114111.png",
-    "附件/yolov5运行流程-1.png",
     "Pasted image 20240909113817.png",
     "appendix/反射_1.jpg",
     "测试文件夹/测试白板.canvas",
