@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "技术美术总览",
+      "path": "技术美术/技术美术总览.md"
+    },
+    {
       "basename": "卷积神经网络（CNN）",
       "path": "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md"
     },
@@ -127,10 +131,6 @@
     {
       "basename": "事件机制",
       "path": "虚幻引擎/GamePlay/复杂的游戏性及其基本要素/事件机制.md"
-    },
-    {
-      "basename": "未命名",
-      "path": "Temp/渲染管线/未命名.md"
     },
     {
       "basename": "渲染系统",
