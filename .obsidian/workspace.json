@@ -4,54 +4,25 @@
     "type": "split",
     "children": [
       {
-        "id": "929c8ba13237dd42",
-        "type": "split",
+        "id": "c786493f1df1cc03",
+        "type": "tabs",
         "children": [
           {
-            "id": "a5d9525c1e5aeb7f",
-            "type": "tabs",
-            "children": [
-              {
-                "id": "8f19bc361332ed85",
-                "type": "leaf",
-                "state": {
-                  "type": "markdown",
-                  "state": {
-                    "file": "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
-                    "mode": "source",
-                    "backlinks": true,
-                    "source": false
-                  },
-                  "icon": "lucide-file",
-                  "title": "卷积神经网络（CNN）"
-                }
-              }
-            ]
-          },
-          {
-            "id": "e9086719bf5aedf5",
-            "type": "tabs",
-            "children": [
-              {
-                "id": "84202b7547bdc73f",
-                "type": "leaf",
-                "state": {
-                  "type": "markdown",
-                  "state": {
-                    "file": "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
-                    "mode": "source",
-                    "backlinks": true,
-                    "source": false
-                  },
-                  "icon": "lucide-file",
-                  "title": "卷积神经网络（CNN）"
-                }
-              }
-            ],
-            "stacked": true
+            "id": "a9def0734810b0e5",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "卷积神经网络（CNN）"
+            }
           }
-        ],
-        "direction": "horizontal"
+        ]
       }
     ],
     "direction": "vertical"
@@ -63,7 +34,6 @@
       {
         "id": "706b4ee44e379913",
         "type": "tabs",
-        "dimension": 76.31578947368422,
         "children": [
           {
             "id": "44daeadf0d9bf908",
@@ -105,27 +75,10 @@
             }
           }
         ]
-      },
-      {
-        "id": "b1639b04a4dc3ede",
-        "type": "tabs",
-        "dimension": 23.684210526315788,
-        "children": [
-          {
-            "id": "7cd8874a0328f1e7",
-            "type": "leaf",
-            "state": {
-              "type": "recent-files",
-              "state": {},
-              "icon": "clock",
-              "title": "Recent Files"
-            }
-          }
-        ]
       }
     ],
     "direction": "horizontal",
-    "width": 283.5
+    "width": 300
   },
   "right": {
     "id": "f13bb476cbe2b2d2",
@@ -134,8 +87,40 @@
       {
         "id": "c96641bc7f0cb689",
         "type": "tabs",
-        "dimension": 39.364035087719294,
         "children": [
+          {
+            "id": "92075e107d057f87",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "卷积神经网络（CNN） 的反向链接列表"
+            }
+          },
+          {
+            "id": "7552265761d373ae",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "卷积神经网络（CNN） 的出链列表"
+            }
+          },
           {
             "id": "48734a7f4b8978db",
             "type": "leaf",
@@ -162,98 +147,56 @@
             }
           },
           {
-            "id": "c6ba285576311001",
+            "id": "389d9efefc14df46",
             "type": "leaf",
             "state": {
-              "type": "backlink",
+              "type": "all-properties",
               "state": {
-                "file": "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
-                "collapseAll": false,
-                "extraContext": false,
-                "sortOrder": "alphabetical",
-                "showSearch": false,
-                "searchQuery": "",
-                "backlinkCollapsed": false,
-                "unlinkedCollapsed": true
+                "sortOrder": "frequency"
               },
-              "icon": "links-coming-in",
-              "title": "卷积神经网络（CNN） 的反向链接列表"
+              "icon": "lucide-file",
+              "title": "插件不再活动"
             }
           },
           {
-            "id": "534f51671d8d4d7e",
+            "id": "b84b3dd3538e8662",
             "type": "leaf",
             "state": {
-              "type": "outgoing-link",
-              "state": {
-                "linksCollapsed": false,
-                "unlinkedCollapsed": true
-              },
-              "icon": "links-going-out",
-              "title": "出链"
+              "type": "advanced-tables-toolbar",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "插件不再活动"
             }
           }
         ],
-        "currentTab": 1
-      },
-      {
-        "id": "1a086eec2191a964",
-        "type": "tabs",
-        "dimension": 22.039473684210524,
-        "children": [
-          {
-            "id": "b315f0dc68a0db2d",
-            "type": "leaf",
-            "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "关系图谱"
-            }
-          }
-        ]
-      },
-      {
-        "id": "114b3aae3712b962",
-        "type": "tabs",
-        "dimension": 38.59649122807017,
-        "children": [
-          {
-            "id": "1c17f2290f84b3c3",
-            "type": "leaf",
-            "state": {
-              "type": "calendar",
-              "state": {},
-              "icon": "calendar-with-checkmark",
-              "title": "Calendar"
-            }
-          }
-        ]
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
-    "width": 323.5
+    "width": 200,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
       "obsidian-git:Open Git source control": false,
       "zk-prefixer:创建时间戳笔记": false,
       "random-note:开始漫游笔记": false,
-      "switcher:打开快速切换": false,
-      "canvas:新建白板": false,
       "obsidian-excalidraw-plugin:新建绘图文件": false,
+      "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
-      "workspaces:管理工作区布局": false,
-      "remotely-save:Remotely Save": false
+      "remotely-save:Remotely Save": false,
+      "workspaces:管理工作区布局": false
     }
   },
-  "active": "67cd9ec313887bc7",
+  "active": "a9def0734810b0e5",
   "lastOpenFiles": [
-    "附件/人工智能/yolov5运行流程-1.png",
+    "2024-10-22.md",
     "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
+    "附件/人工智能/yolov5运行流程-1.png",
     "人工智能/理论&实践/机器学习/深度学习/生成对抗网络（GAN）.md",
     "附件/人工智能/卷积神经网络-2.png",
     "人工智能/理论&实践/机器学习/机器学习内容.md",

@@ -195,10 +195,6 @@
     {
       "basename": "Shadow",
       "path": "虚幻引擎/渲染/渲染系统/阴影/Shadow.md"
-    },
-    {
-      "basename": "BRDF模型",
-      "path": "虚幻引擎/渲染/渲染系统/光照/BRDF模型.md"
     }
   ],
   "omittedPaths": [],
