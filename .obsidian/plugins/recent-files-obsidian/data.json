@@ -1,6 +1,22 @@
 {
   "recentFiles": [
     {
+      "basename": "基本概念",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/基本概念.md"
+    },
+    {
+      "basename": "Markdown表格",
+      "path": "玩转Obsidian/Markdown语法/进阶玩法/Markdown表格.md"
+    },
+    {
+      "basename": "Gameplay架构",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/Gameplay架构.md"
+    },
+    {
+      "basename": "Markdown列表",
+      "path": "玩转Obsidian/Markdown语法/基本语法/Markdown列表.md"
+    },
+    {
       "basename": "基础AI系统",
       "path": "虚幻引擎/GamePlay/基础AI系统.md"
     },
@@ -179,26 +195,6 @@
     {
       "basename": "视锥裁剪",
       "path": "虚幻引擎/渲染/可见性裁剪/视锥裁剪.md"
-    },
-    {
-      "basename": "GPU Driven Render Pipeline",
-      "path": "虚幻引擎/渲染/Nanite/GPU Driven Render Pipeline.md"
-    },
-    {
-      "basename": "Virtualized Geometry Nanite",
-      "path": "虚幻引擎/渲染/Nanite/Virtualized Geometry Nanite.md"
-    },
-    {
-      "basename": "Visibility Buffer",
-      "path": "虚幻引擎/渲染/Nanite/Visibility Buffer.md"
-    },
-    {
-      "basename": "Surface Caching",
-      "path": "虚幻引擎/渲染/Lumen/Lumen流程/Surface Caching.md"
-    },
-    {
-      "basename": "Shadow",
-      "path": "虚幻引擎/渲染/渲染系统/阴影/Shadow.md"
     }
   ],
   "omittedPaths": [],
