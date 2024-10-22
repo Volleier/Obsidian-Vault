@@ -15,12 +15,15 @@
                 "id": "8f19bc361332ed85",
                 "type": "leaf",
                 "state": {
-                  "type": "image",
+                  "type": "markdown",
                   "state": {
-                    "file": "附件/人工智能/Labelimg数据标注工具-1.png"
+                    "file": "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
+                    "mode": "source",
+                    "backlinks": true,
+                    "source": false
                   },
-                  "icon": "lucide-image",
-                  "title": "Labelimg数据标注工具-1"
+                  "icon": "lucide-file",
+                  "title": "卷积神经网络（CNN）"
                 }
               }
             ]
@@ -33,12 +36,15 @@
                 "id": "84202b7547bdc73f",
                 "type": "leaf",
                 "state": {
-                  "type": "image",
+                  "type": "markdown",
                   "state": {
-                    "file": "附件/人工智能/yolov5运行流程-1.png"
+                    "file": "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
+                    "mode": "source",
+                    "backlinks": true,
+                    "source": false
                   },
-                  "icon": "lucide-image",
-                  "title": "yolov5运行流程-1"
+                  "icon": "lucide-file",
+                  "title": "卷积神经网络（CNN）"
                 }
               }
             ],
@@ -148,9 +154,11 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {},
+              "state": {
+                "file": "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md"
+              },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "卷积神经网络（CNN） 的大纲"
             }
           },
           {
@@ -159,7 +167,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "附件/人工智能/Labelimg数据标注工具-1.png",
+                "file": "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -169,7 +177,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Labelimg数据标注工具-1 的反向链接列表"
+              "title": "卷积神经网络（CNN） 的反向链接列表"
             }
           },
           {
@@ -184,38 +192,9 @@
               "icon": "links-going-out",
               "title": "出链"
             }
-          },
-          {
-            "id": "d003af99b5f617d0",
-            "type": "leaf",
-            "state": {
-              "type": "backlink",
-              "state": {
-                "file": "人工智能/理论&实践/机器学习/深度学习/生成对抗网络（GAN）.md",
-                "collapseAll": false,
-                "extraContext": false,
-                "sortOrder": "alphabetical",
-                "showSearch": false,
-                "searchQuery": "",
-                "backlinkCollapsed": false,
-                "unlinkedCollapsed": true
-              }
-            }
-          },
-          {
-            "id": "144e027dcd78be90",
-            "type": "leaf",
-            "state": {
-              "type": "outgoing-link",
-              "state": {
-                "file": "人工智能/理论&实践/机器学习/深度学习/生成对抗网络（GAN）.md",
-                "linksCollapsed": false,
-                "unlinkedCollapsed": true
-              }
-            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       },
       {
         "id": "1a086eec2191a964",
@@ -271,10 +250,15 @@
       "remotely-save:Remotely Save": false
     }
   },
-  "active": "8f19bc361332ed85",
+  "active": "67cd9ec313887bc7",
   "lastOpenFiles": [
-    "玩转Obsidian/Obsidian/为笔记添加别名.md",
+    "附件/人工智能/yolov5运行流程-1.png",
+    "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
     "人工智能/理论&实践/机器学习/深度学习/生成对抗网络（GAN）.md",
+    "附件/人工智能/卷积神经网络-2.png",
+    "人工智能/理论&实践/机器学习/机器学习内容.md",
+    "附件/人工智能/Labelimg数据标注工具-1.png",
+    "玩转Obsidian/Obsidian/为笔记添加别名.md",
     "Temp/渲染管线/未命名.md",
     "Temp/渲染管线",
     "Temp",
@@ -286,13 +270,9 @@
     "虚幻引擎/渲染/Nanite/Virtualized Geometry Nanite",
     "虚幻引擎/渲染/Niagara",
     "虚幻引擎/渲染/Frame Graph",
-    "附件/人工智能/yolov5运行流程-1.png",
-    "附件/人工智能/Labelimg数据标注工具-1.png",
     "附件/GeneralRoadmap.png",
-    "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
     "附件/TCP三次握手.png",
     "附件/人工智能/卷积神经网络-1.gif",
-    "人工智能/理论&实践/机器学习/机器学习内容.md",
     "人工智能/理论&实践/机器学习/深度学习/循环神经网络（RNN）.md",
     "人工智能/理论&实践/机器学习/监督学习（Supervised learning）.md",
     "人工智能/人工智能学习路径.md",
@@ -313,12 +293,10 @@
     "虚幻引擎/GamePlay/复杂的游戏性及其基本要素/编码游戏逻辑.md",
     "虚幻引擎/GamePlay/基础AI系统/转向（Steering Behaviors）.md",
     "虚幻引擎/GamePlay/基础AI系统/经典决策系统.md",
-    "虚幻引擎/GamePlay/基础AI系统/寻路系统（Seek System）.md",
     "Pasted image 20240909114111.png",
     "Pasted image 20240909113817.png",
     "appendix/反射_1.jpg",
     "测试文件夹/测试白板.canvas",
-    "测试文件夹/PengLaiSi.png",
-    "appendix/虚幻5C++架构_1.png"
+    "测试文件夹/PengLaiSi.png"
   ]
 }
