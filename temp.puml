@@ -1,0 +1,31 @@
+@startuml DiagramName
+skinparam backgroundColor #2E2E2E
+skinparam class {
+    BackgroundColor #3C3C3C
+    ArrowColor White
+    BorderColor White
+    FontColor White
+    AttributeFontColor White
+    StereotypeFontColor White
+    BorderThickness 1.5
+}
+hide circle
+hide empty members
+hide empty methods
+
+class UObject {
+    +GC
+    +MetaData
+    +Reflection
+    +Serialization
+    +Editable
+    +Class Default Object
+}
+
+class AActor extends UObject {
+    +TArray<AActor*> Children;
+    +void Tick(float DeltaTime);
+    +AActor Owner;（weak）
+}
+
+@enduml

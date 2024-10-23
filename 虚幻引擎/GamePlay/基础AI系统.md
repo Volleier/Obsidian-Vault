@@ -1,7 +1,7 @@
 游戏引擎中的基础AI系统主要是为了让非玩家角色（NPC）和环境表现出智能行为，提供更沉浸的游戏体验。以下是游戏引擎中常见的基础AI系统：
-# [[基础AI系统/转向（Steering Behaviors）|转向（Steering Behaviors）]]
+# [[转向（Steering Behaviors）|转向（Steering Behaviors）]]
 
-# [[基础AI系统/寻路系统（Seek System）|寻路系统（Seek System）]]
+# [[寻路系统（Seek System）|寻路系统（Seek System）]]
 
 
 

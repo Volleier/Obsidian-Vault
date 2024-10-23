@@ -1,0 +1,9 @@
+{
+	"nodes":[
+		{"id":"2165b1e97ee867a8","type":"text","text":"# UObject\n---\nGC\nMetaData\nReflection\nSerialization\nEditorial\nClass Defult Object","x":-120,"y":-200,"width":380,"height":300},
+		{"id":"4e8e054825416b75","type":"text","text":"# AActor\n---\nTArry\\<AActor*> Children;\nvoid Tick ( float DeltaSecond )\n\n---\nAActor* Owner;( weak )","x":380,"y":-200,"width":380,"height":300}
+	],
+	"edges":[
+		{"id":"c375fb2fde9ec142","fromNode":"4e8e054825416b75","fromSide":"left","toNode":"2165b1e97ee867a8","toSide":"right"}
+	]
+}
