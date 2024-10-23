@@ -5,20 +5,28 @@
       "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Actor实体.md"
     },
     {
-      "basename": "结构",
-      "path": "虚幻引擎/基础架构/虚幻引擎架构/结构.canvas"
-    },
-    {
-      "basename": "Markdown表格",
-      "path": "玩转Obsidian/Markdown语法/进阶玩法/Markdown表格.md"
+      "basename": "AActor实体-1",
+      "path": "附件/虚幻引擎/AActor实体-1.png"
     },
     {
       "basename": "Component组件",
       "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Component组件.md"
     },
     {
+      "basename": "PengLaiSi",
+      "path": "附件/PengLaiSi.png"
+    },
+    {
+      "basename": "结构",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/结构.canvas"
+    },
+    {
       "basename": "基本概念",
       "path": "虚幻引擎/基础架构/虚幻引擎架构/基本概念.md"
+    },
+    {
+      "basename": "Markdown表格",
+      "path": "玩转Obsidian/Markdown语法/进阶玩法/Markdown表格.md"
     },
     {
       "basename": "Gameplay架构",
@@ -187,14 +195,6 @@
     {
       "basename": "yolov5目标检测模型",
       "path": "人工智能/框架&工具/yolov5目标检测模型.md"
-    },
-    {
-      "basename": "Streamlit交互式Web",
-      "path": "人工智能/框架&工具/Streamlit交互式Web.md"
-    },
-    {
-      "basename": "Labelimg数据标注工具",
-      "path": "人工智能/框架&工具/Labelimg数据标注工具.md"
     }
   ],
   "omittedPaths": [],
