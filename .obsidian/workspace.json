@@ -135,9 +135,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "人工智能/理论&实践/机器学习/深度学习/生成对抗网络（GAN）.md"
-              }
+              "state": {}
             }
           },
           {
@@ -146,7 +144,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "人工智能/理论&实践/机器学习/深度学习/生成对抗网络（GAN）.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -163,7 +160,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "人工智能/理论&实践/机器学习/深度学习/生成对抗网络（GAN）.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -222,8 +218,9 @@
       "remotely-save:Remotely Save": false
     }
   },
-  "active": "8f19bc361332ed85",
+  "active": "84202b7547bdc73f",
   "lastOpenFiles": [
+    "人工智能/理论&实践/机器学习/深度学习/生成对抗网络（GAN）.md",
     "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
     "人工智能/理论&实践/机器学习/机器学习内容.md",
     "人工智能/理论&实践/机器学习/监督学习（Supervised learning）.md",
@@ -236,7 +233,6 @@
     "附件/人工智能/卷积神经网络-1.gif",
     "附件/人工智能",
     "人工智能/理论&实践/机器学习/深度学习（deep learning）总览.md",
-    "人工智能/理论&实践/机器学习/深度学习/生成对抗网络（GAN）.md",
     "人工智能/理论&实践/机器学习/深度学习/循环神经网络（RNN）.md",
     "人工智能/理论&实践/机器学习/深度学习",
     "虚幻引擎/渲染/GPU渲染管线.md",
