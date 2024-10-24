@@ -13,19 +13,37 @@ hide circle
 hide empty members
 hide empty methods
 
-class UObject {
-    +GC
-    +MetaData
-    +Reflection
-    +Serialization
-    +Editable
-    +Class Default Object
+class ULevel {
+    +TArray<AActor> Actors;
+    +ALevelScriptActor* LevelScriptActor;
+    +TArray<UModelComponent*> ModelComponents;
+    +AWOrldSettings* WorldSettings; （Actors[0]）
 }
 
-class AActor extends UObject {
+class AActor extends ULevel {
+    +TSet<UActorComponent*> OwnedComponents;
+    +USceneComponent* RootComponent;
+    +void Tick(float DeltaSeconds);
     +TArray<AActor*> Children;
-    +void Tick(float DeltaTime);
-    +AActor Owner;（weak）
+    +TSet<UActorComponent*> ReplicatedComponents;
+    +TArray<UActorComponent*> InstanceComponents;
+    +UInputComponent* InputComponent;
+    +AActor* Owner; （weak）
+}
+class AInfo extends AActor {
+    +UBillboardComponent* SpriteComponent;
 }
 
+class ALevelScriptActor extends AActor {
+    +unit32 bInputEnabled:1;
+} 
+
+class AWorldSettings extends ULevel {
+    +TSubclassOf<class AGameMode> DefaultGameMode;
+    +Other Settings
+}
+
+
+AWorldSettings --> AInfo
+ALevelScriptActor --> ULevel
 @enduml
