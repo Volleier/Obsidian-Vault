@@ -1,12 +1,32 @@
 {
   "recentFiles": [
     {
-      "basename": "Level层级",
-      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Level层级.md"
+      "basename": "Actor实体-1",
+      "path": "附件/虚幻引擎/Actor实体-1.png"
+    },
+    {
+      "basename": "Actor实体",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Actor实体.md"
+    },
+    {
+      "basename": "Component组件-1",
+      "path": "附件/虚幻引擎/Component组件-1.png"
+    },
+    {
+      "basename": "WorldContext世界上下文",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/WorldContext世界上下文.md"
     },
     {
       "basename": "World世界",
       "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/World世界.md"
+    },
+    {
+      "basename": "Level层级",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Level层级.md"
+    },
+    {
+      "basename": "World世界-1",
+      "path": "附件/虚幻引擎/World世界-1.png"
     },
     {
       "basename": "Component组件",
@@ -19,18 +39,6 @@
     {
       "basename": "Component组件-2",
       "path": "附件/虚幻引擎/Component组件-2.png"
-    },
-    {
-      "basename": "Actor实体",
-      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Actor实体.md"
-    },
-    {
-      "basename": "Component组件-1",
-      "path": "附件/虚幻引擎/Component组件-1.png"
-    },
-    {
-      "basename": "Actor实体-1",
-      "path": "附件/虚幻引擎/Actor实体-1.png"
     },
     {
       "basename": "PengLaiSi",
@@ -183,22 +191,6 @@
     {
       "basename": "寻路系统（Seek System）",
       "path": "虚幻引擎/GamePlay/AI系统/基础AI系统/寻路系统（Seek System）.md"
-    },
-    {
-      "basename": "复杂的游戏性及其基本要素",
-      "path": "虚幻引擎/GamePlay/复杂的游戏性及其基本要素.md"
-    },
-    {
-      "basename": "事件机制",
-      "path": "虚幻引擎/GamePlay/复杂的游戏性及其基本要素/事件机制.md"
-    },
-    {
-      "basename": "渲染系统",
-      "path": "虚幻引擎/渲染/渲染系统.md"
-    },
-    {
-      "basename": "Torch深度学习框架",
-      "path": "人工智能/框架&工具/Torch深度学习框架.md"
     }
   ],
   "omittedPaths": [],
