@@ -1,9 +1,22 @@
 {
 	"nodes":[
-		{"id":"2165b1e97ee867a8","type":"text","text":"# UObject\n---\nGC\nMetaData\nReflection\nSerialization\nEditorial\nClass Defult Object","x":-120,"y":-200,"width":380,"height":300},
-		{"id":"4e8e054825416b75","type":"text","text":"# AActor\n---\nTArry\\<AActor*> Children;\nvoid Tick ( float DeltaSecond )\n\n---\nAActor* Owner;( weak )","x":380,"y":-200,"width":380,"height":300}
+		{"id":"1e6cddcdc827bb05","x":-220,"y":-100,"width":400,"height":400,"type":"file","file":"虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/GameInstance游戏实例.md"},
+		{"id":"341781292ef3e639","x":400,"y":560,"width":400,"height":400,"type":"file","file":"虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/WorldContext世界上下文.md"},
+		{"id":"c1015fcdd4bdf713","x":400,"y":-100,"width":400,"height":400,"type":"file","file":"虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/World世界.md"},
+		{"id":"a6ba7e951c708125","x":960,"y":-100,"width":400,"height":400,"type":"file","file":"虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Level层级.md"},
+		{"id":"bc4ee73c3da2d583","x":1520,"y":-100,"width":400,"height":400,"type":"file","file":"虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Actor实体.md"},
+		{"id":"622fa19b0fb56c65","x":2120,"y":-300,"width":400,"height":400,"type":"file","file":"虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Component组件.md"},
+		{"id":"8ac8b7ad36871783","x":2120,"y":160,"width":400,"height":400,"type":"file","file":"虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Pawn.md"},
+		{"id":"2d8d6d2d4eef747b","type":"text","text":"Engine","x":-80,"y":-320,"width":120,"height":60,"color":"6"}
 	],
 	"edges":[
-		{"id":"c375fb2fde9ec142","fromNode":"4e8e054825416b75","fromSide":"left","toNode":"2165b1e97ee867a8","toSide":"right"}
+		{"id":"008812a00089e36e","fromNode":"1e6cddcdc827bb05","fromSide":"top","toNode":"2d8d6d2d4eef747b","toSide":"bottom","label":"继承"},
+		{"id":"dbe49c867679894e","fromNode":"c1015fcdd4bdf713","fromSide":"left","toNode":"1e6cddcdc827bb05","toSide":"right","label":"继承"},
+		{"id":"be1c8b4a8a3a7a81","fromNode":"a6ba7e951c708125","fromSide":"left","toNode":"c1015fcdd4bdf713","toSide":"right","label":"继承"},
+		{"id":"8bdc98f500df9f8d","fromNode":"bc4ee73c3da2d583","fromSide":"left","toNode":"a6ba7e951c708125","toSide":"right","label":"继承"},
+		{"id":"87d28a753fe8fec3","fromNode":"8ac8b7ad36871783","fromSide":"left","toNode":"bc4ee73c3da2d583","toSide":"right","label":"继承"},
+		{"id":"108282b41d68748c","fromNode":"622fa19b0fb56c65","fromSide":"left","toNode":"bc4ee73c3da2d583","toSide":"right","label":"继承"},
+		{"id":"a91283aac60cd644","fromNode":"341781292ef3e639","fromSide":"left","toNode":"1e6cddcdc827bb05","toSide":"right","label":"继承"},
+		{"id":"32f3a4b8b48ce0fb","fromNode":"341781292ef3e639","fromSide":"top","toNode":"c1015fcdd4bdf713","toSide":"bottom","label":"管理"}
 	]
 }
