@@ -9,25 +9,36 @@ skinparam class {
     StereotypeFontColor White
     BorderThickness 1.5
 }
+skinparam note {
+    BackgroundColor #4B4B4B
+    BorderColor White
+    FontColor White
+}
 hide circle
 hide empty members
 hide empty methods
 
-class UObject {
-    GC
-    MetaData
-    Reflection
-    Serialization
-    Editable  
-    Class Defult Object
-}
-
 class AActor {
-    TArray<AActor*> Children;
-    void Tick (float DeltaSeconds);
+    TSet<UActorComponent*> OwnedComponents;
+    USenceComponent* RootComponent;
+    void Tick(float DeltaSeconds);
     --
-    AActor* Owner; （Weak）
+    TArray<AActor*> Children;
+    AActor* Owner; (weak)
+    TSet<UActorComponent*> ReplicatedComponents;
+    TArray<UActorComponent*> InstanceComponents;
+
+    UInputComponent* InputComponent;
+} 
+
+class APawn {
+    TSubclassOf<AController> AIControllerClass;
+    uint32 bInputEnabled:1;
+    FVector ControlInputVector;
+    --
+    APlayerState* PlayerState;
+    AController* Controller;
 }
 
-UObject <-- AActor
+AActor <-- APawn
 @enduml

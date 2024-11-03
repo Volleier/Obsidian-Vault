@@ -1,0 +1,2 @@
+GameInstance里会保存着当前的WorldConext和其他整个游戏的信息。GameInstance是比World更高的层次，也就可以理解为什么独立于Level的逻辑和数据要存放在GameInstance中了。
+![[GameInstance游戏实例-1.png]]UE的GameInstance因为继承于UObject，所以就拥有了动态创建的能力，所以我们可以通过指定GameInstanceClass来让UE创建使用我们自定义的GameInstance子类。所以不论是C++还是BP，我们通常会继承于GameInstance，然后在里面编写应用于整个游戏范围的逻辑。

@@ -13,27 +13,18 @@
             "dimension": 50.6578947368421,
             "children": [
               {
-                "id": "8f19bc361332ed85",
-                "type": "leaf",
-                "state": {
-                  "type": "image",
-                  "state": {
-                    "file": "附件/虚幻引擎/Actor实体-1.png"
-                  },
-                  "icon": "lucide-image",
-                  "title": "Actor实体-1"
-                }
-              },
-              {
                 "id": "ea5fd5295e7f986d",
                 "type": "leaf",
                 "state": {
-                  "type": "image",
+                  "type": "markdown",
                   "state": {
-                    "file": "附件/虚幻引擎/Component组件-1.png"
+                    "file": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Pawn.md",
+                    "mode": "source",
+                    "backlinks": true,
+                    "source": false
                   },
-                  "icon": "lucide-image",
-                  "title": "Component组件-1"
+                  "icon": "lucide-file",
+                  "title": "Pawn"
                 }
               }
             ]
@@ -49,13 +40,13 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/World世界.md",
+                    "file": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Engine引擎.md",
                     "mode": "preview",
                     "backlinks": true,
                     "source": false
                   },
                   "icon": "lucide-file",
-                  "title": "World世界"
+                  "title": "Engine引擎"
                 }
               }
             ],
@@ -166,10 +157,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "附件/虚幻引擎/Actor实体-1.png"
+                "file": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Pawn.md"
               },
               "icon": "lucide-list",
-              "title": "Actor实体-1 的大纲"
+              "title": "Pawn 的大纲"
             }
           },
           {
@@ -262,24 +253,30 @@
       "remotely-save:Remotely Save": false
     }
   },
-  "active": "8f19bc361332ed85",
+  "active": "44daeadf0d9bf908",
   "lastOpenFiles": [
+    "附件/虚幻引擎/Pawn-1.png",
+    "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Engine引擎.md",
+    "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Pawn.md",
+    "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/WorldContext世界上下文.md",
+    "附件/虚幻引擎/引擎-1.png",
+    "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/GameInstance游戏实例.md",
+    "附件/虚幻引擎/GameInstance游戏实例-1.png",
+    "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/未命名",
+    "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/World世界.md",
+    "附件/虚幻引擎/Component组件-1.png",
+    "附件/temp.md",
     "附件/虚幻引擎/Actor实体-1.png",
     "附件/虚幻引擎/Actor实体-1.png",
     "附件/Pasted image 20241031115739.png",
     "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Actor实体.md",
-    "附件/虚幻引擎/Component组件-1.png",
-    "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/WorldContext世界上下文.md",
     "附件/虚幻引擎/WorldContext世界上下文-1.png",
-    "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/World世界.md",
     "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Level层级.md",
     "附件/虚幻引擎/World世界-1.png",
     "附件/Temp.md",
     "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Component组件.md",
     "附件/虚幻引擎/Level层级-1.png",
     "附件/虚幻引擎/Component组件-2.png",
-    "附件/虚幻引擎/Pasted image 20241024094712.png",
-    "附件/Pasted image 20241023115438.png",
     "虚幻引擎/基础架构/虚幻引擎架构/结构.canvas",
     "虚幻引擎/基础架构/虚幻引擎架构/基本概念.md",
     "temp.puml",
@@ -303,13 +300,8 @@
     "虚幻引擎/GamePlay/高级AI系统.md",
     "虚幻引擎/面向数据编程与任务系统/实体-组件-系统 ECS/Unreal Mass框架/实体Entity实现.md",
     "技术美术/技术美术总览.md",
-    "Temp/渲染管线/未命名.md",
-    "人工智能/理论&实践/机器学习/深度学习/卷积神经网络（CNN）.md",
-    "2024-10-22.md",
-    "人工智能/理论&实践/机器学习/深度学习/生成对抗网络（GAN）.md",
     "Temp/渲染管线",
     "Temp",
-    "虚幻引擎/网络/网络基础/网络拓扑",
     "测试文件夹/测试白板.canvas"
   ]
 }
