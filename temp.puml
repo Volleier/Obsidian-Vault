@@ -18,27 +18,31 @@ hide circle
 hide empty members
 hide empty methods
 
-class AActor {
-    TSet<UActorComponent*> OwnedComponents;
-    USenceComponent* RootComponent;
-    void Tick(float DeltaSeconds);
-    --
-    TArray<AActor*> Children;
-    AActor* Owner; (weak)
-    TSet<UActorComponent*> ReplicatedComponents;
-    TArray<UActorComponent*> InstanceComponents;
-
-    UInputComponent* InputComponent;
-} 
-
 class APawn {
     TSubclassOf<AController> AIControllerClass;
-    uint32 bInputEnabled:1;
+    unit32 bInputEnabled:1;
     FVector ControlInputVector;
     --
     APlayerState* PlayerState;
     AController* Controller;
 }
 
-AActor <-- APawn
+class ADefaultPawn {
+    USphereComponent* CollisionComponent;
+    UPawnMovementComponent* MovementComponent;
+}
+
+class ACharactor {
+    USkeletalMeshComponent* Mesh;
+    UCharactorMovementComponent* CharactorMovement;
+    UCapsuleComponent* CapsuleComponent;
+}
+
+class ASpectatorPawn {
+    USpectatorPawnMovement
+}
+
+APawn <|-- ADefaultPawn
+APawn <|-- ACharactor
+ADefaultPawn <|-- ASpectatorPawn
 @enduml

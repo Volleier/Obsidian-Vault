@@ -1,6 +1,34 @@
 {
   "recentFiles": [
     {
+      "basename": "Pawn",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Pawn.md"
+    },
+    {
+      "basename": "GameState游戏状态",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/GameState游戏状态.md"
+    },
+    {
+      "basename": "GameMode游戏模式",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/GameMode游戏模式.md"
+    },
+    {
+      "basename": "AIControllerAI角色控制器",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/AIControllerAI角色控制器.md"
+    },
+    {
+      "basename": "Engine引擎",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Engine引擎.md"
+    },
+    {
+      "basename": "PlayerController玩家角色控制器",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/PlayerController玩家角色控制器.md"
+    },
+    {
+      "basename": "Controller控制器",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Controller控制器.md"
+    },
+    {
       "basename": "结构",
       "path": "虚幻引擎/基础架构/虚幻引擎架构/结构.canvas"
     },
@@ -13,10 +41,6 @@
       "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/WorldContext世界上下文.md"
     },
     {
-      "basename": "Engine引擎",
-      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Engine引擎.md"
-    },
-    {
       "basename": "World世界",
       "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/World世界.md"
     },
@@ -27,10 +51,6 @@
     {
       "basename": "Component组件",
       "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Component组件.md"
-    },
-    {
-      "basename": "Pawn",
-      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Pawn.md"
     },
     {
       "basename": "Actor实体",
@@ -179,26 +199,6 @@
     {
       "basename": "贴图压缩",
       "path": "虚幻引擎/渲染/贴图压缩.md"
-    },
-    {
-      "basename": "DirectX Texture Compression",
-      "path": "虚幻引擎/渲染/贴图压缩/DirectX Texture Compression.md"
-    },
-    {
-      "basename": "可见性裁剪",
-      "path": "虚幻引擎/渲染/可见性裁剪.md"
-    },
-    {
-      "basename": "场景空间管理",
-      "path": "虚幻引擎/渲染/场景空间管理.md"
-    },
-    {
-      "basename": "编码游戏逻辑",
-      "path": "虚幻引擎/GamePlay/复杂的游戏性及其基本要素/编码游戏逻辑.md"
-    },
-    {
-      "basename": "转向（Steering Behaviors）",
-      "path": "虚幻引擎/GamePlay/AI系统/基础AI系统/转向（Steering Behaviors）.md"
     }
   ],
   "omittedPaths": [],
