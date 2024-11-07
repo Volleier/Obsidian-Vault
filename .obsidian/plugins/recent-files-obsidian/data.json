@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "Controller控制器",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Controller控制器.md"
+    },
+    {
       "basename": "Pawn",
       "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Pawn.md"
     },
@@ -23,10 +27,6 @@
     {
       "basename": "PlayerController玩家角色控制器",
       "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/PlayerController玩家角色控制器.md"
-    },
-    {
-      "basename": "Controller控制器",
-      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Controller控制器.md"
     },
     {
       "basename": "结构",
