@@ -18,13 +18,13 @@
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/PlayerController玩家角色控制器.md",
+                    "file": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/AIControllerAI角色控制器.md",
                     "mode": "source",
                     "backlinks": false,
                     "source": false
                   },
                   "icon": "lucide-file",
-                  "title": "PlayerController玩家角色控制器"
+                  "title": "AIControllerAI角色控制器"
                 }
               }
             ]
@@ -157,10 +157,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/PlayerController玩家角色控制器.md"
+                "file": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/AIControllerAI角色控制器.md"
               },
               "icon": "lucide-list",
-              "title": "PlayerController玩家角色控制器 的大纲"
+              "title": "AIControllerAI角色控制器 的大纲"
             }
           },
           {
@@ -236,8 +236,8 @@
   },
   "active": "ea5fd5295e7f986d",
   "lastOpenFiles": [
-    "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/AIControllerAI角色控制器.md",
     "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/PlayerController玩家角色控制器.md",
+    "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/AIControllerAI角色控制器.md",
     "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Level层级.md",
     "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Component组件.md",
     "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/WorldContext世界上下文.md",
