@@ -1,6 +1,38 @@
 {
   "recentFiles": [
     {
+      "basename": "PlayerController玩家角色控制器",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/PlayerController玩家角色控制器.md"
+    },
+    {
+      "basename": "AIControllerAI角色控制器",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/AIControllerAI角色控制器.md"
+    },
+    {
+      "basename": "Level层级",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Level层级.md"
+    },
+    {
+      "basename": "Component组件",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Component组件.md"
+    },
+    {
+      "basename": "WorldContext世界上下文",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/WorldContext世界上下文.md"
+    },
+    {
+      "basename": "Component组件-2",
+      "path": "附件/虚幻引擎/Component组件-2.png"
+    },
+    {
+      "basename": "GameInstance游戏实例",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/GameInstance游戏实例.md"
+    },
+    {
+      "basename": "Engine引擎",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Engine引擎.md"
+    },
+    {
       "basename": "Controller控制器",
       "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Controller控制器.md"
     },
@@ -17,40 +49,12 @@
       "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/GameMode游戏模式.md"
     },
     {
-      "basename": "AIControllerAI角色控制器",
-      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/AIControllerAI角色控制器.md"
-    },
-    {
-      "basename": "Engine引擎",
-      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Engine引擎.md"
-    },
-    {
-      "basename": "PlayerController玩家角色控制器",
-      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/PlayerController玩家角色控制器.md"
-    },
-    {
       "basename": "结构",
       "path": "虚幻引擎/基础架构/虚幻引擎架构/结构.canvas"
     },
     {
-      "basename": "GameInstance游戏实例",
-      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/GameInstance游戏实例.md"
-    },
-    {
-      "basename": "WorldContext世界上下文",
-      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/WorldContext世界上下文.md"
-    },
-    {
       "basename": "World世界",
       "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/World世界.md"
-    },
-    {
-      "basename": "Level层级",
-      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Level层级.md"
-    },
-    {
-      "basename": "Component组件",
-      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Component组件.md"
     },
     {
       "basename": "Actor实体",
@@ -75,10 +79,6 @@
     {
       "basename": "Level层级-1",
       "path": "附件/虚幻引擎/Level层级-1.png"
-    },
-    {
-      "basename": "Component组件-2",
-      "path": "附件/虚幻引擎/Component组件-2.png"
     },
     {
       "basename": "PengLaiSi",
