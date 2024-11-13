@@ -18,31 +18,17 @@ hide circle
 hide empty members
 hide empty methods
 
-class APawn {
-    TSubclassOf<AController> AIControllerClass;
-    unit32 bInputEnabled:1;
-    FVector ControlInputVector;
+class AInfo {
+
+}
+
+class AGameMode {
+    void SetMatchState(FName NewState);
+    void AddPlayerState(class APlayerState* PlayerState);
     --
-    APlayerState* PlayerState;
-    AController* Controller;
+    FName MatchState;
+    TArray<class APlayerState*> PlayerArray;
 }
 
-class ADefaultPawn {
-    USphereComponent* CollisionComponent;
-    UPawnMovementComponent* MovementComponent;
-}
-
-class ACharactor {
-    USkeletalMeshComponent* Mesh;
-    UCharactorMovementComponent* CharactorMovement;
-    UCapsuleComponent* CapsuleComponent;
-}
-
-class ASpectatorPawn {
-    USpectatorPawnMovement
-}
-
-APawn <|-- ADefaultPawn
-APawn <|-- ACharactor
-ADefaultPawn <|-- ASpectatorPawn
+AInfo <|-- AGameMode 
 @enduml
