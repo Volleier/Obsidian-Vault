@@ -1,2 +1,11 @@
 # Obsidian 
 .obsidian/
+
+# VScode
+.vscode/
+
+# workspace.json
+.obsidian/workspace.json
+
+# data.json
+.obsidian/data.json
