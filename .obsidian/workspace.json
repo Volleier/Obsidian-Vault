@@ -10,15 +10,14 @@
           {
             "id": "a5d9525c1e5aeb7f",
             "type": "tabs",
-            "dimension": 50.6578947368421,
             "children": [
               {
-                "id": "ea5fd5295e7f986d",
+                "id": "8f19bc361332ed85",
                 "type": "leaf",
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/GameMode游戏模式.md",
+                    "file": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Level层级.md",
                     "mode": "source",
                     "backlinks": false,
                     "source": false
@@ -30,16 +29,15 @@
           {
             "id": "e9086719bf5aedf5",
             "type": "tabs",
-            "dimension": 49.34210526315789,
             "children": [
               {
-                "id": "d271c644a920c48e",
+                "id": "84202b7547bdc73f",
                 "type": "leaf",
                 "state": {
                   "type": "markdown",
                   "state": {
-                    "file": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/GameMode游戏模式.md",
-                    "mode": "preview",
+                    "file": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Pawn.md",
+                    "mode": "source",
                     "backlinks": false,
                     "source": false
                   }
@@ -143,19 +141,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/GameMode游戏模式.md"
-              }
-            }
-          },
-          {
-            "id": "fb0d6dd9dea14528",
-            "type": "leaf",
-            "state": {
-              "type": "outgoing-link",
-              "state": {
-                "file": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/GameMode游戏模式.md",
-                "linksCollapsed": false,
-                "unlinkedCollapsed": true
+                "file": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Level层级.md"
               }
             }
           }
@@ -212,33 +198,33 @@
       "remotely-save:Remotely Save": false
     }
   },
-  "active": "d271c644a920c48e",
+  "active": "8f19bc361332ed85",
   "lastOpenFiles": [
-    "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/PlayerController玩家角色控制器.md",
+    "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Pawn.md",
     "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/GameMode游戏模式.md",
+    "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Level层级.md",
+    "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Actor实体.md",
+    "附件/虚幻引擎/GameMode游戏模式-1.png",
+    "附件/虚幻引擎/GameMode游戏模式-1.png",
+    "附件/虚幻引擎/GameState游戏状态-1.png",
     "附件/虚幻引擎/GameState游戏状态-1.png",
     "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/GameState游戏状态.md",
-    "附件/虚幻引擎/GameMode游戏模式-1.png",
+    "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/PlayerController玩家角色控制器.md",
     "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/AIControllerAI角色控制器.md",
-    "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Level层级.md",
     "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Component组件.md",
     "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/WorldContext世界上下文.md",
     "附件/虚幻引擎/Component组件-2.png",
     "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/GameInstance游戏实例.md",
     "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Engine引擎.md",
     "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Controller控制器.md",
-    "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Pawn.md",
     "附件/虚幻引擎/Pawn-2.png",
     "附件/虚幻引擎/PlayerController玩家角色控制器-1.png",
     "附件/虚幻引擎/Controller控制器-1.png",
     "虚幻引擎/基础架构/虚幻引擎架构/结构.canvas",
-    "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Actor实体.md",
     "附件/虚幻引擎/Pawn-1.png",
     "附件/虚幻引擎/引擎-1.png",
-    "附件/虚幻引擎/GameInstance游戏实例-1.png",
     "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/未命名",
     "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/World世界.md",
-    "附件/虚幻引擎/Component组件-1.png",
     "附件/temp.md",
     "附件/Temp.md",
     "虚幻引擎/基础架构/虚幻引擎架构/基本概念.md",
