@@ -4,5 +4,11 @@
 # workspace.json
 .obsidian/workspace.json
 
-# data.json
+# plugins/data.json
 .obsidian/plugins/recent-files-obsidian/data.json
+
+# graph.json
+.obsidian/graph.json
+
+# clear git cache
+# git rm -r --cached .
