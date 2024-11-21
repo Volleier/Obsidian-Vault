@@ -1,2 +1,9 @@
 GameInstance里会保存着当前的WorldConext和其他整个游戏的信息。GameInstance是比World更高的层次，也就可以理解为什么独立于Level的逻辑和数据要存放在GameInstance中了。
 ![[GameInstance游戏实例-1.png]]UE的GameInstance因为继承于UObject，所以就拥有了动态创建的能力，所以我们可以通过指定GameInstanceClass来让UE创建使用我们自定义的GameInstance子类。所以不论是C++还是BP，我们通常会继承于GameInstance，然后在里面编写应用于整个游戏范围的逻辑。
+UGameInstance里的接口大概有4类：
+1. 引擎的初始化加载，Init和ShutDown等（在引擎流程章节会详细叙述）
+2. Player的创建，如CreateLocalPlayer，GetLocalPlayers之类的。
+3. GameMode的重载修改，这是从4.14新增加进来改进，本来你只能为特定的某个Map配置好GameModeClass，但是现在GameInstance允许你重载它的PreloadContentForURL、CreateGameModeForURL和OverrideGameModeClass方法来hook改变这一流程。
+4. OnlineSession的管理，这部分逻辑跟网络的机制有关（到时候再详细介绍），目前可以简单理解为有一个网络会话的管理辅助控制类。
+
+而GameInstance是在GameEngine里创建的
