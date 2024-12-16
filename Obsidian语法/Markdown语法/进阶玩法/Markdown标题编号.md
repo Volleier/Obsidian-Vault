@@ -1,4 +1,4 @@
-许多Markdown处理器支持[标题](../../Markdown语法/基本语法/Markdown标题)的自定义ID - 一些Markdown处理器会自动添加它们。添加自定义ID允许您直接链接到标题并使用CSS对其进行修改。要添加自定义标题ID，请在与标题相同的行上用大括号括起该自定义ID。
+许多Markdown处理器支持[标题](Markdown标题.md)的自定义ID - 一些Markdown处理器会自动添加它们。添加自定义ID允许您直接链接到标题并使用CSS对其进行修改。要添加自定义标题ID，请在与标题相同的行上用大括号括起该自定义ID。
 
 ```
 ### My Great Heading {#custom-id}
