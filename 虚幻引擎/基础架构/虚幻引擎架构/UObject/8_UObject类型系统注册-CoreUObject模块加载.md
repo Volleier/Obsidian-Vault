@@ -1,6 +1,6 @@
 # Static初始化
 
-在前面的文章里，讲解了在static阶段的信息收集。在[[UObject类型系统信息收集]]中最后UObject的收集有提及`IMPLEMENT_VM_FUNCTION(EX_CallMath, execCallMathFunction)`会触发`UObject::StaticClass()`的调用，因此作为最开始的调用，会生成第一个UClass*
+在前面的文章里，讲解了在static阶段的信息收集。在[[5_UObject类型系统信息收集]]中最后UObject的收集有提及`IMPLEMENT_VM_FUNCTION(EX_CallMath, execCallMathFunction)`会触发`UObject::StaticClass()`的调用，因此作为最开始的调用，会生成第一个UClass*
 ```cpp
 #define IMPLEMENT_FUNCTION(func) \
 static FNativeFunctionRegistrar UObject#func#Registar(UObject::StaticClass(),#func,&UObject::func);
@@ -298,7 +298,7 @@ public:
 
 可以看到这步操作这是简单的往UClass*里添加Native函数的数据。
 
-**思考：为什么这么猴急的需要一开始就往UClass里添加Native函数？**
+**思考：为什么需要一开始就往UClass里添加Native函数？**
 
 以`IMPLEMENT_VM_FUNCTION(EX_CallMath, execCallMathFunction)`为例，execCallMathFunction是定义在代码里的一个函数，它的地址必然需要通过一种方式记录下来。当然你也可以像UE4CodeGen_Private做的那样，先用各种Params对象保存起来，然后在后面合适的时候调用提取来添加。只不过这个时候因为UClass对象都已经创建出来了，所以就索性直接存到NativeFunctionLookupTable里面去了，后续要用的时候再用名字去里面查找。稍微提一下，这里不用TMap而用TArray是因为一般来说我们在一个类里写的函数数量并不会太多，对于元素比较少的情况下，TArray的线性查找也很快，而且还省内存。
 
@@ -318,4 +318,4 @@ void UMyClass::ImplementableFunc()
 }
 ```
 
-需要提前注意的是，不管是Native与否，函数后面都会生成一个UFunction对象，只不过Native函数的UFunction在绑定的时候会去它所属于的UClass里的NativeFunctionLookupTable通过函数名字查找真正的函数指针，而非Native的UFunction会把函数指针指向`UObject::ProcessInternal`，用来处理[蓝图虚拟机](https://zhida.zhihu.com/search?content_id=100797707&content_type=Article&match_order=1&q=%E8%93%9D%E5%9B%BE%E8%99%9A%E6%8B%9F%E6%9C%BA&zhida_source=entity)调用的情况。
+需要提前注意的是，不管是Native与否，函数后面都会生成一个UFunction对象，只不过Native函数的UFunction在绑定的时候会去它所属于的UClass里的NativeFunctionLookupTable通过函数名字查找真正的函数指针，而非Native的UFunction会把函数指针指向`UObject::ProcessInternal`，用来处理蓝图虚拟机调用的情况。
