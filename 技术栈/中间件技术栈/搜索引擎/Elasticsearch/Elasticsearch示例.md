@@ -1,4 +1,4 @@
-
+# 快速存储、搜索和分析结构化/非结构化数据
 ```python
 from elasticsearch import Elasticsearch
 from datetime import datetime
@@ -150,5 +150,3 @@ Title: Introduction to Elasticsearch
 Author: John Doe
 Highlight: Elasticsearch is a distributed, RESTful <em>search</em> and analytics <em>engine</em>.
 ```
-
-这个示例展示了 Elasticsearch 的核心能力：快速存储、搜索和分析结构化/非结构化数据
