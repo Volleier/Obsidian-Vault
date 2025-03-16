@@ -1,0 +1,186 @@
+{
+  "recentFiles": [
+    {
+      "basename": "线程池优化",
+      "path": "技术栈/后端开发技术栈/Java生态/高并发服务端设计/线程池优化.md"
+    },
+    {
+      "basename": "Proton Server",
+      "path": "技术栈/中间件技术栈/消息队列/AMQP协议/Proton Server.md"
+    },
+    {
+      "basename": "Redis与数据库",
+      "path": "技术栈/中间件技术栈/缓存与内存数据库/Redis/Redis与数据库.md"
+    },
+    {
+      "basename": "Hibernate",
+      "path": "技术栈/后端开发技术栈/Java生态/Hibernate/Hibernate.md"
+    },
+    {
+      "basename": "Redis示例",
+      "path": "技术栈/中间件技术栈/缓存与内存数据库/Redis/Redis示例.md"
+    },
+    {
+      "basename": "Redis",
+      "path": "技术栈/中间件技术栈/缓存与内存数据库/Redis/Redis.md"
+    },
+    {
+      "basename": "Hibernate示例",
+      "path": "技术栈/后端开发技术栈/Java生态/Hibernate/Hibernate示例.md"
+    },
+    {
+      "basename": "Elasticsearch示例",
+      "path": "技术栈/中间件技术栈/搜索引擎/Elasticsearch/Elasticsearch示例.md"
+    },
+    {
+      "basename": "SpringBoot",
+      "path": "技术栈/后端开发技术栈/Java生态/SpringBoot/SpringBoot.md"
+    },
+    {
+      "basename": "Redis Lua 热更新",
+      "path": "技术栈/中间件技术栈/缓存与内存数据库/Redis/Redis Lua 热更新.md"
+    },
+    {
+      "basename": "Elasticsearch",
+      "path": "技术栈/中间件技术栈/搜索引擎/Elasticsearch/Elasticsearch.md"
+    },
+    {
+      "basename": "推荐系统与智能搜索",
+      "path": "技术栈/大数据技术栈/批处理框架/Spark/推荐系统与智能搜索.md"
+    },
+    {
+      "basename": "知识库",
+      "path": "技术栈/数据库技术栈/关系型数据库/PostgreSQL/知识库.md"
+    },
+    {
+      "basename": "技术栈目录",
+      "path": "技术栈/技术栈目录.md"
+    },
+    {
+      "basename": "人工智能总览",
+      "path": "人工智能/人工智能总览.md"
+    },
+    {
+      "basename": "人工智能学习路径",
+      "path": "人工智能/人工智能学习路径.md"
+    },
+    {
+      "basename": "README",
+      "path": "README.md"
+    },
+    {
+      "basename": "8_UObject类型系统注册-CoreUObject模块加载",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/UObject/8_UObject类型系统注册-CoreUObject模块加载.md"
+    },
+    {
+      "basename": "9_UObject类型系统注册-InitUObject",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/UObject/9_UObject类型系统注册-InitUObject.md"
+    },
+    {
+      "basename": "6_UObject类型系统代码生成重构-UE4CodeGen_Private",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/UObject/6_UObject类型系统代码生成重构-UE4CodeGen_Private.md"
+    },
+    {
+      "basename": "5_UObject类型系统信息收集",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/UObject/5_UObject类型系统信息收集.md"
+    },
+    {
+      "basename": "1_UObject基本概念",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/UObject/1_UObject基本概念.md"
+    },
+    {
+      "basename": "7-UObject类型系统注册-第一个UClass",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/UObject/7-UObject类型系统注册-第一个UClass.md"
+    },
+    {
+      "basename": "4_UObject类型系统代码生成",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/UObject/4_UObject类型系统代码生成.md"
+    },
+    {
+      "basename": "3_UObject类型系统设定和结构",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/UObject/3_UObject类型系统设定和结构.md"
+    },
+    {
+      "basename": "2_UObject类型系统概述",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/UObject/2_UObject类型系统概述.md"
+    },
+    {
+      "basename": "基本概念",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/基本概念.md"
+    },
+    {
+      "basename": "2D动画技术",
+      "path": "虚幻引擎/动画系统/动画系统基础/2D动画技术.md"
+    },
+    {
+      "basename": "2_UBT和UHT",
+      "path": "UnrealEngineLearn/Primary/2_UBT和UHT.md"
+    },
+    {
+      "basename": "1_VS解决方案内容",
+      "path": "UnrealEngineLearn/Primary/1_VS解决方案内容.md"
+    },
+    {
+      "basename": "UObject类型系统设定和结构-1",
+      "path": "附件/虚幻引擎/UObject类型系统设定和结构-1.png"
+    },
+    {
+      "basename": "深度学习（deep learning）总览",
+      "path": "人工智能/理论&实践/机器学习/深度学习（deep learning）总览.md"
+    },
+    {
+      "basename": "监督学习（Supervised learning）",
+      "path": "人工智能/理论&实践/机器学习/监督学习（Supervised learning）.md"
+    },
+    {
+      "basename": "技术美术总览",
+      "path": "技术美术/技术美术总览.md"
+    },
+    {
+      "basename": "Markdown引用",
+      "path": "Obsidian语法/Markdown语法/基本语法/Markdown引用.md"
+    },
+    {
+      "basename": "Vmware上的Ubuntu",
+      "path": "杂项/Vmware上的Ubuntu.md"
+    },
+    {
+      "basename": "Blender插件",
+      "path": "杂项/Blender插件.md"
+    },
+    {
+      "basename": "VSCode 快捷键",
+      "path": "杂项/快捷键/VSCode 快捷键.md"
+    },
+    {
+      "basename": "VisualStudio 快捷键",
+      "path": "杂项/快捷键/VisualStudio 快捷键.md"
+    },
+    {
+      "basename": "PlayerController玩家角色控制器-1",
+      "path": "附件/虚幻引擎/PlayerController玩家角色控制器-1.png"
+    },
+    {
+      "basename": "循环神经网络（RNN）",
+      "path": "人工智能/理论&实践/机器学习/深度学习/循环神经网络（RNN）.md"
+    },
+    {
+      "basename": "Player玩家-3",
+      "path": "附件/虚幻引擎/Player玩家-3.png"
+    },
+    {
+      "basename": "Player玩家-1",
+      "path": "附件/虚幻引擎/Player玩家-1.png"
+    },
+    {
+      "basename": "Pawn-1",
+      "path": "附件/虚幻引擎/Pawn-1.png"
+    }
+  ],
+  "omittedPaths": [],
+  "omittedTags": [],
+  "updateOn": "file-open",
+  "omitBookmarks": false,
+  "maxLength": null,
+  "openType": "tab"
+}
