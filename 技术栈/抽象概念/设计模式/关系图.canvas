@@ -12,8 +12,6 @@
 		{"id":"774409e7668f30f1","type":"file","file":"技术栈/抽象概念/设计模式/行为型/模板模式（Template Pattern）.md","x":360,"y":-840,"width":400,"height":240,"color":"1"},
 		{"id":"6c3adf84d871d3b3","type":"file","file":"技术栈/抽象概念/设计模式/创建型/工厂模式（Factory Pattern）.md","x":1120,"y":-840,"width":400,"height":240,"color":"2"},
 		{"id":"b78319f3fa8f3a92","type":"file","file":"技术栈/抽象概念/设计模式/创建型/抽象工厂模式（Abstract Factory Pattern）.md","x":1120,"y":-420,"width":400,"height":240,"color":"2"},
-		{"id":"20a9dadb40cd54f9","type":"file","file":"技术栈/抽象概念/设计模式/创建型/单例模式（Singleton Pattern）.md","x":1840,"y":-420,"width":400,"height":240,"color":"2"},
-		{"id":"8a34bc166953b3d7","type":"file","file":"技术栈/抽象概念/设计模式/结构型/外观模式（Facade Pattern）.md","x":1840,"y":0,"width":400,"height":240,"color":"3"},
 		{"id":"dfdb82a2a4ff14a6","type":"file","file":"技术栈/抽象概念/设计模式/创建型/原型模式（Prototype Pattern）.md","x":360,"y":-420,"width":400,"height":240,"color":"2"},
 		{"id":"486789078cfa28d7","type":"file","file":"技术栈/抽象概念/设计模式/结构型/装饰器模式（Decorator Pattern）.md","x":160,"y":-1880,"width":400,"height":240,"color":"3"},
 		{"id":"e879f1e2f93a3ce0","type":"file","file":"技术栈/抽象概念/设计模式/行为型/责任链模式（Chain of Responsibility Pattern）.md","x":160,"y":-2280,"width":400,"height":240,"color":"1"},
@@ -22,11 +20,13 @@
 		{"id":"effb1b3de0192622","type":"file","file":"技术栈/抽象概念/设计模式/行为型/观察者模式（Observer Pattern）.md","x":2240,"y":-800,"width":400,"height":240,"color":"1"},
 		{"id":"5953122990fd251b","type":"file","file":"技术栈/抽象概念/设计模式/结构型/适配器模式（Adapter Pattern）.md","x":-320,"y":-1120,"width":400,"height":240,"color":"3"},
 		{"id":"5a3e59eb9e810e7b","type":"file","file":"技术栈/抽象概念/设计模式/结构型/代理模式（Proxy Pattern）.md","x":-320,"y":-800,"width":400,"height":240,"color":"3"},
-		{"id":"5a829e551f97cb5b","type":"file","file":"技术栈/抽象概念/设计模式/结构型/桥接模式（Bridge Pattern）.md","x":-320,"y":-1440,"width":400,"height":240,"color":"3"}
+		{"id":"5a829e551f97cb5b","type":"file","file":"技术栈/抽象概念/设计模式/结构型/桥接模式（Bridge Pattern）.md","x":-320,"y":-1440,"width":400,"height":240,"color":"3"},
+		{"id":"20a9dadb40cd54f9","type":"file","file":"技术栈/抽象概念/设计模式/创建型/单例模式（Singleton Pattern）.md","x":1440,"y":80,"width":400,"height":240,"color":"2"},
+		{"id":"8a34bc166953b3d7","type":"file","file":"技术栈/抽象概念/设计模式/结构型/外观模式（Facade Pattern）.md","x":1840,"y":-420,"width":400,"height":240,"color":"3"}
 	],
 	"edges":[
-		{"id":"ff84576f2942d6e2","fromNode":"8a34bc166953b3d7","fromSide":"top","toNode":"20a9dadb40cd54f9","toSide":"bottom","label":"单个实例"},
-		{"id":"511a2b459434a648","fromNode":"b78319f3fa8f3a92","fromSide":"right","toNode":"20a9dadb40cd54f9","toSide":"left","label":"单个实例"},
+		{"id":"ff84576f2942d6e2","fromNode":"8a34bc166953b3d7","fromSide":"bottom","toNode":"20a9dadb40cd54f9","toSide":"top","label":"单个实例"},
+		{"id":"511a2b459434a648","fromNode":"b78319f3fa8f3a92","fromSide":"bottom","toNode":"20a9dadb40cd54f9","toSide":"top","label":"单个实例"},
 		{"id":"5fb8b6ff0818dd08","fromNode":"b78319f3fa8f3a92","fromSide":"left","toNode":"dfdb82a2a4ff14a6","toSide":"right","label":"动态地配置工厂"},
 		{"id":"f4fa71ff2ae51546","fromNode":"b78319f3fa8f3a92","fromSide":"top","toNode":"6c3adf84d871d3b3","toSide":"bottom","label":"用工厂方法实现"},
 		{"id":"35d9ee1b9ae8ca04","fromNode":"774409e7668f30f1","fromSide":"top","toNode":"a01d418d0bdb5978","toSide":"bottom","label":"定义算法步骤"},
