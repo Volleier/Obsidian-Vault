@@ -1,0 +1,25 @@
+{
+	"nodes":[
+		{"id":"b78319f3fa8f3a92","type":"file","file":"技术栈/抽象概念/设计模式/创建型/抽象工厂模式（Abstract Factory Pattern）.md","x":-400,"y":-420,"width":400,"height":240},
+		{"id":"dfdb82a2a4ff14a6","type":"file","file":"技术栈/抽象概念/设计模式/创建型/原型模式（Prototype Pattern）.md","x":-1040,"y":-260,"width":400,"height":240},
+		{"id":"774409e7668f30f1","type":"file","file":"技术栈/抽象概念/设计模式/行为型/模板模式（Template Pattern）.md","x":-400,"y":-1240,"width":400,"height":240},
+		{"id":"6c3adf84d871d3b3","type":"file","file":"技术栈/抽象概念/设计模式/创建型/工厂模式（Factory Pattern）.md","x":-400,"y":-840,"width":400,"height":240},
+		{"id":"a01d418d0bdb5978","x":360,"y":-1240,"width":400,"height":240,"type":"file","file":"技术栈/抽象概念/设计模式/行为型/策略模式（Strategy Pattern）.md"},
+		{"id":"20a9dadb40cd54f9","type":"file","file":"技术栈/抽象概念/设计模式/创建型/单例模式（Singleton Pattern）.md","x":360,"y":-420,"width":400,"height":240},
+		{"id":"8a34bc166953b3d7","type":"file","file":"技术栈/抽象概念/设计模式/结构型/外观模式（Facade Pattern）.md","x":360,"y":40,"width":400,"height":240},
+		{"id":"fb00ca74faa55990","x":1120,"y":-1640,"width":400,"height":240,"type":"file","file":"技术栈/抽象概念/设计模式/结构型/享元模式（Flyweight Pattern）.md"},
+		{"id":"67fb1c81b3c3fa9e","x":1120,"y":-1240,"width":400,"height":240,"type":"file","file":"技术栈/抽象概念/设计模式/行为型/状态模式（State Pattern）.md"},
+		{"id":"fa5bb7293ef88bc6","x":1920,"y":-1640,"width":400,"height":240,"type":"file","file":"技术栈/抽象概念/设计模式/行为型/解释器模式（Interpreter Pattern）.md"}
+	],
+	"edges":[
+		{"id":"ff84576f2942d6e2","fromNode":"8a34bc166953b3d7","fromSide":"top","toNode":"20a9dadb40cd54f9","toSide":"bottom","label":"单个实例"},
+		{"id":"511a2b459434a648","fromNode":"b78319f3fa8f3a92","fromSide":"right","toNode":"20a9dadb40cd54f9","toSide":"left","label":"单个实例"},
+		{"id":"5fb8b6ff0818dd08","fromNode":"b78319f3fa8f3a92","fromSide":"left","toNode":"dfdb82a2a4ff14a6","toSide":"right","label":"动态地配置工厂"},
+		{"id":"f4fa71ff2ae51546","fromNode":"b78319f3fa8f3a92","fromSide":"top","toNode":"6c3adf84d871d3b3","toSide":"bottom","label":"用工厂方法实现"},
+		{"id":"8b2185e63fe20cdb","fromNode":"774409e7668f30f1","fromSide":"bottom","toNode":"6c3adf84d871d3b3","toSide":"top","label":"经常使用"},
+		{"id":"35d9ee1b9ae8ca04","fromNode":"774409e7668f30f1","fromSide":"right","toNode":"a01d418d0bdb5978","toSide":"left","label":"定义算法步骤"},
+		{"id":"a8226159ba77b746","fromNode":"a01d418d0bdb5978","fromSide":"top","toNode":"fb00ca74faa55990","toSide":"left","label":"共享策略"},
+		{"id":"dad54a5578916387","fromNode":"67fb1c81b3c3fa9e","fromSide":"top","toNode":"fb00ca74faa55990","toSide":"bottom","label":"共享状态"},
+		{"id":"1b7db836642c6502","fromNode":"fa5bb7293ef88bc6","fromSide":"left","toNode":"fb00ca74faa55990","toSide":"right","label":"共享终结符"}
+	]
+}
