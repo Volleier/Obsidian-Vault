@@ -1,0 +1,7 @@
+{
+	"nodes":[
+		{"id":"4ced383a1d08f7be","x":32,"y":-1,"width":250,"height":60,"type":"text","text":""},
+		{"id":"7ce6cc735cf2b234","x":-360,"y":-160,"width":400,"height":400,"type":"file","file":"技术栈/抽象概念/设计模式/未命名.canvas"}
+	],
+	"edges":[]
+}
