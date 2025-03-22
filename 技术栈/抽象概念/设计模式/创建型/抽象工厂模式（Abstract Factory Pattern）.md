@@ -54,7 +54,7 @@ public interface Interface2 {
 
 创建实现接口的实体类：
 ```java
-public class Interface1Impl1 implements Interface1 {
+public class Interface1_Impl1 implements Interface1 {
  
    @Override
    public void function1() {
@@ -63,7 +63,7 @@ public class Interface1Impl1 implements Interface1 {
 }
 ```
 ```java
-	public class Interface1Impl2 implements Interface1 {
+public class Interface1_Impl2 implements Interface1 {
  
    @Override
    public void function2() {
@@ -72,7 +72,7 @@ public class Interface1Impl1 implements Interface1 {
 }
 ```
 ```java
-public class Interface1Impl3 implements Interface1 {
+public class Interface1_Impl3 implements Interface1 {
  
    @Override
    public void function3() {
@@ -82,7 +82,7 @@ public class Interface1Impl3 implements Interface1 {
 ```
 以及：
 ```java
-public class Interface2Impl1 implements Interface2 {
+public class Interface2_Impl1 implements Interface2 {
  
    @Override
    public void function2() {
@@ -91,7 +91,7 @@ public class Interface2Impl1 implements Interface2 {
 }
 ```
 ```java
-public class Interface2Impl2 implements Interface2 {
+public class Interface2_Impl2 implements Interface2 {
  
    @Override
    public void function2() {
@@ -100,7 +100,7 @@ public class Interface2Impl2 implements Interface2 {
 }
 ```
 ```java
-public class Interface2Impl3 implements Interface2 {
+public class Interface2_Impl3 implements Interface2 {
  
    @Override
    public void function2() {
@@ -112,33 +112,114 @@ public class Interface2Impl3 implements Interface2 {
 为接口对象创建抽象类来获取工厂：
 ```java
 public abstract class AbstractFactory {
-   public abstract Interface getFunction1(String string);
-   public abstract Interface getFunction2(String string);
+   public abstract Interface1 getFunction(String string);
+   public abstract Interface2 getFunction(String string);
 }
 ```
 
 创建扩展了 AbstractFactory 的工厂类，基于给定的信息生成实体类的对象：
 ```java
-public class Interface1Factory extends AbstractFactory {
+public class Interface1_Factory extends AbstractFactory {
     
    @Override
    public Interface1 getInterface1(String string){
       if(string == null){
          return null;
       }        
-      if(string.equalsIgnoreCase("CIRCLE")){
-         return new Interface1Impl1();
-      } else if(string.equalsIgnoreCase("RECTANGLE")){
-         return new Interface1Impl2();
-      } else if(string.equalsIgnoreCase("SQUARE")){
-         return new Interface1Impl3();
+      if(string.equalsIgnoreCase("INTERFACE1 FUNCTION1")){
+         return new Interface1_Impl1();
+      } else if(string.equalsIgnoreCase("INTERFACE1 FUNCTION2")){
+         return new Interface1_Impl2();
+      } else if(string.equalsIgnoreCase("INTERFACE1 FUNCTION3")){
+         return new Interface1_Impl3();
       }
       return null;
    }
    
    @Override
-   public Color getFunction1(String string) {
+   public Color getFunction(String string) {
       return null;
    }
 }
+```
+```java
+public class Interface2_Factory extends AbstractFactory {
+    
+   @Override
+   public Interface1 getInterface2(String string){
+      if(string == null){
+         return null;
+      }        
+      if(string.equalsIgnoreCase("INTERFACE2 FUNCTION1")){
+         return new Interface1_Impl1();
+      } else if(string.equalsIgnoreCase("INTERFACE2 FUNCTION2")){
+         return new Interface1_Impl2();
+      } else if(string.equalsIgnoreCase("INTERFACE2 FUNCTION3")){
+         return new Interface1_Impl3();
+      }
+      return null;
+   }
+   
+   @Override
+   public Color getFunction(String string) {
+      return null;
+   }
+}
+```
+
+创建一个工厂创造器/生成器类，通过传递信息来获取工厂：
+```java
+public class FactoryProducer {
+   public static AbstractFactory getFactory(String choice){
+      if(choice.equalsIgnoreCase("INTERFACE1")){
+         return new Interface1_Factory();
+      } else if(choice.equalsIgnoreCase("INTERFACE2")){
+         return new Interface2_Factory();
+      }
+      return null;
+   }
+}
+```
+
+使用 FactoryProducer 来获取 AbstractFactory，通过传递类型信息来获取实体类的对象：
+```java
+public class AbstractFactoryPatternDemo {
+   public static void main(String[] args) {
+ 
+      //获取工厂1
+	    AbstractFactory Interface1_Factory = FactoryProducer.getFactory("INTERFACE1");
+ 
+      //获取对象
+		Interface1_Impl1 interface1_implement1 = Interface1_Factory.getFunction("FUNCTION1");
+		Interface1_Impl2 interface1_implement2 = Interface1_Factory.getFunction("FUNCTION2");
+	    Interface1_Impl3 interface1_implement2 = Interface1_Factory.getFunction("FUNCTION3");
+		 
+      //调用方法
+	    interface1_implement1.function1();
+		interface1_implement2.function2();
+		interface1_implement3.function3();
+      
+      //获取工厂2
+	    AbstractFactory Interface1_Factory = FactoryProducer.getFactory("INTERFACE1");
+ 
+      //获取对象
+		Interface2_Impl1 interface2_implement1 = Interface1_Factory.getFunction("FUNCTION1");
+		Interface2_Impl2 interface2_implement2 = Interface1_Factory.getFunction("FUNCTION2");
+	    Interface2_Impl3 interface2_implement2 = Interface1_Factory.getFunction("FUNCTION3");
+		 
+      //调用方法
+	    interface1_implement1.function1();
+		interface2_implement2.function2();
+		interface2_implement3.function3();
+   }
+}
+```
+输出：
+```TEXT
+Inside Circle::draw() method.
+Inside Rectangle::draw() method.
+Inside Square::draw() method.
+Inside Red::fill() method.
+Inside Green::fill() method.
+Inside Blue::fill() method.
 ```
