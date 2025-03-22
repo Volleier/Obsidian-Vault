@@ -35,34 +35,110 @@
 抽象工厂模式包含以下几个主要角色：
 - 抽象工厂（Abstract Factory）：声明了一组用于创建产品对象的方法，每个方法对应一种产品类型。抽象工厂可以是接口或抽象类。
 - 具体工厂（Concrete Factory）：实现了抽象工厂接口，负责创建具体产品对象的实例。
-- 抽象产品（Abstract Product）：定义了一组产品对象的共同接口或抽象类，描述了产品对象的公共方法。
-- 具体产品（Concrete Product）：实现了抽象产品接口，定义了具体产品的特定行为和属性。
+- 抽象产品（Abstract Interface）：定义了一组产品对象的共同接口或抽象类，描述了产品对象的公共方法。
+- 具体产品（Concrete Interface）：实现了抽象产品接口，定义了具体产品的特定行为和属性。
 抽象工厂模式通常涉及一族相关的产品，每个具体工厂类负责创建该族中的具体产品。客户端通过使用抽象工厂接口来创建产品对象，而不需要直接使用具体产品的实现类。
 
 # 实现
-创建一个接口：
+创建两个接口：
 ```java
-public interface Product {
-   void draw();
+public interface Interface1 {
+   void function1();
+}
+```
+```java
+public interface Interface2 {
+   void function2();
 }
 ```
 
 创建实现接口的实体类：
 ```java
-public class Product1 implements Product {
+public class Interface1Impl1 implements Interface1 {
  
    @Override
-   public void draw() {
-      System.out.println("Inside Square::draw() method.");
+   public void function1() {
+      System.out.println("Inside InterfaceImpl1::function2 method.");
    }
 }
 ```
 ```java
-public class Product2 implements Product {
+	public class Interface1Impl2 implements Interface1 {
  
    @Override
-   public void draw() {
-      System.out.println("Inside Square::draw() method.");
+   public void function2() {
+      System.out.println("Inside InterfaceImpl2::function2 method.");
+   }
+}
+```
+```java
+public class Interface1Impl3 implements Interface1 {
+ 
+   @Override
+   public void function3() {
+      System.out.println("Inside InterfaceImpl3::function2 method.");
+   }
+}
+```
+以及：
+```java
+public class Interface2Impl1 implements Interface2 {
+ 
+   @Override
+   public void function2() {
+      System.out.println("Inside InterfaceImpl1::function2 method.");
+   }
+}
+```
+```java
+public class Interface2Impl2 implements Interface2 {
+ 
+   @Override
+   public void function2() {
+      System.out.println("Inside InterfaceImpl2::function2 method.");
+   }
+}
+```
+```java
+public class Interface2Impl3 implements Interface2 {
+ 
+   @Override
+   public void function2() {
+      System.out.println("Inside InterfaceImpl3::function2 method.");
+   }
+}
+```
+
+为接口对象创建抽象类来获取工厂：
+```java
+public abstract class AbstractFactory {
+   public abstract Interface getFunction1(String string);
+   public abstract Interface getFunction2(String string);
+}
+```
+
+创建扩展了 AbstractFactory 的工厂类，基于给定的信息生成实体类的对象：
+```java
+public class Interface1Factory extends AbstractFactory {
+    
+   @Override
+   public Interface1 getInterface1(String string){
+      if(string == null){
+         return null;
+      }        
+      if(string.equalsIgnoreCase("CIRCLE")){
+         return new Interface1Impl1();
+      } else if(string.equalsIgnoreCase("RECTANGLE")){
+         return new Interface1Impl2();
+      } else if(string.equalsIgnoreCase("SQUARE")){
+         return new Interface1Impl3();
+      }
+      return null;
+   }
+   
+   @Override
+   public Color getFunction1(String string) {
+      return null;
    }
 }
 ```
