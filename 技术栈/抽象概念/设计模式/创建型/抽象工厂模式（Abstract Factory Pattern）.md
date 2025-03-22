@@ -18,9 +18,6 @@
 ## 关键代码
 在一个工厂中聚合多个同类产品的创建方法。
 
-## 应用实例
-假设有不同类型的衣柜，每个衣柜（具体工厂）只能存放一类衣服（成套的具体产品），如商务装、时尚装等。每套衣服包括具体的上衣和裤子（具体产品）。所有衣柜都是衣柜类（抽象工厂）的具体实现，所有上衣和裤子分别实现上衣接口和裤子接口（抽象产品）。
-
 ## 优点
 1. 确保同一产品族的对象一起工作。
 2. 客户端不需要知道每个对象的具体类，简化了代码。
@@ -43,3 +40,29 @@
 抽象工厂模式通常涉及一族相关的产品，每个具体工厂类负责创建该族中的具体产品。客户端通过使用抽象工厂接口来创建产品对象，而不需要直接使用具体产品的实现类。
 
 # 实现
+创建一个接口：
+```java
+public interface Product {
+   void draw();
+}
+```
+
+创建实现接口的实体类：
+```java
+public class Product1 implements Product {
+ 
+   @Override
+   public void draw() {
+      System.out.println("Inside Square::draw() method.");
+   }
+}
+```
+```java
+public class Product2 implements Product {
+ 
+   @Override
+   public void draw() {
+      System.out.println("Inside Square::draw() method.");
+   }
+}
+```
