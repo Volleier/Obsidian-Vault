@@ -40,6 +40,7 @@
 抽象工厂模式通常涉及一族相关的产品，每个具体工厂类负责创建该族中的具体产品。客户端通过使用抽象工厂接口来创建产品对象，而不需要直接使用具体产品的实现类。
 
 # 实现
+![[抽象工厂模式-1.png]]
 创建两个接口：
 ```java
 public interface Interface1 {
@@ -137,7 +138,7 @@ public class Interface1_Factory extends AbstractFactory {
    }
    
    @Override
-   public Color getFunction(String string) {
+   public Interface1 getFunction(String string) {
       return null;
    }
 }
@@ -161,7 +162,7 @@ public class Interface2_Factory extends AbstractFactory {
    }
    
    @Override
-   public Color getFunction(String string) {
+   public Interface2 getFunction(String string) {
       return null;
    }
 }
