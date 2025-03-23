@@ -184,34 +184,33 @@ public class FactoryProducer {
 使用 FactoryProducer 来获取 AbstractFactory，通过传递类型信息来获取实体类的对象：
 ```java
 public class AbstractFactoryPatternDemo {
-   public static void main(String[] args) {
- 
-      //获取工厂1
-	    AbstractFactory Interface1_Factory = FactoryProducer.getFactory("INTERFACE1");
- 
-      //获取对象
-		Interface1_Impl1 interface1_implement1 = Interface1_Factory.getFunction("FUNCTION1");
-		Interface1_Impl2 interface1_implement2 = Interface1_Factory.getFunction("FUNCTION2");
-	    Interface1_Impl3 interface1_implement2 = Interface1_Factory.getFunction("FUNCTION3");
-		 
-      //调用方法
-	    interface1_implement1.function1();
-		interface1_implement2.function2();
-		interface1_implement3.function3();
-      
-      //获取工厂2
-	    AbstractFactory Interface1_Factory = FactoryProducer.getFactory("INTERFACE1");
- 
-      //获取对象
-		Interface2_Impl1 interface2_implement1 = Interface1_Factory.getFunction("FUNCTION1");
-		Interface2_Impl2 interface2_implement2 = Interface1_Factory.getFunction("FUNCTION2");
-	    Interface2_Impl3 interface2_implement2 = Interface1_Factory.getFunction("FUNCTION3");
-		 
-      //调用方法
-	    interface1_implement1.function1();
-		interface2_implement2.function2();
-		interface2_implement3.function3();
-   }
+    public static void main(String[] args) {
+        // 获取工厂1
+        AbstractFactory interface1Factory = FactoryProducer.getFactory("INTERFACE1");
+
+        // 获取对象
+        Interface1 interface1Impl1 = interface1Factory.getInterface1("FUNCTION1");
+        Interface1 interface1Impl2 = interface1Factory.getInterface1("FUNCTION2");
+        Interface1 interface1Impl3 = interface1Factory.getInterface1("FUNCTION3");
+
+        // 调用方法
+        interface1Impl1.function1();
+        interface1Impl2.function1();
+        interface1Impl3.function1();
+
+        // 获取工厂2
+        AbstractFactory interface2Factory = FactoryProducer.getFactory("INTERFACE2");
+
+        // 获取对象
+        Interface2 interface2Impl1 = interface2Factory.getInterface2("FUNCTION1");
+        Interface2 interface2Impl2 = interface2Factory.getInterface2("FUNCTION2");
+        Interface2 interface2Impl3 = interface2Factory.getInterface2("FUNCTION3");
+
+        // 调用方法
+        interface2Impl1.function2();
+        interface2Impl2.function2();
+        interface2Impl3.function2();
+    }
 }
 ```
 输出：
