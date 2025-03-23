@@ -58,7 +58,7 @@ public class Interface1_Impl1 implements Interface1 {
  
    @Override
    public void function1() {
-      System.out.println("Inside InterfaceImpl1::function2 method.");
+      System.out.println("Inside Interface1_Impl1::function2 method.");
    }
 }
 ```
@@ -67,7 +67,7 @@ public class Interface1_Impl2 implements Interface1 {
  
    @Override
    public void function2() {
-      System.out.println("Inside InterfaceImpl2::function2 method.");
+      System.out.println("Inside Interface1_Impl2::function2 method.");
    }
 }
 ```
@@ -76,7 +76,7 @@ public class Interface1_Impl3 implements Interface1 {
  
    @Override
    public void function3() {
-      System.out.println("Inside InterfaceImpl3::function2 method.");
+      System.out.println("Inside Interface1_Impl3::function2 method.");
    }
 }
 ```
@@ -86,7 +86,7 @@ public class Interface2_Impl1 implements Interface2 {
  
    @Override
    public void function2() {
-      System.out.println("Inside InterfaceImpl1::function2 method.");
+      System.out.println("Inside Interface2_Impl1::function2 method.");
    }
 }
 ```
@@ -95,7 +95,7 @@ public class Interface2_Impl2 implements Interface2 {
  
    @Override
    public void function2() {
-      System.out.println("Inside InterfaceImpl2::function2 method.");
+      System.out.println("Inside Interface2_Impl2::function2 method.");
    }
 }
 ```
@@ -104,7 +104,7 @@ public class Interface2_Impl3 implements Interface2 {
  
    @Override
    public void function2() {
-      System.out.println("Inside InterfaceImpl3::function2 method.");
+      System.out.println("Inside Interface2_Impl3::function2 method.");
    }
 }
 ```
@@ -216,10 +216,10 @@ public class AbstractFactoryPatternDemo {
 ```
 输出：
 ```TEXT
-Inside Circle::draw() method.
-Inside Rectangle::draw() method.
-Inside Square::draw() method.
-Inside Red::fill() method.
-Inside Green::fill() method.
-Inside Blue::fill() method.
+Inside Interface1_Impl1::function1 method.
+Inside Interface1_Impl2::function2 method.
+Inside Interface1_Impl3::function3 method.
+Inside Interface2_Impl1::function1 method.
+Inside Interface2_Impl2::function2 method.
+Inside Interface2_Impl3::function3 method.
 ```
