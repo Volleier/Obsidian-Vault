@@ -28,8 +28,8 @@
 - 指导者（Director）：负责调用建造者的方法来构建产品，指导者并不了解具体的构建过程，只关心产品的构建顺序和方式。
 
 # 实现
-我们假设一个快餐店的商业案例，其中，一个典型的套餐可以是一个汉堡（Burger）和一杯冷饮（Cold drink）。汉堡（Burger）可以是素食汉堡（Veg Burger）或鸡肉汉堡（Chicken Burger），它们是包在纸盒中。冷饮（Cold drink）可以是可口可乐（coke）或百事可乐（pepsi），它们是装在瓶子中。
+一个组合是形状和颜色组成的。形状有长方形圆形等；形状都在轮廓内。颜色有红色蓝色等等；它们都在表面上。
 
-我们将创建一个表示食物条目（比如汉堡和冷饮）的 _Item_ 接口和实现 _Item_ 接口的实体类，以及一个表示食物包装的 _Packing_ 接口和实现 _Packing_ 接口的实体类，汉堡是包在纸盒中，冷饮是装在瓶子中。
+创建一个表示图形条目的 `Combination` 接口和实现 `Combination` 接口的实体类，以及一个表示轮廓包装的 `Outline` 接口和实现 `OutLine` 接口的实体类，汉堡是包在纸盒中，冷饮是装在瓶子中。
 
-然后我们创建一个 _Meal_ 类，带有 _Item_ 的 _ArrayList_ 和一个通过结合 _Item_ 来创建不同类型的 _Meal_ 对象的 _MealBuilder_。_BuilderPatternDemo_ 类使用 _MealBuilder_ 来创建一个 _Meal_。
+然后我们创建一个 `Graphics` 类，带有 `Combination` 的 `ArrayList` 和一个通过结合 _Item_ 来创建不同类型的 `Graphics` 对象的 `GraphicsBuilder`。`BuilderPatternDemo` 类使用 `GraphicsBuilder` 来创建一个 `Graphics`。
