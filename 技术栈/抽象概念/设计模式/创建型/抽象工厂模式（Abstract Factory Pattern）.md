@@ -107,6 +107,7 @@ public class Yellow implements Color {
 ```
 
 ## 为 Color 和 Shape 对象创建抽象类来获取工厂
+AbstractFactory.java
 ```java
 public abstract class AbstractFactory {
    public abstract Color getColor(String color);
