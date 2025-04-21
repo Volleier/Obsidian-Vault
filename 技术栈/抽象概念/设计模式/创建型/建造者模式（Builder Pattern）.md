@@ -154,12 +154,97 @@ public class Blue extends Color {
  
    @Override
    public float size() {
-      return 200.f;
+      return 400.f;
    }
  
    @Override
    public String name() {
-      return "Circle";
+      return "Blue";
    }
 }
+```
+## 创建一个 Graphics 类，带有上面定义的 Combination 对象
+Graphics.java
+```java
+import java.util.ArrayList;
+import java.util.List;
+ 
+public class Graphics {
+   private List<Combination> combinations = new ArrayList<Combination>();    
+ 
+   public void addItem(Combination combination){
+      items.add(combination);
+   }
+ 
+   public float getSize(){
+      float size = 0.0f;
+      for (Combination combination : combinations) {
+         size += combination.size();
+      }        
+      return size;
+   }
+ 
+   public void showCombinations(){
+      for (Combination combination : combinations) {
+         System.out.print("Combination : "+combination.name());
+         System.out.print(", Showcase : "+combination.showcase().show());
+         System.out.println(", Size : "+combination.size());
+      }        
+   }    
+}
+```
+
+## 创建一个 GraphicsBuilder 类
+实际的 builder 类负责创建 Graphics 对象
+Graphics.java
+```java
+public class GraphicsBuilder {
+ 
+   public Graphics showGraphics1 (){
+      Graphics graphics = new Graphics();
+      graphics.addCombination(new Rectangle());
+      graphics.addCombination(new Red());
+      return graphics;
+   }   
+ 
+   public Graphics showGraphics2 (){
+      Graphics graphics = new Graphics();
+      graphics.addCombination(new Circle());
+      graphics.addCombination(new Blue());
+      return graphics;
+   }
+}
+```
+
+## 使用 GraphicsBuilder 来演示
+BuilderPatternDemo.java
+```java
+public class BuilderPatternDemo {
+   public static void main(String[] args) {
+      GraphicsBuilder graphicsBuilder = new GraphicsBuilder();
+ 
+      Graphics graphics1 = graphicsBuilder.showGraphics1();
+      System.out.println("graphics1");
+      graphics1.showCombinations();
+      System.out.println("Total Size: " +graphics1.getSize());
+ 
+      Graphics graphics2 = graphicsBuilder.showGraphics1();
+      System.out.println("graphics2");
+      graphics2.showCombinations();
+      System.out.println("Total Size: " +graphics2.getSize());
+   }
+}
+```
+
+## 输出Belike
+```text
+Graphics1
+Combination : Rectangle, Showcase : Outline, Size : 100.0
+Combination : Red, Showcase : Surface, Size : 200.0
+Total Size: 300.0
+
+Graphics2
+Combination : Circle, Showcase : Outline, Size : 300.0
+Combination : Blue, Showcase : Suface, Size : 400.0
+Total Size: 700.0
 ```
