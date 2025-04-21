@@ -43,43 +43,65 @@ public interface Color {
 
 
 ## 创建实现接口的实体类
-Shape的实体类
+为Shape创建实体类
 Rectangle.java
 ```java
 public class Rectangle implements Shape {
  
    @Override
    public void function1() {
-      System.out.println("Inside Shape_Impl1::function2 method.");
+      System.out.println("Inside Rectangle::draw() method.");
    }
 }
 ```
-
-以及：
+Square.java
 ```java
-public class Color_Impl1 implements Color {
+public class Square implements Shape {
  
    @Override
-   public void function2() {
-      System.out.println("Inside Color_Impl1::function2 method.");
+   public void function1() {
+      System.out.println("Inside Square::draw() method.");
    }
 }
 ```
+Circle.java
 ```java
-public class Color_Impl2 implements Color {
+public class Circle implements Shape {
  
    @Override
-   public void function2() {
-      System.out.println("Inside Color_Impl2::function2 method.");
+   public void function1() {
+      System.out.println("Inside Circle::draw() method.");
    }
 }
 ```
+以及为Color创建实体类
+Red.java
 ```java
-public class Color_Impl3 implements Color {
+public class Red implements Color {
  
    @Override
-   public void function2() {
-      System.out.println("Inside Color_Impl3::function2 method.");
+   public void fill() {
+      System.out.println("Inside Red::fill() method.");
+   }
+}
+```
+Blue.java
+```java
+public class Red implements Color {
+ 
+   @Override
+   public void fill() {
+      System.out.println("Inside Red::fill() method.");
+   }
+}
+```
+Yellow.java
+```java
+public class Yellow implements Color {
+ 
+   @Override
+   public void fill() {
+      System.out.println("Inside Yellow::fill() method.");
    }
 }
 ```
