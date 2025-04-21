@@ -117,7 +117,7 @@ public class FactoryPatternDemo {
 ```
 
 ## 输出belike：
-```cmd
+```text
 Inside Circle::draw() method.
 Inside Rectangle::draw() method.
 Inside Square::draw() method.

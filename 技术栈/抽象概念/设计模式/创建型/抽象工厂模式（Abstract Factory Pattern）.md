@@ -31,13 +31,13 @@
 Shape.java
 ```java
 public interface Shape {
-   void function1();
+   void draw();
 }
 ```
 Color.java
 ```java
 public interface Color {
-   void function2();
+   void fill();
 }
 ```
 
@@ -87,11 +87,11 @@ public class Red implements Color {
 ```
 Blue.java
 ```java
-public class Red implements Color {
+public class Blue implements Color {
  
    @Override
    public void fill() {
-      System.out.println("Inside Red::fill() method.");
+      System.out.println("Inside Blue::fill() method.");
    }
 }
 ```
@@ -106,116 +106,139 @@ public class Yellow implements Color {
 }
 ```
 
-为接口对象创建抽象类来获取工厂：
+## 为 Color 和 Shape 对象创建抽象类来获取工厂
 ```java
 public abstract class AbstractFactory {
-   public abstract Shape getFunction(String string);
-   public abstract Color getFunction(String string);
+   public abstract Color getColor(String color);
+   public abstract Shape getShape(String shape);
 }
 ```
 
-创建扩展了 AbstractFactory 的工厂类，基于给定的信息生成实体类的对象：
+## 创建扩展 AbstractFactory 的工厂类
+基于给定的信息生成实体类的对象
+ShapeFactory.java
 ```java
-public class Shape_Factory extends AbstractFactory {
+public class ShapeFactory extends AbstractFactory {
     
    @Override
-   public Shape getShape(String string){
-      if(string == null){
+   public Shape getShape(String shapeType){
+      if(shapeType == null){
          return null;
       }        
-      if(string.equalsIgnoreCase("Shape FUNCTION1")){
-         return new Shape_Impl1();
-      } else if(string.equalsIgnoreCase("Shape FUNCTION2")){
-         return new Shape_Impl2();
-      } else if(string.equalsIgnoreCase("Shape FUNCTION3")){
-         return new Shape_Impl3();
+      if(shapeType.equalsIgnoreCase("CIRCLE")){
+         return new Circle();
+      } else if(shapeType.equalsIgnoreCase("RECTANGLE")){
+         return new Rectangle();
+      } else if(shapeType.equalsIgnoreCase("SQUARE")){
+         return new Square();
       }
       return null;
    }
    
    @Override
-   public Shape getFunction(String string) {
+   public Color getColor(String color) {
       return null;
    }
 }
 ```
+ColorFactory.java
 ```java
-public class Color_Factory extends AbstractFactory {
+public class ColorFactory extends AbstractFactory {
     
    @Override
-   public Shape getColor(String string){
-      if(string == null){
-         return null;
-      }        
-      if(string.equalsIgnoreCase("Color FUNCTION1")){
-         return new Shape_Impl1();
-      } else if(string.equalsIgnoreCase("Color FUNCTION2")){
-         return new Shape_Impl2();
-      } else if(string.equalsIgnoreCase("Color FUNCTION3")){
-         return new Shape_Impl3();
-      }
+   public Shape getShape(String shapeType){
       return null;
    }
    
    @Override
-   public Color getFunction(String string) {
+   public Color getColor(String color) {
+      if(color == null){
+         return null;
+      }        
+      if(color.equalsIgnoreCase("RED")){
+         return new Red();
+      } else if(color.equalsIgnoreCase("GREEN")){
+         return new Green();
+      } else if(color.equalsIgnoreCase("BLUE")){
+         return new Blue();
+      }
       return null;
    }
 }
 ```
 
-创建一个工厂创造器/生成器类，通过传递信息来获取工厂：
+## 创建一个工厂创造器/生成器类
+创建一个工厂创造器/生成器类，通过传递形状或颜色信息来获取工厂
+FactoryProducer.java
 ```java
 public class FactoryProducer {
    public static AbstractFactory getFactory(String choice){
-      if(choice.equalsIgnoreCase("Shape")){
-         return new Shape_Factory();
-      } else if(choice.equalsIgnoreCase("Color")){
-         return new Color_Factory();
+      if(choice.equalsIgnoreCase("SHAPE")){
+         return new ShapeFactory();
+      } else if(choice.equalsIgnoreCase("COLOR")){
+         return new ColorFactory();
       }
       return null;
    }
 }
 ```
 
-使用 FactoryProducer 来获取 AbstractFactory，通过传递类型信息来获取实体类的对象：
+## 使用 FactoryProducer 来获取 AbstractFactory
+使用 FactoryProducer 来获取 AbstractFactory，通过传递类型信息来获取实体类的对象。
 ```java
 public class AbstractFactoryPatternDemo {
-    public static void main(String[] args) {
-        // 获取工厂1
-        AbstractFactory ShapeFactory = FactoryProducer.getFactory("Shape");
-
-        // 获取对象
-        Shape ShapeImpl1 = ShapeFactory.getShape("FUNCTION1");
-        Shape ShapeImpl2 = ShapeFactory.getShape("FUNCTION2");
-        Shape ShapeImpl3 = ShapeFactory.getShape("FUNCTION3");
-
-        // 调用方法
-        ShapeImpl1.function1();
-        ShapeImpl2.function1();
-        ShapeImpl3.function1();
-
-        // 获取工厂2
-        AbstractFactory ColorFactory = FactoryProducer.getFactory("Color");
-
-        // 获取对象
-        Color ColorImpl1 = ColorFactory.getColor("FUNCTION1");
-        Color ColorImpl2 = ColorFactory.getColor("FUNCTION2");
-        Color ColorImpl3 = ColorFactory.getColor("FUNCTION3");
-
-        // 调用方法
-        ColorImpl1.function2();
-        ColorImpl2.function2();
-        ColorImpl3.function2();
-    }
+   public static void main(String[] args) {
+ 
+      //获取形状工厂
+      AbstractFactory shapeFactory = FactoryProducer.getFactory("SHAPE");
+ 
+      //获取形状为 Circle 的对象
+      Shape shape1 = shapeFactory.getShape("CIRCLE");
+ 
+      //调用 Circle 的 draw 方法
+      shape1.draw();
+ 
+      //获取形状为 Rectangle 的对象
+      Shape shape2 = shapeFactory.getShape("RECTANGLE");
+ 
+      //调用 Rectangle 的 draw 方法
+      shape2.draw();
+      
+      //获取形状为 Square 的对象
+      Shape shape3 = shapeFactory.getShape("SQUARE");
+ 
+      //调用 Square 的 draw 方法
+      shape3.draw();
+ 
+      //获取颜色工厂
+      AbstractFactory colorFactory = FactoryProducer.getFactory("COLOR");
+ 
+      //获取颜色为 Red 的对象
+      Color color1 = colorFactory.getColor("RED");
+ 
+      //调用 Red 的 fill 方法
+      color1.fill();
+ 
+      //获取颜色为 Green 的对象
+      Color color2 = colorFactory.getColor("GREEN");
+ 
+      //调用 Green 的 fill 方法
+      color2.fill();
+ 
+      //获取颜色为 Blue 的对象
+      Color color3 = colorFactory.getColor("BLUE");
+ 
+      //调用 Blue 的 fill 方法
+      color3.fill();
+   }
 }
 ```
 输出：
-```TEXT
-Inside Shape_Impl1::function1 method.
-Inside Shape_Impl2::function2 method.
-Inside Shape_Impl3::function3 method.
-Inside Color_Impl1::function1 method.
-Inside Color_Impl2::function2 method.
-Inside Color_Impl3::function3 method.
+```text
+Inside Circle::draw() method.
+Inside Rectangle::draw() method.
+Inside Square::draw() method.
+Inside Red::fill() method.
+Inside Green::fill() method.
+Inside Blue::fill() method.
 ```
