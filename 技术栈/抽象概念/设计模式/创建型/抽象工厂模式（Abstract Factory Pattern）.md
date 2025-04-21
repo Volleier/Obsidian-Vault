@@ -25,71 +25,61 @@
 创建 `Shape` 和 `Color` 接口和实现这些接口的实体类。下一步是创建抽象工厂类 `AbstractFactory`。接着定义工厂类 `ShapeFactory` 和 `ColorFactory`，这两个工厂类都是扩展了 `AbstractFactory`。然后创建一个工厂创造器/生成器类 `FactoryProducer`。
 
 `AbstractFactoryPatternDemo` 类使用 `FactoryProducer` 来获取 `AbstractFactory` 对象。它将向 `AbstractFactory` 传递形状信息 `Shape`（`CIRCLE / RECTANGLE / SQUARE`），以便获取它所需对象的类型。同时它还向 `AbstractFactory` 传递颜色信息 `Color`（`RED / GREEN / BLUE`），以便获取它所需对象的类型。
-创建两个接口：
+
+## 创建两个接口
+创建形状何颜色的接口
+Shape.java
 ```java
-public interface Interface1 {
+public interface Shape {
    void function1();
 }
 ```
+Color.java
 ```java
-public interface Interface2 {
+public interface Color {
    void function2();
 }
 ```
 
-创建实现接口的实体类：
+
+## 创建实现接口的实体类
+Shape的实体类
+Rectangle.java
 ```java
-public class Interface1_Impl1 implements Interface1 {
+public class Rectangle implements Shape {
  
    @Override
    public void function1() {
-      System.out.println("Inside Interface1_Impl1::function2 method.");
+      System.out.println("Inside Shape_Impl1::function2 method.");
    }
 }
 ```
-```java
-public class Interface1_Impl2 implements Interface1 {
- 
-   @Override
-   public void function2() {
-      System.out.println("Inside Interface1_Impl2::function2 method.");
-   }
-}
-```
-```java
-public class Interface1_Impl3 implements Interface1 {
- 
-   @Override
-   public void function3() {
-      System.out.println("Inside Interface1_Impl3::function2 method.");
-   }
-}
-```
+
 以及：
 ```java
-public class Interface2_Impl1 implements Interface2 {
+public class Color_Impl1 implements Color {
  
    @Override
    public void function2() {
-      System.out.println("Inside Interface2_Impl1::function2 method.");
+      System.out.println("Inside Color_Impl1::function2 method.");
    }
 }
 ```
 ```java
-public class Interface2_Impl2 implements Interface2 {
+public class Color_Impl2 implements Color {
  
    @Override
    public void function2() {
-      System.out.println("Inside Interface2_Impl2::function2 method.");
+      System.out.println("Inside Color_Impl2::function2 method.");
    }
 }
 ```
 ```java
-public class Interface2_Impl3 implements Interface2 {
+public class Color_Impl3 implements Color {
  
    @Override
    public void function2() {
-      System.out.println("Inside Interface2_Impl3::function2 method.");
+      System.out.println("Inside Color_Impl3::function2 method.");
    }
 }
 ```
@@ -97,56 +87,56 @@ public class Interface2_Impl3 implements Interface2 {
 为接口对象创建抽象类来获取工厂：
 ```java
 public abstract class AbstractFactory {
-   public abstract Interface1 getFunction(String string);
-   public abstract Interface2 getFunction(String string);
+   public abstract Shape getFunction(String string);
+   public abstract Color getFunction(String string);
 }
 ```
 
 创建扩展了 AbstractFactory 的工厂类，基于给定的信息生成实体类的对象：
 ```java
-public class Interface1_Factory extends AbstractFactory {
+public class Shape_Factory extends AbstractFactory {
     
    @Override
-   public Interface1 getInterface1(String string){
+   public Shape getShape(String string){
       if(string == null){
          return null;
       }        
-      if(string.equalsIgnoreCase("INTERFACE1 FUNCTION1")){
-         return new Interface1_Impl1();
-      } else if(string.equalsIgnoreCase("INTERFACE1 FUNCTION2")){
-         return new Interface1_Impl2();
-      } else if(string.equalsIgnoreCase("INTERFACE1 FUNCTION3")){
-         return new Interface1_Impl3();
+      if(string.equalsIgnoreCase("Shape FUNCTION1")){
+         return new Shape_Impl1();
+      } else if(string.equalsIgnoreCase("Shape FUNCTION2")){
+         return new Shape_Impl2();
+      } else if(string.equalsIgnoreCase("Shape FUNCTION3")){
+         return new Shape_Impl3();
       }
       return null;
    }
    
    @Override
-   public Interface1 getFunction(String string) {
+   public Shape getFunction(String string) {
       return null;
    }
 }
 ```
 ```java
-public class Interface2_Factory extends AbstractFactory {
+public class Color_Factory extends AbstractFactory {
     
    @Override
-   public Interface1 getInterface2(String string){
+   public Shape getColor(String string){
       if(string == null){
          return null;
       }        
-      if(string.equalsIgnoreCase("INTERFACE2 FUNCTION1")){
-         return new Interface1_Impl1();
-      } else if(string.equalsIgnoreCase("INTERFACE2 FUNCTION2")){
-         return new Interface1_Impl2();
-      } else if(string.equalsIgnoreCase("INTERFACE2 FUNCTION3")){
-         return new Interface1_Impl3();
+      if(string.equalsIgnoreCase("Color FUNCTION1")){
+         return new Shape_Impl1();
+      } else if(string.equalsIgnoreCase("Color FUNCTION2")){
+         return new Shape_Impl2();
+      } else if(string.equalsIgnoreCase("Color FUNCTION3")){
+         return new Shape_Impl3();
       }
       return null;
    }
    
    @Override
-   public Interface2 getFunction(String string) {
+   public Color getFunction(String string) {
       return null;
    }
 }
@@ -156,10 +146,10 @@ public class Interface2_Factory extends AbstractFactory {
 ```java
 public class FactoryProducer {
    public static AbstractFactory getFactory(String choice){
-      if(choice.equalsIgnoreCase("INTERFACE1")){
-         return new Interface1_Factory();
-      } else if(choice.equalsIgnoreCase("INTERFACE2")){
-         return new Interface2_Factory();
+      if(choice.equalsIgnoreCase("Shape")){
+         return new Shape_Factory();
+      } else if(choice.equalsIgnoreCase("Color")){
+         return new Color_Factory();
       }
       return null;
    }
@@ -171,39 +161,39 @@ public class FactoryProducer {
 public class AbstractFactoryPatternDemo {
     public static void main(String[] args) {
         // 获取工厂1
-        AbstractFactory interface1Factory = FactoryProducer.getFactory("INTERFACE1");
+        AbstractFactory ShapeFactory = FactoryProducer.getFactory("Shape");
 
         // 获取对象
-        Interface1 interface1Impl1 = interface1Factory.getInterface1("FUNCTION1");
-        Interface1 interface1Impl2 = interface1Factory.getInterface1("FUNCTION2");
-        Interface1 interface1Impl3 = interface1Factory.getInterface1("FUNCTION3");
+        Shape ShapeImpl1 = ShapeFactory.getShape("FUNCTION1");
+        Shape ShapeImpl2 = ShapeFactory.getShape("FUNCTION2");
+        Shape ShapeImpl3 = ShapeFactory.getShape("FUNCTION3");
 
         // 调用方法
-        interface1Impl1.function1();
-        interface1Impl2.function1();
-        interface1Impl3.function1();
+        ShapeImpl1.function1();
+        ShapeImpl2.function1();
+        ShapeImpl3.function1();
 
         // 获取工厂2
-        AbstractFactory interface2Factory = FactoryProducer.getFactory("INTERFACE2");
+        AbstractFactory ColorFactory = FactoryProducer.getFactory("Color");
 
         // 获取对象
-        Interface2 interface2Impl1 = interface2Factory.getInterface2("FUNCTION1");
-        Interface2 interface2Impl2 = interface2Factory.getInterface2("FUNCTION2");
-        Interface2 interface2Impl3 = interface2Factory.getInterface2("FUNCTION3");
+        Color ColorImpl1 = ColorFactory.getColor("FUNCTION1");
+        Color ColorImpl2 = ColorFactory.getColor("FUNCTION2");
+        Color ColorImpl3 = ColorFactory.getColor("FUNCTION3");
 
         // 调用方法
-        interface2Impl1.function2();
-        interface2Impl2.function2();
-        interface2Impl3.function2();
+        ColorImpl1.function2();
+        ColorImpl2.function2();
+        ColorImpl3.function2();
     }
 }
 ```
 输出：
 ```TEXT
-Inside Interface1_Impl1::function1 method.
-Inside Interface1_Impl2::function2 method.
-Inside Interface1_Impl3::function3 method.
-Inside Interface2_Impl1::function1 method.
-Inside Interface2_Impl2::function2 method.
-Inside Interface2_Impl3::function3 method.
+Inside Shape_Impl1::function1 method.
+Inside Shape_Impl2::function2 method.
+Inside Shape_Impl3::function3 method.
+Inside Color_Impl1::function1 method.
+Inside Color_Impl2::function2 method.
+Inside Color_Impl3::function3 method.
 ```
