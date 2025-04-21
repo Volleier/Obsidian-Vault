@@ -7,9 +7,9 @@
 在一个产品族中定义多个产品，由具体工厂实现创建这些产品的方法。在一个工厂中聚合多个同类产品的创建方法。
 
 ## 优缺点
-1. 确保同一产品族的对象一起工作。
-2. 客户端不需要知道每个对象的具体类，简化了代码。
-3. 扩展产品族非常困难。增加一个新的产品族需要修改抽象工厂和所有具体工厂的代码。
+* 确保同一产品族的对象一起工作。
+* 客户端不需要知道每个对象的具体类，简化了代码。
+* 扩展产品族非常困难。增加一个新的产品族需要修改抽象工厂和所有具体工厂的代码。
 ## 注意事项
 增加新的产品族相对容易，而增加新的产品等级结构比较困难。
 
@@ -185,6 +185,7 @@ public class FactoryProducer {
 
 ## 使用 FactoryProducer 来获取 AbstractFactory
 使用 FactoryProducer 来获取 AbstractFactory，通过传递类型信息来获取实体类的对象。
+AbstractFactoryPatternDemo.java
 ```java
 public class AbstractFactoryPatternDemo {
    public static void main(String[] args) {
@@ -233,7 +234,8 @@ public class AbstractFactoryPatternDemo {
    }
 }
 ```
-输出：
+
+## 输出Belike
 ```text
 Inside Circle::draw() method.
 Inside Rectangle::draw() method.
