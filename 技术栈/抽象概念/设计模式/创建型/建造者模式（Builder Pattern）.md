@@ -30,6 +30,136 @@
 # 实现
 一个组合是形状和颜色组成的。形状有长方形圆形等；形状都在轮廓内。颜色有红色蓝色等等；它们都在表面上。
 
-创建一个表示图形条目的 `Combination` 接口和实现 `Combination` 接口的实体类，以及一个表示轮廓包装的 `Outline` 接口和实现 `OutLine` 接口的实体类，汉堡是包在纸盒中，冷饮是装在瓶子中。
+创建一个表示图形条目的 `Combination` 接口和实现 `Combination` 接口的实体类，以及一个表示轮廓和表面的 `Showcase` 接口和实现 `Showcase` 接口的实体类，形状在轮廓类中，颜色在表面类中。
 
-然后我们创建一个 `Graphics` 类，带有 `Combination` 的 `ArrayList` 和一个通过结合 _Item_ 来创建不同类型的 `Graphics` 对象的 `GraphicsBuilder`。`BuilderPatternDemo` 类使用 `GraphicsBuilder` 来创建一个 `Graphics`。
+然后我们创建一个 `Graphics` 类，带有 `Combination` 的 `ArrayList` 和一个通过结合 `Combination` 来创建不同类型的 `Graphics` 对象的 `GraphicsBuilder`。`BuilderPatternDemo` 类使用 `GraphicsBuilder` 来创建一个 `Graphics`。
+
+## 创建一个表示形状条目和形状包装的接口
+形状包装：形状->轮廓，颜色->形状
+Combination.java
+```java
+public interface Combination {
+   public String name();
+   public Showcase showcase();
+   public float size();    
+}
+```
+Showcase.java
+```java
+public interface Showcase {
+   public String pack();
+}
+```
+
+## 创建实现 Showcase 接口的实体类
+Outline.java
+```java
+public class Outline implements Showcase {
+ 
+   @Override
+   public String Show() {
+      return "Outline";
+   }
+}
+```
+Surface.java
+```java
+public class Surface implements Showcase {
+ 
+   @Override
+   public String Show() {
+      return "Surface";
+   }
+}
+```
+
+## 创建实现 Combination 接口的抽象类
+Combination类提供了默认的功能
+Shape.java
+```java
+public abstract class Shape implements Combination {
+ 
+   @Override
+   public Showcase showcase() {
+      return new Outline();
+   }
+ 
+   @Override
+   public abstract float size();
+}
+```
+Color.java
+```java
+public abstract class Color implements Combination {
+ 
+    @Override
+    public Showcase showcase() {
+       return new Surface();
+    }
+ 
+    @Override
+    public abstract float size();
+}
+```
+
+## 创建扩展了 Shape 和 Color 的实体类
+Rectangle.java
+```java
+public class Rectangle extends Shape {
+ 
+   @Override
+   public float size() {
+      return 100.f;
+   }
+ 
+   @Override
+   public String name() {
+      return "Rectangle";
+   }
+}
+```
+Circle.java
+```java
+public class Circle extends Shape {
+ 
+   @Override
+   public float size() {
+      return 200.f;
+   }
+ 
+   @Override
+   public String name() {
+      return "Circle";
+   }
+}
+```
+Red.java
+```java
+public class Red extends Color {
+ 
+   @Override
+   public float size() {
+      return 300.f;
+   }
+ 
+   @Override
+   public String name() {
+      return "Red";
+   }
+}
+```
+Blue.java
+```java
+public class Blue extends Color {
+ 
+   @Override
+   public float size() {
+      return 200.f;
+   }
+ 
+   @Override
+   public String name() {
+      return "Circle";
+   }
+}
+```
