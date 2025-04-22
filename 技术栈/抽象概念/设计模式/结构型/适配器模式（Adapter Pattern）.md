@@ -34,42 +34,43 @@
 SquareGraphic.java
 ```java
 public interface SquareGraphic {
-   public void showSquare(String graphicType, String fileName);
+    public void showSquare(String fileName);
 }
 ```
 RectangleGraphic.java
 ```java
-public interface RectangleGraphic { 
-   public void RectangleShowcase(String fileName);
-   public void ColorShowcase(String fileName);
+public interface RectangleGraphic {
+    public void showRectangle(String fileName);
+    public void showColor(String fileName);
 }
 ```
 ## 创建实现了 RectangleGraphics 接口的实体类
 RectangleShowcase.java
 ```java
-public class RectangleShowcase implements RectangleGraphics{
-   @Override
-   public void RectangleShowcase(String fileName) {
-      System.out.println("Show Rectangle. Name "+ fileName);      
-   }
- 
-   @Override
-   public void ColorShowcase(String fileName) {
-   }
+public class RectangleShowcase implements RectangleGraphic {
+    @Override
+    public void showRectangle(String fileName) {
+        System.out.println("Showing rectangle: " + fileName);
+    }
+    
+    @Override
+    public void showColor(String fileName) {
+        // 空实现
+    }
 }
 ```
 ColorShowcase.java
 ```java
-public class ColorShowcase implements RectangleGraphics{
- 
-   @Override
-   public void RectangleShowcase(String fileName) {
-   }
- 
-   @Override
-   public void ColorShowcase(String fileName) {
-      System.out.println("Show Color. Name: "+ fileName);      
-   }
+public class ColorShowcase implements RectangleGraphic {
+    @Override
+    public void showRectangle(String fileName) {
+        // 空实现
+    }
+    
+    @Override
+    public void showColor(String fileName) {
+        System.out.println("Showing color: " + fileName);
+    }
 }
 ```
 
@@ -77,25 +78,20 @@ public class ColorShowcase implements RectangleGraphics{
 GraphicAdapter.java
 ```java
 public class GraphicAdapter implements SquareGraphic {
- 
-   RectangleGraphics rectangleGraphics;
- 
-   public GraphicAdapter(String audioType){
-      if(audioType.equalsIgnoreCase("vlc") ){
-         advancedMusicPlayer = new RectangleShowcase();       
-      } else if (audioType.equalsIgnoreCase("mp4")){
-         advancedMusicPlayer = new ColorShowcase();
-      }  
-   }
- 
-   @Override
-   public void play(String audioType, String fileName) {
-      if(audioType.equalsIgnoreCase("vlc")){
-         advancedMusicPlayer.playVlc(fileName);
-      }else if(audioType.equalsIgnoreCase("mp4")){
-         advancedMusicPlayer.playMp4(fileName);
-      }
-   }
+    private RectangleGraphic rectangleGraphic;
+    
+    public GraphicAdapter(String graphicType) {
+        if(graphicType.equalsIgnoreCase("rectangle")) {
+            rectangleGraphic = new RectangleShowcase();
+        } else if(graphicType.equalsIgnoreCase("color")) {
+            rectangleGraphic = new ColorShowcase();
+        }
+    }
+    
+    @Override
+    public void showSquare(String fileName) {
+        rectangleGraphic.showRectangle(fileName);
+    }
 }
 ```
 
@@ -106,21 +102,21 @@ public class AudioPlayer implements SquareGraphic {
    GraphicAdapter GraphicAdapter; 
  
    @Override
-   public void play(String audioType, String fileName) {    
+   public void play(String GraphicsType, String fileName) {    
  
       //播放 mp3 音乐文件的内置支持
-      if(audioType.equalsIgnoreCase("mp3")){
+      if(GraphicsType.equalsIgnoreCase("mp3")){
          System.out.println("Playing mp3 file. Name: "+ fileName);         
       } 
       //GraphicAdapter 提供了播放其他文件格式的支持
-      else if(audioType.equalsIgnoreCase("vlc") 
-         || audioType.equalsIgnoreCase("mp4")){
-         GraphicAdapter = new GraphicAdapter(audioType);
-         GraphicAdapter.play(audioType, fileName);
+      else if(GraphicsType.equalsIgnoreCase("vlc") 
+         || GraphicsType.equalsIgnoreCase("mp4")){
+         GraphicAdapter = new GraphicAdapter(GraphicsType);
+         GraphicAdapter.play(GraphicsType, fileName);
       }
       else{
          System.out.println("Invalid media. "+
-            audioType + " format not supported");
+            GraphicsType + " format not supported");
       }
    }   
 }
@@ -130,13 +126,15 @@ public class AudioPlayer implements SquareGraphic {
 AdapterPatternDemo.java
 ```java
 public class AdapterPatternDemo {
-   public static void main(String[] args) {
-      AudioPlayer audioPlayer = new AudioPlayer();
- 
-      audioPlayer.play("mp3", "beyond the horizon.mp3");
-      audioPlayer.play("mp4", "alone.mp4");
-      audioPlayer.play("vlc", "far far away.vlc");
-      audioPlayer.play("avi", "mind me.avi");
-   }
+    public static void main(String[] args) {
+        SquareGraphic square = new ShowSquare();
+        square.showSquare("red_square");
+        
+        SquareGraphic adaptedRectangle = new GraphicAdapter("rectangle");
+        adaptedRectangle.showSquare("blue_rectangle");
+        
+        SquareGraphic adaptedColor = new GraphicAdapter("color");
+        adaptedColor.showSquare("green_color");
+    }
 }
 ```
