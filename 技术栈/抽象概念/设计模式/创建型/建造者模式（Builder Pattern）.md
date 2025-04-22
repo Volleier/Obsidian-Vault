@@ -47,7 +47,7 @@ public interface Combination {
 Showcase.java
 ```java
 public interface Showcase {
-   public String pack();
+   public String show();
 }
 ```
 
@@ -172,8 +172,8 @@ import java.util.List;
 public class Graphics {
    private List<Combination> combinations = new ArrayList<Combination>();    
  
-   public void addItem(Combination combination){
-      items.add(combination);
+   public void addCombination(Combination combination){
+      combinations.add(combination);
    }
  
    public float getSize(){
@@ -207,12 +207,12 @@ public class GraphicsBuilder {
       return graphics;
    }   
  
-   public Graphics showGraphics2 (){
-      Graphics graphics = new Graphics();
-      graphics.addCombination(new Circle());
-      graphics.addCombination(new Blue());
-      return graphics;
-   }
+	public Graphics showGraphics2(){
+	   Graphics graphics = new Graphics();
+	   graphics.addCombination(new Circle());
+	   graphics.addCombination(new Blue());
+   return graphics;
+	}
 }
 ```
 
@@ -228,7 +228,7 @@ public class BuilderPatternDemo {
       graphics1.showCombinations();
       System.out.println("Total Size: " +graphics1.getSize());
  
-      Graphics graphics2 = graphicsBuilder.showGraphics1();
+      Graphics graphics2 = graphicsBuilder.showGraphics2();
       System.out.println("graphics2");
       graphics2.showCombinations();
       System.out.println("Total Size: " +graphics2.getSize());
