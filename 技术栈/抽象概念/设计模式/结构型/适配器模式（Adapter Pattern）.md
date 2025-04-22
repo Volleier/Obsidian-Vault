@@ -29,7 +29,7 @@
 我们还有另一个接口 `RectangleGraphic` 和实现了 `RectangleGraphic` 接口的实体类`RectangleShowcase`和`ColorShowcase`，该类可以展示长方形和颜色
 如果想要让 `RectangleGraphic` 展示正方形，需要创建一个实现了 `SquareGraphic` 接口的适配器类 `GraphicAdapter`，并使用 `RectangleGraphics` 对象来展示对应图形。
 `ShowSquare` 使用适配器类 `GraphicAdapter` 传递所需的图形，不需要知道实际类。`AdapterPatternDemo` 类使用 `ShowSquare` 类来播放各种格式。
-
+![[适配器模式-1.png]]
 ## 为正方形和长方形创建接口
 SquareGraphic.java
 ```java
@@ -96,26 +96,25 @@ public class GraphicAdapter implements SquareGraphic {
 ```
 
 ## 创建实现了 SquareGraphic 接口的实体类
-AudioPlayer.java
+SquareShowcase.java
 ```java
-public class AudioPlayer implements SquareGraphic {
+public class SquareShowcase implements SquareGraphic {
    GraphicAdapter GraphicAdapter; 
  
    @Override
    public void play(String GraphicsType, String fileName) {    
  
-      //播放 mp3 音乐文件的内置支持
-      if(GraphicsType.equalsIgnoreCase("mp3")){
-         System.out.println("Playing mp3 file. Name: "+ fileName);         
+      if(GraphicsType.equalsIgnoreCase("square")){
+         System.out.println("Playing square file. Name: "+ fileName);         
       } 
-      //GraphicAdapter 提供了播放其他文件格式的支持
-      else if(GraphicsType.equalsIgnoreCase("vlc") 
-         || GraphicsType.equalsIgnoreCase("mp4")){
+      //GraphicAdapter 提供了展示长方形的支持
+      else if(GraphicsType.equalsIgnoreCase("rectangle") 
+         || GraphicsType.equalsIgnoreCase("color")){
          GraphicAdapter = new GraphicAdapter(GraphicsType);
          GraphicAdapter.play(GraphicsType, fileName);
       }
       else{
-         System.out.println("Invalid media. "+
+         System.out.println("Invalid graphy. "+
             GraphicsType + " format not supported");
       }
    }   
