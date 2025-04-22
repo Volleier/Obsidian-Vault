@@ -29,6 +29,6 @@
 
 我们还有另一个接口 _AdvancedMediaPlayer_ 和实现了 _AdvancedMediaPlayer_ 接口的实体类。该类可以播放 vlc 和 mp4 格式的文件。
 
-我们想要让 _AudioPlayer_ 播放其他格式的音频文件。为了实现这个功能，我们需要创建一个实现了 _MediaPlayer_ 接口的适配器类 _MediaAdapter_，并使用 _AdvancedMediaPlayer_ 对象来播放所需的格式。
+我们想要让 _RectanglePlayer_ 播放其他格式的音频文件。为了实现这个功能，我们需要创建一个实现了 _MediaPlayer_ 接口的适配器类 _MediaAdapter_，并使用 _AdvancedMediaPlayer_ 对象来播放所需的格式。
 
 _AudioPlayer_ 使用适配器类 _MediaAdapter_ 传递所需的音频类型，不需要知道能播放所需格式音频的实际类。_AdapterPatternDemo_ 类使用 _AudioPlayer_ 类来播放各种格式。
