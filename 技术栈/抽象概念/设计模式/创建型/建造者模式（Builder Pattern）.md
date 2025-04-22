@@ -33,6 +33,7 @@
 创建一个表示图形条目的 `Combination` 接口和实现 `Combination` 接口的实体类，以及一个表示轮廓和表面的 `Showcase` 接口和实现 `Showcase` 接口的实体类，形状在轮廓类中，颜色在表面类中。
 
 然后我们创建一个 `Graphics` 类，带有 `Combination` 的 `ArrayList` 和一个通过结合 `Combination` 来创建不同类型的 `Graphics` 对象的 `GraphicsBuilder`。`BuilderPatternDemo` 类使用 `GraphicsBuilder` 来创建一个 `Graphics`。
+![[建造者模式-1.png]]
 
 ## 创建一个表示形状条目和形状包装的接口
 形状包装：形状->轮廓，颜色->形状
