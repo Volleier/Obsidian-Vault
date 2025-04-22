@@ -32,7 +32,7 @@
 - 客户端（Client）：使用原型实例来创建新的对象。客户端调用原型对象的 `clone()` 方法来创建新的对象，而不是直接使用构造函数。
 
 # 实现
-实现Shape，用ShaoeCache缓存Shape并由PrototypePatternDemo
+实现Shape，用ShaoeCache缓存Shape并由PrototypePatternDemo访问
 ![[原型模式-1.png]]
 ## 创建一个实现了 _Cloneable_ 接口的抽象类
 Shape.java
@@ -127,9 +127,6 @@ public class ShapeCache {
       return (Shape) cachedShape.clone();
    }
  
-   // 对每种形状都运行数据库查询，并创建该形状
-   // shapeMap.put(shapeKey, shape);
-   // 例如，我们要添加三种形状
    public static void loadCache() {
       Circle circle = new Circle();
       circle.setId("1");
