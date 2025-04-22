@@ -74,10 +74,10 @@ public class ColorShowcase implements RectangleGraphic {
 }
 ```
 
-## 创建实现了 SquareGraphic 接口的适配器类
-GraphicAdapter.java
+## 创建实现了 SquareShape 接口的适配器类
+ShapeAdapter.java
 ```java
-public class GraphicAdapter implements SquareGraphic {
+public class ShapeAdapter implements SquareShape {
     private RectangleGraphic rectangleGraphic;
     
     public GraphicAdapter(String graphicType) {
