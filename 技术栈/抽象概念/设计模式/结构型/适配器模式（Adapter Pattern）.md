@@ -26,21 +26,117 @@
 
 # 实现
 我们有一个 `SquareGraphic` 接口和一个实现了 `SquareGraphic` 接口的实体类 `ShowSquare`，该类可以展示正方形。
-我们还有另一个接口 `RectangleGraphic` 和实现了 `RectangleGraphic` 接口的实体类`ShowRectangle`和`ShowColor`，该类可以展示长方形和颜色
+我们还有另一个接口 `RectangleGraphic` 和实现了 `RectangleGraphic` 接口的实体类`RectangleShowcase`和`ColorShowcase`，该类可以展示长方形和颜色
 如果想要让 `RectangleGraphic` 展示正方形，需要创建一个实现了 `SquareGraphic` 接口的适配器类 `GraphicAdapter`，并使用 `RectangleGraphics` 对象来展示对应图形。
 `ShowSquare` 使用适配器类 `GraphicAdapter` 传递所需的图形，不需要知道实际类。`AdapterPatternDemo` 类使用 `ShowSquare` 类来播放各种格式。
 
 ## 为正方形和长方形创建接口
-
+SquareGraphic.java
 ```java
 public interface SquareGraphic {
    public void showSquare(String graphicType, String fileName);
 }
 ```
-
+RectangleGraphic.java
 ```java
 public interface RectangleGraphic { 
-   public void showRectangle(String fileName);
-   public void showColor(String fileName);
+   public void RectangleShowcase(String fileName);
+   public void ColorShowcase(String fileName);
+}
+```
+## 创建实现了 RectangleGraphics 接口的实体类
+RectangleShowcase.java
+```java
+public class RectangleShowcase implements RectangleGraphics{
+   @Override
+   public void RectangleShowcase(String fileName) {
+      System.out.println("Show Rectangle. Name "+ fileName);      
+   }
+ 
+   @Override
+   public void ColorShowcase(String fileName) {
+   }
+}
+```
+ColorShowcase.java
+```java
+public class ColorShowcase implements RectangleGraphics{
+ 
+   @Override
+   public void RectangleShowcase(String fileName) {
+   }
+ 
+   @Override
+   public void ColorShowcase(String fileName) {
+      System.out.println("Show Color. Name: "+ fileName);      
+   }
+}
+```
+
+## 创建实现了 SquareGraphic 接口的适配器类
+GraphicAdapter.java
+```java
+public class GraphicAdapter implements SquareGraphic {
+ 
+   RectangleGraphics rectangleGraphics;
+ 
+   public GraphicAdapter(String audioType){
+      if(audioType.equalsIgnoreCase("vlc") ){
+         advancedMusicPlayer = new RectangleShowcase();       
+      } else if (audioType.equalsIgnoreCase("mp4")){
+         advancedMusicPlayer = new ColorShowcase();
+      }  
+   }
+ 
+   @Override
+   public void play(String audioType, String fileName) {
+      if(audioType.equalsIgnoreCase("vlc")){
+         advancedMusicPlayer.playVlc(fileName);
+      }else if(audioType.equalsIgnoreCase("mp4")){
+         advancedMusicPlayer.playMp4(fileName);
+      }
+   }
+}
+```
+
+## 创建实现了 SquareGraphic 接口的实体类
+AudioPlayer.java
+```java
+public class AudioPlayer implements SquareGraphic {
+   GraphicAdapter GraphicAdapter; 
+ 
+   @Override
+   public void play(String audioType, String fileName) {    
+ 
+      //播放 mp3 音乐文件的内置支持
+      if(audioType.equalsIgnoreCase("mp3")){
+         System.out.println("Playing mp3 file. Name: "+ fileName);         
+      } 
+      //GraphicAdapter 提供了播放其他文件格式的支持
+      else if(audioType.equalsIgnoreCase("vlc") 
+         || audioType.equalsIgnoreCase("mp4")){
+         GraphicAdapter = new GraphicAdapter(audioType);
+         GraphicAdapter.play(audioType, fileName);
+      }
+      else{
+         System.out.println("Invalid media. "+
+            audioType + " format not supported");
+      }
+   }   
+}
+```
+
+## 使用 AudioPlayer 来播放不同类型的音频格式
+AdapterPatternDemo.java
+```java
+public class AdapterPatternDemo {
+   public static void main(String[] args) {
+      AudioPlayer audioPlayer = new AudioPlayer();
+ 
+      audioPlayer.play("mp3", "beyond the horizon.mp3");
+      audioPlayer.play("mp4", "alone.mp4");
+      audioPlayer.play("vlc", "far far away.vlc");
+      audioPlayer.play("avi", "mind me.avi");
+   }
 }
 ```
