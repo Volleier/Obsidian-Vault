@@ -52,11 +52,11 @@ public class Shape {
    public String getName() {
       return name;
    }
-   public String getOutlinee() {
+   public String getOutline() {
       return outline;
    }
    public String getColor() {
-     color;
+     return color;
    }  
 }
 ```
@@ -76,17 +76,16 @@ import java.util.ArrayList;
 import java.util.List;
  
 public class CriteriaSquare implements Criteria {
- 
-   @Override
-   public List<Shape> meetCriteria(List<Shape> Shape) {
-      List<Shape> squareShapes = new ArrayList<Shape>(); 
-      for (Shape Shape: shapes) {
-         if(Shapegetoutlinee().equalsIgnoreCase("SQUARE")){
-            squareShapes.add(Shape;
-         }
-      }
-      return squareShapes;
-   }
+    @Override
+    public List<Shape> meetCriteria(List<Shape> shapes) {  
+        List<Shape> squareShapes = new ArrayList<Shape>(); 
+        for (Shape shape : shapes) {  
+            if(shape.getOutline().equalsIgnoreCase("SQUARE")) {  
+                squareShapes.add(shape); 
+            }
+        }
+        return squareShapes;
+    }
 }
 ```
 
@@ -96,17 +95,16 @@ import java.util.ArrayList;
 import java.util.List;
  
 public class CriteriaCircle implements Criteria {
- 
-   @Override
-   public List<Shape> meetCriteria(List<Shape> Shape) {
-      List<Shape> circleShapes = new ArrayList<Shape>(); 
-      for (Shape Shape: shapes) {
-         if(shape.getoutlinee().equalsIgnoreCase("circle")){
-            circleShapes.add(Shape;
-         }
-      }
-      return circleShapes;
-   }
+    @Override
+    public List<Shape> meetCriteria(List<Shape> shapes) {
+        List<Shape> circleShapes = new ArrayList<Shape>(); 
+        for (Shape shape : shapes) {
+            if(shape.getOutline().equalsIgnoreCase("CIRCLE")) {
+                circleShapes.add(shape);
+            }
+        }
+        return circleShapes;
+    }
 }
 ```
 
@@ -116,17 +114,16 @@ import java.util.ArrayList;
 import java.util.List;
  
 public class CriteriaRed implements Criteria {
- 
-   @Override
-   public List<Shape> meetCriteria(List<Shape> Shape) {
-      List<Shape> Redpes = new ArrayList<Shape>(); 
-      for (Shape Shape: shapes) {
-         if(shape.getcolorsIgnoreCase("Red{
-            Redpes.add(Shape;
-         }
-      }
-      return Redpes;
-   }
+    @Override
+    public List<Shape> meetCriteria(List<Shape> shapes) {
+        List<Shape> redShapes = new ArrayList<Shape>(); 
+        for (Shape shape : shapes) {
+            if(shape.getColor().equalsIgnoreCase("RED")) {
+                redShapes.add(shape);
+            }
+        }
+        return redShapes;
+    }
 }
 ```
 
@@ -135,20 +132,19 @@ AndCriteria.java
 import java.util.List;
  
 public class AndCriteria implements Criteria {
+    private Criteria criteria;
+    private Criteria otherCriteria;
  
-   private Criteria criteria;
-   private Criteria otherCriteria;
+    public AndCriteria(Criteria criteria, Criteria otherCriteria) {
+        this.criteria = criteria;
+        this.otherCriteria = otherCriteria; 
+    }
  
-   public AndCriteria(Criteria criteria, Criteria otherCriteria) {
-      this.criteria = criteria;
-      this.otherCriteria = otherCriteria; 
-   }
- 
-   @Override
-   public List<Shape> meetCriteria(List<Shape> Shape) {
-      List<Shape> firstCriteriaShapes = criteria.meetCriteria(Shape);     
-      return otherCriteria.meetCriteria(firstCriteriaShapes);
-   }
+    @Override
+    public List<Shape> meetCriteria(List<Shape> shapes) {
+        List<Shape> firstCriteriaShapes = criteria.meetCriteria(shapes);     
+        return otherCriteria.meetCriteria(firstCriteriaShapes);
+    }
 }
 ```
 
@@ -157,73 +153,96 @@ OrCriteria.java
 import java.util.List;
  
 public class OrCriteria implements Criteria {
+    private Criteria criteria;
+    private Criteria otherCriteria;
  
-   private Criteria criteria;
-   private Criteria otherCriteria;
+    public OrCriteria(Criteria criteria, Criteria otherCriteria) {
+        this.criteria = criteria;
+        this.otherCriteria = otherCriteria; 
+    }
  
-   public OrCriteria(Criteria criteria, Criteria otherCriteria) {
-      this.criteria = criteria;
-      this.otherCriteria = otherCriteria; 
-   }
+    @Override
+    public List<Shape> meetCriteria(List<Shape> shapes) {
+        List<Shape> firstCriteriaItems = criteria.meetCriteria(shapes);
+        List<Shape> otherCriteriaItems = otherCriteria.meetCriteria(shapes);
  
-   @Override
-   public List<Shape> meetCriteria(List<Shape> shape) {
-      List<Shape> firstCriteriaItems = criteria.meetCriteria(shape);
-      List<Shape> otherCriteriaItems = otherCriteria.meetCriteria(shape);
- 
-      for (Shape shape: otherCriteriaItems) {
-         if(!firstCriteriaItems.contains(shape){
-           firstCriteriaItems.add(shape);
-         }
-      }  
-      return firstCriteriaItems;
-   }
+        for (Shape shape : otherCriteriaItems) {
+            if(!firstCriteriaItems.contains(shape)) {
+                firstCriteriaItems.add(shape);
+            }
+        }  
+        return firstCriteriaItems;
+    }
 }
 ```
 
 ## 使用不同的标准（Criteria）和它们的结合来过滤 Shape 对象的列表。
-
 CriteriaPatternDemo.java
 ```java
 import java.util.ArrayList; 
 import java.util.List;
  
 public class CriteriaPatternDemo {
-   public static void main(String[] args) {
-      List<Shape> shapes = new ArrayList<Shape>();
+    public static void main(String[] args) {
+        List<Shape> shapes = new ArrayList<Shape>();
  
-      shapes.add(new Shape("Shape1","squarere", "Red"));
-      shapes.add(new Shape("Shape2","Square", "Blue"));
-      shapes.add(new Shape("Shape3","Circle", "Blue"));
-      shapes.add(new Shape("Shap4","Circle", "Red"));
-      shapes.add(new Shape("Shape5","Square", "Red"));
-      shapes.add(new Shape("Shape6","Square", "Red"));
+        shapes.add(new Shape("Shape1", "SQUARE", "Red"));
+        shapes.add(new Shape("Shape2", "SQUARE", "Blue"));
+        shapes.add(new Shape("Shape3", "CIRCLE", "Blue"));
+        shapes.add(new Shape("Shape4", "CIRCLE", "Red"));
+        shapes.add(new Shape("Shape5", "SQUARE", "Red"));
+        shapes.add(new Shape("Shape6", "SQUARE", "Red"));
  
-      Criteria square = new Criteriasquarere();
-      Criteria circle = new CriteriaCircle();
-      Criteria red = new CriteRedgle();
-      Criteria redSquare = new AndCriteria(RedSquare);
-      Criteria redOrcircle = new OrCriteria(red, circle);
+        Criteria square = new CriteriaSquare(); 
+        Criteria circle = new CriteriaCircle();
+        Criteria red = new CriteriaRed();
+        Criteria redSquare = new AndCriteria(red, square); 
+        Criteria redOrCircle = new OrCriteria(red, circle);
  
-      System.out.println("Squares: ");
-      printShapes(square.meetCriteria(Shape));
+        System.out.println("Squares: ");
+        printShapes(square.meetCriteria(shapes));
  
-      System.out.println("\n circles: ");
-      printShapes(circle.meetCriteria(Shape));
+        System.out.println("\nCircles: ");
+        printShapes(circle.meetCriteria(shapes));
  
-      System.out.println("\n Red square: ");
-      printShapes(Redare.meetCriteria(shapes));
+        System.out.println("\nRed Squares: ");
+        printShapes(redSquare.meetCriteria(shapes));
  
-      System.out.println("\n Red Or circles: ");
-      printShapes(Redircle.meetCriteria(shapes));
-   }
+        System.out.println("\nRed Or Circles: ");
+        printShapes(redOrCircle.meetCriteria(shapes));
+    }
  
-   public static void printShapes(List<Shape> shapes){
-      for (Shape Shape: shapes) {
-         System.out.println("Shape : [ Name : " + ShapegetName() 
-            +", Outline : " + Shape.getOoutline() 
-            +", Color : " + shape.getcolor +" ]");
-      }
-   }      
+    public static void printShapes(List<Shape> shapes) {
+        for (Shape shape : shapes) {
+            System.out.println("Shape : [ Name : " + shape.getName() 
+                + ", Outline : " + shape.getOutline() 
+                + ", Color : " + shape.getColor() + " ]");
+        }
+    }      
 }
+```
+
+## 输出Belike
+```text
+Squares: 
+Shape : [ Name : Shape1, Outline : SQUARE, Color : Red ]
+Shape : [ Name : Shape2, Outline : SQUARE, Color : Blue ]
+Shape : [ Name : Shape5, Outline : SQUARE, Color : Red ]
+Shape : [ Name : Shape6, Outline : SQUARE, Color : Red ]
+
+Circles: 
+Shape : [ Name : Shape3, Outline : CIRCLE, Color : Blue ]
+Shape : [ Name : Shape4, Outline : CIRCLE, Color : Red ]
+
+Red Squares: 
+Shape : [ Name : Shape1, Outline : SQUARE, Color : Red ]
+Shape : [ Name : Shape5, Outline : SQUARE, Color : Red ]
+Shape : [ Name : Shape6, Outline : SQUARE, Color : Red ]
+
+Red Or Circles: 
+Shape : [ Name : Shape1, Outline : SQUARE, Color : Red ]
+Shape : [ Name : Shape3, Outline : CIRCLE, Color : Blue ]
+Shape : [ Name : Shape4, Outline : CIRCLE, Color : Red ]
+Shape : [ Name : Shape5, Outline : SQUARE, Color : Red ]
+Shape : [ Name : Shape6, Outline : SQUARE, Color : Red ]
 ```
