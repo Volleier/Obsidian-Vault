@@ -31,7 +31,7 @@
 
 # 实现
 有一个类 `Shape`，该类被当作组合模型类。`CompositePatternDemo` 类使用 `Shape` 类来添加形状层次结构，并打印所有图形。
-
+![[组合模式-1.png]]
 ## 创建 Shape 类，该类带有 Shape 对象的列表
 Shape.java
 ```java
@@ -90,7 +90,7 @@ public class CompositePatternDemo {
 	    Shape squareWhite = new Shape("Square","White", 600);
 
 		rectangle.add(square);
-		square.add(circle);
+		rectangle.add(circle);
 
 	    circle.add(circleRed);
 	    circle.add(circleBlue);
@@ -100,11 +100,8 @@ public class CompositePatternDemo {
 
 	    //打印所有图形
 	    System.out.println(rectangle); 
-	    for (Shape squareShape : rectangle.getRelations()) {
-	        System.out.println(squareShape);
-	        for (Shape circleShape : shape.getRelations()) {
-		        System.out.println(circleShape);
-		    }
+	    for (Shape shape : rectangle.getRelations()) {
+	        System.out.println(shape);
 	    }        
 	}
 }
@@ -112,23 +109,11 @@ public class CompositePatternDemo {
 
 ## 输出Belike
 ```text
-Shape :[ Name : rectangle, color : Red, salary :30000 ]
-Shape :[ Name : Robert, color : Head Sales, size :20000 ]
-Shape :[ Name : Richard, color : Sales, salary :10000 ]
-Shape :[ Name : Rob, color : Sales, salary :10000 ]
-Shape :[ Name : Michel, color : Head Marketing, salary :20000 ]
-Shape :[ Name : Laura, color : Marketing, salary :10000 ]
-Shape :[ Name : Bob, color : Marketing, salary :10000 ]
+Shape :[ Name : Rectangle, color : Red, size :100 ]
+Shape :[ Name : Square, color : Blue, size :200 ]
+Shape :[ Name : Square, color : Black, size :500 ]
+Shape :[ Name : Square, color : White, size :600 ]
+Shape :[ Name : Circle, color : Yellow, size :200 ]
+Shape :[ Name : Circle, color : Black, size :300 ]
+Shape :[ Name : Circle, color : White, size :400 ]
 ```
-
-	    Shape rectangle = new Shape("Rectangle","Red", 100);
- 
-	    Shape square = new Shape("Square","Blue", 200);
- 
-	    Shape circle = new Shape("Circle","Yellow", 200);
- 
-	    Shape circleRed = new Shape("Circle","Black", 300);
-	    Shape circleBlue = new Shape("Circle","White", 400);
- 
-		Shape squareBlack = new Shape("Square","Black", 500);
-	    Shape squareWhite = new Shape("Square","White", 600);
