@@ -128,12 +128,13 @@ public class AdapterPatternDemo {
     public static void main(String[] args) {
         SquareGraphic square = new ShowSquare();
         square.showSquare("red_square");
-        
-        SquareGraphic adaptedRectangle = new GraphicAdapter("rectangle");
-        adaptedRectangle.showSquare("blue_rectangle");
-        
-        SquareGraphic adaptedColor = new GraphicAdapter("color");
-        adaptedColor.showSquare("green_color");
+        square.showSquare("blue_rectangle")
+        square.showSquare("green_color");
     }
 }
+```
+
+## 输出Belike
+```java
+
 ```
