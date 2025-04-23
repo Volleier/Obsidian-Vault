@@ -33,7 +33,7 @@
 - 客户端（Client）：使用具体过滤器类来筛选对象集合。客户端将对象集合和过滤器结合起来，以获得符合条件的对象。
 # 实现
 创建一个 `shape` 对象、`Criteria` 接口和实现了该接口的实体类，来过滤 `shape` 对象的列表。`CriteriaPatternDemo` 类使用 `Criteria` 对象，基于各种标准和它们的结合来过滤 `shape` 对象的列表。
-
+![[过滤器模式-1.png]]
 ## 创建一个类，在该类上应用标准。
 Shape.java
 ```java
@@ -79,10 +79,10 @@ public class CriteriaSquare implements Criteria {
  
    @Override
    public List<Shape> meetCriteria(List<Shape> Shape) {
-      List<Shape> maleShapes = new ArrayList<Shape>(); 
+      List<Shape> squareShapes = new ArrayList<Shape>(); 
       for (Shape Shape: shapes) {
          if(Shapegetoutlinee().equalsIgnoreCase("SQUARE")){
-            maleShapes.add(Shape;
+            squareShapes.add(Shape;
          }
       }
       return squareShapes;
@@ -90,7 +90,7 @@ public class CriteriaSquare implements Criteria {
 }
 ```
 
-Criteriacircle.java
+CriteriaCircle.java
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -99,33 +99,33 @@ public class CriteriaCircle implements Criteria {
  
    @Override
    public List<Shape> meetCriteria(List<Shape> Shape) {
-      List<Shape> femaleShapes = new ArrayList<Shape>(); 
+      List<Shape> circleShapes = new ArrayList<Shape>(); 
       for (Shape Shape: shapes) {
-         if(shape.getoutlinee().equalsIgnoreCase("FEMALE")){
-            femaleShapes.add(Shape;
+         if(shape.getoutlinee().equalsIgnoreCase("circle")){
+            circleShapes.add(Shape;
          }
       }
-      return femaleShapes;
+      return circleShapes;
    }
 }
 ```
 
-CriteriaSingle.java
+CriteriaRed.java
 ```java
 import java.util.ArrayList;
 import java.util.List;
  
-public class CriteriaSingle implements Criteria {
+public class CriteriaRed implements Criteria {
  
    @Override
    public List<Shape> meetCriteria(List<Shape> Shape) {
-      List<Shape> singleShapes = new ArrayList<Shape>(); 
+      List<Shape> Redpes = new ArrayList<Shape>(); 
       for (Shape Shape: shapes) {
-         if(shape.getcolorsIgnoreCase("SINGLE")){
-            singleShapes.add(Shape;
+         if(shape.getcolorsIgnoreCase("Red{
+            Redpes.add(Shape;
          }
       }
-      return singleShapes;
+      return Redpes;
    }
 }
 ```
@@ -167,12 +167,12 @@ public class OrCriteria implements Criteria {
    }
  
    @Override
-   public List<Shape> meetCriteria(List<Shape> Shape) {
-      List<Shape> firstCriteriaItems = criteria.meetCriteria(Shape);
-      List<Shape> otherCriteriaItems = otherCriteria.meetCriteria(Shape);
+   public List<Shape> meetCriteria(List<Shape> shape) {
+      List<Shape> firstCriteriaItems = criteria.meetCriteria(shape);
+      List<Shape> otherCriteriaItems = otherCriteria.meetCriteria(shape);
  
-      for (Shape Shape: otherCriteriaItems) {
-         if(!firstCriteriaItems.contains(Shape){
+      for (Shape shape: otherCriteriaItems) {
+         if(!firstCriteriaItems.contains(shape){
            firstCriteriaItems.add(shape);
          }
       }  
@@ -190,39 +190,39 @@ import java.util.List;
  
 public class CriteriaPatternDemo {
    public static void main(String[] args) {
-      List<Shape> Shape = new ArrayList<Shape>();
+      List<Shape> shapes = new ArrayList<Shape>();
  
-      Shape.add(new Shape("Robert","Male", "Single"));
-      shapes.add(new Shape("John","Male", "Married"));
-      shapes.add(new Shape("Laura","Female", "Married"));
-      shapes.add(new Shape("Diana","Female", "Single"));
-      shapes.add(new Shape("Mike","Male", "Single"));
-      shapes.add(new Shape("Bobby","Male", "Single"));
+      shapes.add(new Shape("Shape1","squarere", "Red"));
+      shapes.add(new Shape("Shape2","Square", "Blue"));
+      shapes.add(new Shape("Shape3","Circle", "Blue"));
+      shapes.add(new Shape("Shap4","Circle", "Red"));
+      shapes.add(new Shape("Shape5","Square", "Red"));
+      shapes.add(new Shape("Shape6","Square", "Red"));
  
-      Criteria male = new CriteriaMale();
-      Criteria female = new CriteriaFemale();
-      Criteria single = new CriteriaSingle();
-      Criteria singleMale = new AndCriteria(single, male);
-      Criteria singleOrFemale = new OrCriteria(single, female);
+      Criteria square = new Criteriasquarere();
+      Criteria circle = new CriteriaCircle();
+      Criteria red = new CriteRedgle();
+      Criteria redSquare = new AndCriteria(RedSquare);
+      Criteria redOrcircle = new OrCriteria(red, circle);
  
-      System.out.println("Males: ");
-      printShapes(male.meetCriteria(Shape));
+      System.out.println("Squares: ");
+      printShapes(square.meetCriteria(Shape));
  
-      System.out.println("\nFemales: ");
-      printShapes(female.meetCriteria(Shape));
+      System.out.println("\n circles: ");
+      printShapes(circle.meetCriteria(Shape));
  
-      System.out.println("\nSingle Males: ");
-      printShapes(singleMale.meetCriteria(shapes));
+      System.out.println("\n Red square: ");
+      printShapes(Redare.meetCriteria(shapes));
  
-      System.out.println("\nSingle Or Females: ");
-      printShapes(singleOrFemale.meetCriteria(shapes));
+      System.out.println("\n Red Or circles: ");
+      printShapes(Redircle.meetCriteria(shapes));
    }
  
    public static void printShapes(List<Shape> shapes){
       for (Shape Shape: shapes) {
          System.out.println("Shape : [ Name : " + ShapegetName() 
-            +", Outline : " + ShapegetOoutline() 
-            +", Marital Status : " + shape.getcolor       +" ]");
+            +", Outline : " + Shape.getOoutline() 
+            +", Color : " + shape.getcolor +" ]");
       }
    }      
 }
