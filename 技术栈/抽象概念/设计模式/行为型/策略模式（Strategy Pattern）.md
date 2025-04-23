@@ -35,11 +35,12 @@
 
 # 实现
 
-我们将创建一个定义活动的 _Strategy_ 接口和实现了 _Strategy_ 接口的实体策略类。_Context_ 是一个使用了某种策略的类。
-
-_StrategyPatternDemo_，我们的演示类使用 _Context_ 和策略对象来演示 Context 在它所配置或使用的策略改变时的行为变化。
+创建一个定义活动的 `Strategy` 接口和实现了 `Strategy` 接口的实体策略类。`Context` 是一个使用了某种策略的类。
+`StrategyPatternDemo`，我们的演示类使用 `Context` 和策略对象来演示 Context 在它所配置或使用的策略改变时的行为变化。
+![[策略模式-1.png]]
 
 ## 创建一个接口
+Strategy.java
 ```java
 public interface Strategy {
    public int doOperation(int num1, int num2);
@@ -47,5 +48,70 @@ public interface Strategy {
 ```
 
 ## 创建实现接口的实体类
+OperationAdd.java
+```java
+public class OperationAdd implements Strategy{
+   @Override
+   public int doOperation(int num1, int num2) {
+      return num1 + num2;
+   }
+}
+```
+OperationSubtract.java
+```java
+public class OperationSubtract implements Strategy{
+   @Override
+   public int doOperation(int num1, int num2) {
+      return num1 - num2;
+   }
+}
+```
+OperationMultiply.java
+```java
+public class OperationMultiply implements Strategy{
+   @Override
+   public int doOperation(int num1, int num2) {
+      return num1 * num2;
+   }
+}
+```
 
-··
+## 创建 Context 类
+Context.java
+```java
+public class Context {
+   private Strategy strategy;
+ 
+   public Context(Strategy strategy){
+      this.strategy = strategy;
+   }
+ 
+   public int executeStrategy(int num1, int num2){
+      return strategy.doOperation(num1, num2);
+   }
+}
+```
+
+## 使用 Context 来查看当它改变策略 Strategy 时的行为变化
+StrategyPatternDemo.java
+```java
+public class StrategyPatternDemo {
+   public static void main(String[] args) {
+      Context context = new Context(new OperationAdd());    
+      System.out.println("10 + 5 = " + context.executeStrategy(10, 5));
+ 
+      context = new Context(new OperationSubtract());      
+      System.out.println("10 - 5 = " + context.executeStrategy(10, 5));
+ 
+      context = new Context(new OperationMultiply());    
+      System.out.println("10 * 5 = " + context.executeStrategy(10, 5));
+   }
+}
+```
+
+## 输出Belike
+```text
+10 + 5 = 15
+10 - 5 = 5
+10 * 5 = 50
+```
