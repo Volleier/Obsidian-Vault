@@ -45,29 +45,90 @@ public class Shape {
    private List<Shape> relation;
  
    //构造函数
-   public Employee(String name,String dept, int sal) {
+   public Shape(String name,String color, int size) {
       this.name = name;
-      this.dept = dept;
-      this.salary = sal;
-      subordinates = new ArrayList<Employee>();
+      this.color = color;
+      this.size = size;
+      relations = new ArrayList<Shape>();
    }
  
-   public void add(Employee e) {
-      subordinates.add(e);
+   public void add(Shape s) {
+      relations.add(s);
    }
  
-   public void remove(Employee e) {
-      subordinates.remove(e);
+   public void remove(Shape s) {
+      relations.remove(s);
    }
  
-   public List<Employee> getSubordinates(){
-     return subordinates;
+   public List<Shape> getRelations(){
+     return relations;
    }
  
    public String toString(){
-      return ("Employee :[ Name : "+ name 
-      +", dept : "+ dept + ", salary :"
-      + salary+" ]");
+      return ("Shape :[ Name : "+ name 
+      +", color : "+ color + ", size :"
+      + size+" ]");
    }   
 }
 ```
+
+## 使用 Shape 类来创建和打印图形的层次结构
+CompositePatternDemo.java
+```java
+public class CompositePatternDemo {
+	public static void main(String[] args) {
+	    Shape rectangle = new Shape("Rectangle","Red", 100);
+ 
+	    Shape square = new Shape("Square","Blue", 200);
+ 
+	    Shape circle = new Shape("Circle","Yellow", 200);
+ 
+	    Shape circleRed = new Shape("Circle","Black", 300);
+	    Shape circleBlue = new Shape("Circle","White", 400);
+ 
+		Shape squareBlack = new Shape("Square","Black", 500);
+	    Shape squareWhite = new Shape("Square","White", 600);
+
+		rectangle.add(square);
+		square.add(circle);
+
+	    circle.add(circleRed);
+	    circle.add(circleBlue);
+ 
+	    square.add(squareBlack);
+	    square.add(squareWhite);
+
+	    //打印所有图形
+	    System.out.println(rectangle); 
+	    for (Shape squareShape : rectangle.getRelations()) {
+	        System.out.println(squareShape);
+	        for (Shape circleShape : shape.getRelations()) {
+		        System.out.println(circleShape);
+		    }
+	    }        
+	}
+}
+```
+
+## 输出Belike
+```text
+Shape :[ Name : rectangle, color : Red, salary :30000 ]
+Shape :[ Name : Robert, color : Head Sales, size :20000 ]
+Shape :[ Name : Richard, color : Sales, salary :10000 ]
+Shape :[ Name : Rob, color : Sales, salary :10000 ]
+Shape :[ Name : Michel, color : Head Marketing, salary :20000 ]
+Shape :[ Name : Laura, color : Marketing, salary :10000 ]
+Shape :[ Name : Bob, color : Marketing, salary :10000 ]
+```
+
+	    Shape rectangle = new Shape("Rectangle","Red", 100);
+ 
+	    Shape square = new Shape("Square","Blue", 200);
+ 
+	    Shape circle = new Shape("Circle","Yellow", 200);
+ 
+	    Shape circleRed = new Shape("Circle","Black", 300);
+	    Shape circleBlue = new Shape("Circle","White", 400);
+ 
+		Shape squareBlack = new Shape("Square","Black", 500);
+	    Shape squareWhite = new Shape("Square","White", 600);
