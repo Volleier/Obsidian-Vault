@@ -32,45 +32,198 @@
 - 对象集合（Items/Objects to be filtered）：要被过滤的对象集合。这些对象通常是具有共同属性的实例，例如一组人、一组产品等。
 - 客户端（Client）：使用具体过滤器类来筛选对象集合。客户端将对象集合和过滤器结合起来，以获得符合条件的对象。
 # 实现
-创建一个 _Person_ 对象、_Criteria_ 接口和实现了该接口的实体类，来过滤 _Person_ 对象的列表。_CriteriaPatternDemo_ 类使用 _Criteria_ 对象，基于各种标准和它们的结合来过滤 _Person_ 对象的列表。
+创建一个 `shape` 对象、`Criteria` 接口和实现了该接口的实体类，来过滤 `shape` 对象的列表。`CriteriaPatternDemo` 类使用 `Criteria` 对象，基于各种标准和它们的结合来过滤 `shape` 对象的列表。
 
 ## 创建一个类，在该类上应用标准。
-Person.java
-
-public class Person { private String name; private String gender; private String maritalStatus; public Person(String name,String gender,String maritalStatus){ this.name = name; this.gender = gender; this.maritalStatus = maritalStatus; } public String getName() { return name; } public String getGender() { return gender; } public String getMaritalStatus() { return maritalStatus; } }
-
+Shape.java
+```java
+public class Shape {
+   
+   private String name;
+   private String outline;
+   private String color;
+ 
+   public Shape(String name,String outline,String color){
+      this.name = name;
+      this.outline = outline;
+      this.color = color;    
+   }
+ 
+   public String getName() {
+      return name;
+   }
+   public String getOutlinee() {
+      return outline;
+   }
+   public String getColor() {
+     color;
+   }  
+}
+```
 ## 为标准（Criteria）创建一个接口。
-
 Criteria.java
+```java
+import java.util.List;
+ 
+public interface Criteria {
+   public List<Shape> meetCriteria(List<Shape> Shapes);
+}
+```
+## 创建实现了 Criteria 接口的实体类。
+CriteriaSquare.java
+```java
+import java.util.ArrayList;
+import java.util.List;
+ 
+public class CriteriaSquare implements Criteria {
+ 
+   @Override
+   public List<Shape> meetCriteria(List<Shape> Shape) {
+      List<Shape> maleShapes = new ArrayList<Shape>(); 
+      for (Shape Shape: shapes) {
+         if(Shapegetoutlinee().equalsIgnoreCase("SQUARE")){
+            maleShapes.add(Shape;
+         }
+      }
+      return squareShapes;
+   }
+}
+```
 
-import java.util.List; public interface Criteria { public List<Person> meetCriteria(List<Person> persons); }
+Criteriacircle.java
+```java
+import java.util.ArrayList;
+import java.util.List;
+ 
+public class CriteriaCircle implements Criteria {
+ 
+   @Override
+   public List<Shape> meetCriteria(List<Shape> Shape) {
+      List<Shape> femaleShapes = new ArrayList<Shape>(); 
+      for (Shape Shape: shapes) {
+         if(shape.getoutlinee().equalsIgnoreCase("FEMALE")){
+            femaleShapes.add(Shape;
+         }
+      }
+      return femaleShapes;
+   }
+}
+```
 
-## 创建实现了 _Criteria_ 接口的实体类。
+CriteriaSingle.java
+```java
+import java.util.ArrayList;
+import java.util.List;
+ 
+public class CriteriaSingle implements Criteria {
+ 
+   @Override
+   public List<Shape> meetCriteria(List<Shape> Shape) {
+      List<Shape> singleShapes = new ArrayList<Shape>(); 
+      for (Shape Shape: shapes) {
+         if(shape.getcolorsIgnoreCase("SINGLE")){
+            singleShapes.add(Shape;
+         }
+      }
+      return singleShapes;
+   }
+}
+```
 
-## CriteriaMale.java
+AndCriteria.java
+```java
+import java.util.List;
+ 
+public class AndCriteria implements Criteria {
+ 
+   private Criteria criteria;
+   private Criteria otherCriteria;
+ 
+   public AndCriteria(Criteria criteria, Criteria otherCriteria) {
+      this.criteria = criteria;
+      this.otherCriteria = otherCriteria; 
+   }
+ 
+   @Override
+   public List<Shape> meetCriteria(List<Shape> Shape) {
+      List<Shape> firstCriteriaShapes = criteria.meetCriteria(Shape);     
+      return otherCriteria.meetCriteria(firstCriteriaShapes);
+   }
+}
+```
 
-import java.util.ArrayList; import java.util.List; public class CriteriaMale implements Criteria { @Override public List<Person> meetCriteria(List<Person> persons) { List<Person> malePersons = new ArrayList<Person>(); for (Person person : persons) { if(person.getGender().equalsIgnoreCase("MALE")){ malePersons.add(person); } } return malePersons; } }
+OrCriteria.java
+```java
+import java.util.List;
+ 
+public class OrCriteria implements Criteria {
+ 
+   private Criteria criteria;
+   private Criteria otherCriteria;
+ 
+   public OrCriteria(Criteria criteria, Criteria otherCriteria) {
+      this.criteria = criteria;
+      this.otherCriteria = otherCriteria; 
+   }
+ 
+   @Override
+   public List<Shape> meetCriteria(List<Shape> Shape) {
+      List<Shape> firstCriteriaItems = criteria.meetCriteria(Shape);
+      List<Shape> otherCriteriaItems = otherCriteria.meetCriteria(Shape);
+ 
+      for (Shape Shape: otherCriteriaItems) {
+         if(!firstCriteriaItems.contains(Shape){
+           firstCriteriaItems.add(shape);
+         }
+      }  
+      return firstCriteriaItems;
+   }
+}
+```
 
-## CriteriaFemale.java
+## 使用不同的标准（Criteria）和它们的结合来过滤 Shape 对象的列表。
 
-import java.util.ArrayList; import java.util.List; public class CriteriaFemale implements Criteria { @Override public List<Person> meetCriteria(List<Person> persons) { List<Person> femalePersons = new ArrayList<Person>(); for (Person person : persons) { if(person.getGender().equalsIgnoreCase("FEMALE")){ femalePersons.add(person); } } return femalePersons; } }
-
-## CriteriaSingle.java
-
-import java.util.ArrayList; import java.util.List; public class CriteriaSingle implements Criteria { @Override public List<Person> meetCriteria(List<Person> persons) { List<Person> singlePersons = new ArrayList<Person>(); for (Person person : persons) { if(person.getMaritalStatus().equalsIgnoreCase("SINGLE")){ singlePersons.add(person); } } return singlePersons; } }
-
-## AndCriteria.java
-
-import java.util.List; public class AndCriteria implements Criteria { private Criteria criteria; private Criteria otherCriteria; public AndCriteria(Criteria criteria, Criteria otherCriteria) { this.criteria = criteria; this.otherCriteria = otherCriteria; } @Override public List<Person> meetCriteria(List<Person> persons) { List<Person> firstCriteriaPersons = criteria.meetCriteria(persons); return otherCriteria.meetCriteria(firstCriteriaPersons); } }
-
-## OrCriteria.java
-
-import java.util.List; public class OrCriteria implements Criteria { private Criteria criteria; private Criteria otherCriteria; public OrCriteria(Criteria criteria, Criteria otherCriteria) { this.criteria = criteria; this.otherCriteria = otherCriteria; } @Override public List<Person> meetCriteria(List<Person> persons) { List<Person> firstCriteriaItems = criteria.meetCriteria(persons); List<Person> otherCriteriaItems = otherCriteria.meetCriteria(persons); for (Person person : otherCriteriaItems) { if(!firstCriteriaItems.contains(person)){ firstCriteriaItems.add(person); } } return firstCriteriaItems; } }
-
-### 步骤4
-
-使用不同的标准（Criteria）和它们的结合来过滤 _Person_ 对象的列表。
-
-## CriteriaPatternDemo.java
-
-import java.util.ArrayList; import java.util.List; public class CriteriaPatternDemo { public static void main(String[] args) { List<Person> persons = new ArrayList<Person>(); persons.add(new Person("Robert","Male", "Single")); persons.add(new Person("John","Male", "Married")); persons.add(new Person("Laura","Female", "Married")); persons.add(new Person("Diana","Female", "Single")); persons.add(new Person("Mike","Male", "Single")); persons.add(new Person("Bobby","Male", "Single")); Criteria male = new CriteriaMale(); Criteria female = new CriteriaFemale(); Criteria single = new CriteriaSingle(); Criteria singleMale = new AndCriteria(single, male); Criteria singleOrFemale = new OrCriteria(single, female); System.out.println("Males: "); printPersons(male.meetCriteria(persons)); System.out.println("\nFemales: "); printPersons(female.meetCriteria(persons)); System.out.println("\nSingle Males: "); printPersons(singleMale.meetCriteria(persons)); System.out.println("\nSingle Or Females: "); printPersons(singleOrFemale.meetCriteria(persons)); } public static void printPersons(List<Person> persons){ for (Person person : persons) { System.out.println("Person : [ Name : " + person.getName() +", Gender : " + person.getGender() +", Marital Status : " + person.getMaritalStatus() +" ]"); } } }
+CriteriaPatternDemo.java
+```java
+import java.util.ArrayList; 
+import java.util.List;
+ 
+public class CriteriaPatternDemo {
+   public static void main(String[] args) {
+      List<Shape> Shape = new ArrayList<Shape>();
+ 
+      Shape.add(new Shape("Robert","Male", "Single"));
+      shapes.add(new Shape("John","Male", "Married"));
+      shapes.add(new Shape("Laura","Female", "Married"));
+      shapes.add(new Shape("Diana","Female", "Single"));
+      shapes.add(new Shape("Mike","Male", "Single"));
+      shapes.add(new Shape("Bobby","Male", "Single"));
+ 
+      Criteria male = new CriteriaMale();
+      Criteria female = new CriteriaFemale();
+      Criteria single = new CriteriaSingle();
+      Criteria singleMale = new AndCriteria(single, male);
+      Criteria singleOrFemale = new OrCriteria(single, female);
+ 
+      System.out.println("Males: ");
+      printShapes(male.meetCriteria(Shape));
+ 
+      System.out.println("\nFemales: ");
+      printShapes(female.meetCriteria(Shape));
+ 
+      System.out.println("\nSingle Males: ");
+      printShapes(singleMale.meetCriteria(shapes));
+ 
+      System.out.println("\nSingle Or Females: ");
+      printShapes(singleOrFemale.meetCriteria(shapes));
+   }
+ 
+   public static void printShapes(List<Shape> shapes){
+      for (Shape Shape: shapes) {
+         System.out.println("Shape : [ Name : " + ShapegetName() 
+            +", Outline : " + ShapegetOoutline() 
+            +", Marital Status : " + shape.getcolor       +" ]");
+      }
+   }      
+}
+```
