@@ -36,6 +36,7 @@
 # 实现
 创建一个 `Shape` 接口和实现了 `Shape` 接口的实体类。`ProxyShape` 是一个代理类，减少 `RealShape` 对象加载的内存占用。
 `ProxyPatternDemo` 类使用 `ProxyShape` 来获取要加载的 `Shape` 对象，并按照需求进行显示。
+![[代理模式-1.png]]
 
 ## 创建一个接口
 Shape.java
@@ -69,9 +70,8 @@ public class RealShape implements Shape {
 ```
 ProxyShape.java
 ```java
-public class ProxyShape implements Image{
- 
-   private ReaShape ReaShape;
+public class ProxyShape implements Shape {  
+   private RealShape realShape; 
    private String fileName;
  
    public ProxyShape(String fileName){
@@ -80,10 +80,10 @@ public class ProxyShape implements Image{
  
    @Override
    public void show() {
-      if(reaShape == null){
-         reaShape = new ReaShape(fileName);
+      if(realShape == null){ 
+         realShape = new RealShape(fileName); 
       }
-      reaShape.show();
+      realShape.show();
    }
 }
 ```
@@ -92,15 +92,14 @@ public class ProxyShape implements Image{
 ProxyPatternDemo.java
 ```java
 public class ProxyPatternDemo {
-   
    public static void main(String[] args) {
-      Shape shape = new ProxyShape("Rectangle.shape");
+      Shape shape = new ProxyShape("Rectangle.shape"); 
  
-      // 图像将从磁盘加载
-      image.show(); 
+      // 第一次加载会从磁盘读取
+      shape.show(); 
       System.out.println("");
-      // 图像不需要从磁盘加载
-      image.show();  
+      // 第二次直接使用缓存
+      shape.show();  
    }
 }
 ```
