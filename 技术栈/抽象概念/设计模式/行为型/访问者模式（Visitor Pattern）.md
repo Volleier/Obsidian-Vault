@@ -1,5 +1,5 @@
 在访问者模式（Visitor Pattern）中，我们使用了一个访问者类，它改变了元素类的执行算法。通过这种方式，元素的执行算法可以随着访问者改变而改变。这种类型的设计模式属于行为型模式。根据模式，元素对象已接受访问者对象，这样访问者对象就可以处理元素对象上的操作。
-
+![[访问者模式-1.png]]
 # 介绍
 ## 概览
 旨在将数据结构与在该数据结构上执行的操作分离，从而使得添加新的操作变得更容易，而无需修改数据结构本身。主要解决在稳定数据结构和易变操作之间的耦合问题，使得操作可以独立于数据结构变化。使用场景为当需要对一个对象结构中的对象执行多种不同的且不相关的操作时，尤其是这些操作需要避免"污染"对象类本身。
@@ -100,20 +100,20 @@ public class Shape implements ShapePart {
 ```
 
 ## 定义一个表示访问者的接口
-ShpaePartVisitor.java
+ShapePartVisitor.java
 ```java
 public interface ShpaePartVisitor {
-   public void visit(Rectangle rectangle);
-   public void visit(Circle circle);
-   public void visit(Square square);
-   public void visit(Shape shape);
+	public void visit(Rectangle rectangle);
+	public void visit(Circle circle);
+	public void visit(Square square);
+		public void visit(Shape shape);
 }
 ```
 
 ## 创建实现了上述类的实体访问者
-ShapePartDisplayVisitor.java
+ShapePartShowVisitor.java
 ```java
-public class ShapePartDisplayVisitor implements ShapePartVisitor {
+public class ShapePartShowVisitor implements ShapePartVisitor {
  
    @Override
    public void visit(Shape shape) {
@@ -131,19 +131,19 @@ public class ShapePartDisplayVisitor implements ShapePartVisitor {
    }
  
    @Override
-   public void visit(Sqaure sqaure) {
-      System.out.println("Displaying Square.");
+   public void visit(Square sqaure) {
+      System.out.println("Showing Square.");
    }
 }
 ```
 
-## 使用 ShapePartDisplayVisitor 来显示 Shape 的组成部分
+## 使用 ShapePartShowVisitor 来显示 Shape 的组成部分
 VisitorPatternDemo.java
 ```java
 public class VisitorPatternDemo {
 	public static void main(String[] args) {
 		ShapePart shape = new Shape();
-	    shape.accept(new ShapePartDisplayVisitor());
+	    shape.accept(new ShapePartShowVisitor());
 	}
 }
 ```
