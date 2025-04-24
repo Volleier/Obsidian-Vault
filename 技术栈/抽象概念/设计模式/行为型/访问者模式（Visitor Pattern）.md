@@ -29,22 +29,129 @@
 - 当需要避免操作"污染"对象类时，使用访问者模式封装操作。
 - 访问者模式可以用于功能统一，如报表生成、用户界面显示、拦截器和过滤器等。
 
-## 包含的几个主要角色
-- **访问者（Visitor）**：
-    
-    - 定义了访问元素的接口。
-- **具体访问者（Concrete Visitor）**：
-    
-    - 实现访问者接口，提供对每个具体元素类的访问和相应操作。
-- **元素（Element）**：
-    
-    - 定义了一个接受访问者的方法。
-- **具体元素（Concrete Element）**：
-    
-    - 实现元素接口，提供一个`accept`方法，允许访问者访问并操作。
-- **对象结构（Object Structure）（可选）**：
-    
-    - 定义了如何组装具体元素，如一个组合类。
-- **客户端（Client）（可选）**：
-    
-    - 使用访问者模式对对象结构进行操作。
+## 结构
+- 访问者（Visitor）：定义了访问元素的接口。
+- 具体访问者（Concrete Visitor）：实现访问者接口，提供对每个具体元素类的访问和相应操作。
+- 元素（Element）：定义了一个接受访问者的方法。
+- 具体元素（Concrete Element）：实现元素接口，提供一个`accept`方法，允许访问者访问并操作。
+- 对象结构（Object Structure）（可选）：定义了如何组装具体元素，如一个组合类。
+- 客户端（Client）（可选）：使用访问者模式对对象结构进行操作。
+
+## 实现
+创建一个定义接受操作的 `ShapePart` 接口。`Rectangle`、`Circle`、`Square` 和 `Shape` 是实现了 `ShapePart` 接口的实体类。我们将定义另一个接口 `ShapePartVisitor`，它定义了访问者类的操作。`Shape` 使用实体访问者来执行相应的动作。
+`VisitorPatternDemo`，我们的演示类使用 `Shape`、`ShapePartVisitor` 类来演示访问者模式的用法。
+
+## 定义一个表示元素的接口
+ShapePart.java
+```java
+public interface ShapePart {
+   public void accept(ShapePartVisit shapePartVisitor);
+}
+```
+
+## 创建扩展了上述类的实体类
+Rectangle.java
+```java
+public class Rectangle implements ShapePart {
+ 
+   @Override
+   public void accept(ShapePartVisitor shapePartVisitor) {
+      shapePartVisitor.visit(this);
+   }
+}
+```
+Circle.java
+```java
+public class Circle implements ShapePart {
+ 
+   @Override
+   public void accept(ShapePartVisitor shapePartVisitor) {
+      shapePartVisitor.visit(this);
+   }
+}
+```
+Square.java
+```java
+public class Square implements ShapePart {
+ 
+   @Override
+   public void accept(ShapePartVisitor shapePartVisitor) {
+      shapePartVisitor.visit(this);
+   }
+}
+```
+Shape.java
+```java
+public class Shape implements ShapePart {
+	ShapePart[] parts;
+
+	public Shape(){
+		parts = new ShapePart[] {new Rectangle(), new Circle(), new Square()}; 
+	}
+
+	@Override
+	public void accept(ShapePartVisitor shapePartVisitor) {
+		for (int i = 0; i < parts.length; i++) { 
+			parts[i].accept(shapePartVisitor); 
+		}
+	    shapePartVisitor.visit(this);
+	}
+}
+```
+
+## 定义一个表示访问者的接口
+ShpaePartVisitor.java
+```java
+public interface ShpaePartVisitor {
+   public void visit(Rectangle rectangle);
+   public void visit(Circle circle);
+   public void visit(Square square);
+   public void visit(Shape shape);
+}
+```
+
+## 创建实现了上述类的实体访问者
+ShapePartDisplayVisitor.java
+```java
+public class ShapePartDisplayVisitor implements ShapePartVisitor {
+ 
+   @Override
+   public void visit(Shape shape) {
+      System.out.println("Showing Shape.");
+   }
+ 
+   @Override
+   public void visit(Rectangle rectangle) {
+      System.out.println("Showing Rectangle.");
+   }
+ 
+   @Override
+   public void visit(Circle circle) {
+      System.out.println("Showing Circle.");
+   }
+ 
+   @Override
+   public void visit(Sqaure sqaure) {
+      System.out.println("Displaying Square.");
+   }
+}
+```
+
+## 使用 ShapePartDisplayVisitor 来显示 Shape 的组成部分
+VisitorPatternDemo.java
+```java
+public class VisitorPatternDemo {
+	public static void main(String[] args) {
+		ShapePart shape = new Shape();
+	    shape.accept(new ShapePartDisplayVisitor());
+	}
+}
+```
+
+## 输出Belike
+```text
+Showing Rectangle.
+Showing Circle.
+Showing Square.
+Showing Shape.
+```
