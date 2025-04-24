@@ -53,7 +53,7 @@ public class Stock {
    private String name = "ABC";
    private int quantity = 10;
  
-   public void Move(){
+   public void move(){
       System.out.println("Stock [ Name: "+name+", 
          Quantity: " + quantity +" ] bought");
    }
@@ -65,9 +65,9 @@ public class Stock {
 ```
 
 ## 创建实现了 Order 接口的实体类
-MovStock.java
+MoveStock.java
 ```java
-public class MovStock implements Order {
+public class MoveStock implements Order {
    private Stock abcStock;
  
    public MovStock(Stock abcStock){
@@ -75,25 +75,25 @@ public class MovStock implements Order {
    }
  
    public void execute() {
-      abcStock.move();
+      abcStock.move(); 
    }
 }
 ```
-SellStock.java
+RotateStock.java
 ```java
-public class SellStock implements Order {
+public class RotateStock implements Order {
    private Stock abcStock;
  
-   public SellStock(Stock abcStock){
+   public RotateStock(Stock abcStock){
       this.abcStock = abcStock;
    }
  
    public void execute() {
-      abcStock.sell();
+      abcStock.rotate();
    }
 }
 ```
-
+	
 ## 创建命令调用类
 Broker.java
 ```java
@@ -124,11 +124,11 @@ public class CommandPatternDemo {
       Stock abcStock = new Stock();
  
       MoveStock moveStockOrder = new MovStock(abcStock);
-      SellStock sellStockOrder = new SellStock(abcStock);
+      RotateStock rotateStockOrder = new RotateStock(abcStock);
  
       Broker broker = new Broker();
       broker.takeOrder(moveStockOrder);
-      broker.takeOrder(sellStockOrder);
+      broker.takeOrder(rotateStockOrder);
  
       broker.placeOrders();
    }
