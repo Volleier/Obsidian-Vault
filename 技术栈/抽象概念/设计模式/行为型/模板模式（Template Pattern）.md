@@ -33,6 +33,94 @@
 - 钩子方法（Hook Method）（可选）：在抽象父类中定义，可以被子类重写，以影响模板方法的行为。
 - 客户端（Client）（可选）：使用抽象父类和具体子类，无需关心模板方法的细节。
 
-## 实现
+# 实现
 我们将创建一个定义操作的 `Shape` 抽象类，其中，模板方法设置为 final，这样它就不会被重写。`Rectangle` 和 `Square` 是扩展了 `Shape` 的实体类，它们重写了抽象类的方法。
 `TemplatePatternDemo`，我们的演示类使用 `Shape` 来演示模板模式的用法。
+![[模板模式-1.png]]
+
+## 创建一个抽象类，它的模板方法被设置为 final
+Shape.java
+```java
+public abstract class Shape {
+   abstract void show();
+   abstract void move();
+   abstract void rotate();
+ 
+   //模板
+   public final void play(){
+ 
+      show();
+ 
+      move();
+ 
+      rotate();
+   }
+}
+```
+
+## 创建扩展了上述类的实体类
+Rectangle.java
+```java
+public class Rectangle extends Shape {
+ 
+   @Override
+   void show() {
+      System.out.println("Rectangle Show");
+   }
+ 
+   @Override
+   void move() {
+      System.out.println("Rectangle Move");
+   }
+ 
+   @Override
+   void rotate() {
+      System.out.println("Rectangle Rotate");
+   }
+}
+```
+Square.java
+```java
+public class Square extends Shape {
+ 
+   @Override
+   void show() {
+      System.out.println("Square Show");
+   }
+ 
+   @Override
+   void move() {
+      System.out.println("Square Move");
+   }
+ 
+   @Override
+   void rotate() {
+      System.out.println("Square Rotate");
+   }
+}
+```
+
+## 使用 Shape 的模板方法 play() 来演示游戏的定义方式
+TemplatePatternDemo.java
+```java
+public class TemplatePatternDemo {
+   public static void main(String[] args) {
+      Shape shape = new Rectangle();
+      shape.play();
+      System.out.println();
+      shape = new Square();
+      shape.play();      
+   }
+}
+```
+
+## 输出Belike
+```text
+Rectangle Show
+Rectangle Move
+Rectangle Rotate
+
+Square Show
+Square Move
+Square Rotate
+```
