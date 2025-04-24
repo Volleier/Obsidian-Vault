@@ -35,8 +35,9 @@
 - 客户端（Client）：创建并配置具体的解释器对象，并将需要解释的表达式传递给解释器进行解释。
 
 # 实现
-我们将创建一个接口 `Expression` 和实现了 `Expression` 接口的实体类。定义作为上下文中主要解释器的 `TerminalExpression` 类。其他的类 `OrExpression`、`AndExpression` 用于创建组合式表达式。
+创建一个接口 `Expression` 和实现了 `Expression` 接口的实体类。定义作为上下文中主要解释器的 `TerminalExpression` 类。其他的类 `OrExpression`、`AndExpression` 用于创建组合式表达式。
 `InterpreterPatternDemo`，我们的演示类使用 `Expression` 类创建规则和演示表达式的解析。
+![[解释器模式-1.png]]
 
 ## 创建一个表达式接口
 Expression.java
@@ -109,14 +110,14 @@ InterpreterPatternDemo.java
 public class InterpreterPatternDemo {
  
    //规则：Rectangle 和 Square 是形状
-   public static Expression getMaleExpression(){
+   public static Expression getShapeExpression(){
       Expression rectangle = new TerminalExpression("Rectangle");
       Expression square = new TerminalExpression("Square");
-      return new OrExpression(rectangle, sqaure);    
+      return new OrExpression(rectangle, square);    
    }
  
    //规则：RedCircle 是一个红色的形状
-   public static Expression getMarriedWomanExpression(){
+   public static Expression getRedShapeExpression(){
       Expression circle = new TerminalExpression("Circle");
       Expression red = new TerminalExpression("Red");
       return new AndExpression(circle, red);    
@@ -124,17 +125,17 @@ public class InterpreterPatternDemo {
  
    public static void main(String[] args) {
       Expression isShape = getShapeExpression();
-      Expression isRedShape = getMarriedWomanExpression();
+      Expression isRedShape = getRedShapeExpression();
  
-      System.out.println("John is male? " + isMale.interpret("John"));
-      System.out.println("Julie is a married women? " 
-      + isMarriedWoman.interpret("Married Julie"));
+      System.out.println("Rectangle is Shape? " + isShape.interpret("Rectangle"));
+      System.out.println("RedCircle is a Red Shape? " 
+      + isRedShapae.interpret("RedCircle"));
    }
 }
 ```
 
 ## 输出Belike
 ```text
-John is male? true
-Julie is a married women? true
+Rectangle is Shape? true
+RedCircle is a Red Shape? true
 ```
