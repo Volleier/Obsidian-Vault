@@ -34,6 +34,122 @@
 - 具体处理者（ConcreteHandler）：实现了抽象处理者接口，负责处理请求。如果能够处理该请求，则直接处理；否则，将请求传递给下一个处理者。
 - 客户端（Client）：创建处理者对象，并将它们连接成一条责任链。通常，客户端只需要将请求发送给责任链的第一个处理者，无需关心请求的具体处理过程。
 
-## 实现
+# 实现
 
-我们创建抽象类 _AbstractLogger_，带有详细的日志记录级别。然后我们创建三种类型的记录器，都扩展了 _AbstractLogger_。每个记录器消息的级别是否属于自己的级别，如果是则相应地打印出来，否则将不打印并把消息传给下一个记录器。
+创建抽象类 `AbstractLogger`，带有详细的日志记录级别。然后我们创建三种类型的记录器，都扩展了 `AbstractLogger`。每个记录器消息的级别是否属于自己的级别，如果是则相应地打印出来，否则将不打印并把消息传给下一个记录器。
+![[责任链模式-1.png]]
+
+## 创建抽象的记录器类
+AbstractLogger.java
+```java
+public abstract class AbstractLogger {
+   public static int INFO = 1;
+   public static int DEBUG = 2;
+   public static int ERROR = 3;
+ 
+   protected int level;
+ 
+   //责任链中的下一个元素
+   protected AbstractLogger nextLogger;
+ 
+   public void setNextLogger(AbstractLogger nextLogger){
+      this.nextLogger = nextLogger;
+   }
+ 
+   public void logMessage(int level, String message){
+      if(this.level <= level){
+         write(message);
+      }
+      if(nextLogger !=null){
+         nextLogger.logMessage(level, message);
+      }
+   }
+ 
+   abstract protected void write(String message);
+}
+```
+
+## 创建扩展了该记录器类的实体类
+ConsoleLogger.java
+```java
+public class ConsoleLogger extends AbstractLogger {
+ 
+   public ConsoleLogger(int level){
+      this.level = level;
+   }
+ 
+   @Override
+   protected void write(String message) {    
+      System.out.println("Standard Console::Logger: " + message);
+   }
+}
+```
+ErrorLogger.java
+```java
+public class ErrorLogger extends AbstractLogger {
+ 
+   public ErrorLogger(int level){
+      this.level = level;
+   }
+ 
+   @Override
+   protected void write(String message) {    
+      System.out.println("Error Console::Logger: " + message);
+   }
+}
+```
+FileLogger.java
+```java
+public class FileLogger extends AbstractLogger {
+ 
+   public FileLogger(int level){
+      this.level = level;
+   }
+ 
+   @Override
+   protected void write(String message) {    
+      System.out.println("File::Logger: " + message);
+   }
+}
+```
+
+## 创建不同类型的记录器
+创建不同类型的记录器。赋予它们不同的错误级别，并在每个记录器中设置下一个记录器。每个记录器中的下一个记录器代表的是链的一部分。
+```java
+public class ChainPatternDemo {
+   
+   private static AbstractLogger getChainOfLoggers(){
+ 
+      AbstractLogger errorLogger = new ErrorLogger(AbstractLogger.ERROR);
+      AbstractLogger fileLogger = new FileLogger(AbstractLogger.DEBUG);
+      AbstractLogger consoleLogger = new ConsoleLogger(AbstractLogger.INFO);
+ 
+      errorLogger.setNextLogger(fileLogger);
+      fileLogger.setNextLogger(consoleLogger);
+ 
+      return errorLogger;  
+   }
+ 
+   public static void main(String[] args) {
+      AbstractLogger loggerChain = getChainOfLoggers();
+ 
+      loggerChain.logMessage(AbstractLogger.INFO, "This is an information.");
+ 
+      loggerChain.logMessage(AbstractLogger.DEBUG, 
+         "This is a debug information.");
+ 
+      loggerChain.logMessage(AbstractLogger.ERROR, 
+         "This is an error information.");
+   }
+}
+```
+
+## 输出Belike
+```text
+Standard Console::Logger: This is an information.
+File::Logger: This is a debug information.
+Standard Console::Logger: This is a debug information.
+Error Console::Logger: This is an error information.
+File::Logger: This is an error information.
+Standard Console::Logger: This is an error information.
+```
