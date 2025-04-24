@@ -33,8 +33,9 @@
 - 具体聚合对象（Concrete Aggregate）：实现了聚合对象接口，负责创建具体的迭代器对象，并提供需要遍历的数据。
 
 # 实现
-创建一个叙述形状方法的 _Iterator_ 接口和一个返回迭代器的 _Container_ 接口。实现了 _Container_ 接口的实体类将负责实现 _Iterator_ 接口。
-_IteratorPatternDemo_，我们的演示类使用实体类 _NamesRepository_ 来打印 _NamesRepository_ 中存储为集合的 _Names_。
+创建一个叙述导航方法的 `Iterator` 接口和一个返回迭代器的 `Container` 接口。实现了 `Container` 接口的实体类将负责实现 `Iterator` 接口。
+`IteratorPatternDemo`，我们的演示类使用实体类 `NamesRepository` 来打印 `NamesRepository` 中存储为集合的 `Names`。
+![[迭代器模式-1.png]]
 
 ## 创建接口
 Iterator.java
@@ -49,4 +50,62 @@ Container.java
 public interface Container {
    public Iterator getIterator();
 }
+```
+
+## 创建实现了 Container 接口的实体类。
+该类有实现了 Iterator 接口的内部类 NameIterator
+NameRepository.java
+```java
+public class NameRepository implements Container {
+   public String[] names = {"Rectangle" , "Circle" ,"Square"};
+ 
+   @Override
+   public Iterator getIterator() {
+      return new NameIterator();
+   }
+ 
+   private class NameIterator implements Iterator {
+ 
+      int index;
+ 
+      @Override
+      public boolean hasNext() {
+         if(index < names.length){
+            return true;
+         }
+         return false;
+      }
+ 
+      @Override
+      public Object next() {
+         if(this.hasNext()){
+            return names[index++];
+         }
+         return null;
+      }     
+   }
+}
+```
+
+## 使用 NameRepository 来获取迭代器，并打印名字
+IteratorPatternDemo.java
+```java
+public class IteratorPatternDemo {
+   
+   public static void main(String[] args) {
+      NameRepository namesRepository = new NameRepository();
+ 
+      for(Iterator iter = namesRepository.getIterator(); iter.hasNext();){
+         String name = (String)iter.next();
+         System.out.println("Name: " + name);
+      }  
+   }
+}
+```
+
+## 输出Belike
+```text
+Name: Rectangle
+Name: Circle
+Name: Square
 ```
