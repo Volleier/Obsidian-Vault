@@ -18,13 +18,13 @@
 		{"id":"bc4ee73c3da2d583","type":"file","file":"虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Actor实体.md","x":2100,"y":258,"width":400,"height":400,"color":"1"},
 		{"id":"1faf5a1237e46161","type":"text","text":"# APawn","x":2100,"y":842,"width":207,"height":77,"color":"1"},
 		{"id":"8ab2a24b85f565b5","type":"text","text":"# StreamLevel","x":1070,"y":909,"width":250,"height":73,"color":"2"},
+		{"id":"53877bb047878292","type":"text","text":"# AController\n","x":2347,"y":842,"width":245,"height":77,"color":"1"},
+		{"id":"f808bdf572b5bb92","type":"text","text":"# AInfo","x":2620,"y":842,"width":160,"height":77,"color":"1"},
+		{"id":"43c2d5a54208f8d9","type":"text","text":"# AHUD","x":1994,"y":999,"width":210,"height":71,"color":"1"},
 		{"id":"622fa19b0fb56c65","type":"file","file":"虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Component组件.md","x":3540,"y":99,"width":400,"height":400,"color":"#ffffff"},
 		{"id":"8ac8b7ad36871783","type":"file","file":"虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Pawn.md","x":3540,"y":582,"width":400,"height":400,"color":"#ffffff"},
 		{"id":"0ba6ca897a44fe8c","type":"text","text":"# ANavigationObjectBase","x":2820,"y":842,"width":440,"height":77,"color":"1"},
 		{"id":"e57492b370334383","type":"text","text":"# Others","x":2820,"y":999,"width":200,"height":71,"color":"1"},
-		{"id":"53877bb047878292","type":"text","text":"# AController\n","x":2347,"y":842,"width":245,"height":77,"color":"1"},
-		{"id":"f808bdf572b5bb92","type":"text","text":"# AInfo","x":2620,"y":842,"width":160,"height":77,"color":"1"},
-		{"id":"43c2d5a54208f8d9","type":"text","text":"# AHUD","x":1994,"y":999,"width":210,"height":71,"color":"1"},
 		{"id":"a3ee2d3e5a3e9292","type":"text","text":"# APlayerGameraManager","x":2307,"y":999,"width":433,"height":71,"color":"1"}
 	],
 	"edges":[
