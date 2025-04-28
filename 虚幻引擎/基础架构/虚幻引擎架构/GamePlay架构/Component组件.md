@@ -5,17 +5,11 @@
 
 # 关系
 **`UActorComponent` 是所有组件的基类。** 而`UActorComponent`是基础于UObject的一个子类，Component拥有UObject的通用功能的。
-
 Actor 通过OwnedComponents、InstanceComponents、ReplicatedComponents这三个不同的组件集合来管理其组件：
-
 `TSet<UActorComponent*> OwnedComponents` 保存着这个Actor所拥有的所有Component,一般其中会有一个`SceneComponent`作为`RootComponent`。
-
 `TArray<UActorComponent*> InstanceComponents` 保存着实例化的Components。实例化的Components意思就是在蓝图里Details定义的Component，当这个Actor被实例化的时候，这些附属的Component也会被实例化。
-
 `TArray<UActorComponent*> ReplicatedComponents`是 Actor 中用于存储需要进行网络复制的组件的集合。组件必须启用了复制功能（bReplicates = true）才会启用。
-
 `OwnedComponents`总是最全的，`InstanceComponents`、`ReplicatedComponents`可以看作一个预先的分类。
-
 一个Actor必须实例化`USceneComponent* RootComponent`才可以被放进Level里。`OwnedComponents`其实也是可以包容多个不同`SceneComponent`的，然后可以动态获取不同的`SceneComponent`来当作`RootComponent`，只不过这种用法确实不太自然，而且也得非常小心维护不同状态，不推荐如此用。
 ![[Component组件-1.png]]
 一个封装过后的Actor应该是一个整体，它能被放进Level中，拥有变换，这一整个整体的概念更加符合自然意识。
