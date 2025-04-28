@@ -13,15 +13,15 @@
 text
 **默认**
 
-| a | b | d |
-|---|---|---|
-| 1 | very very very very very long long long long long text | 3 |
+| a   | b                                                      | d   |
+| --- | ------------------------------------------------------ | --- |
+| 1   | very very very very very long long long long long text | 3   |
 
 **使用后效果**
 
-| a | b | d |
-|---|---|---|
-| 1 | <div style="width: 150pt">very very very very very lonng long long long long text</div>| 3 |
+| a   | b                                                                                       | d   |
+| --- | --------------------------------------------------------------------------------------- | --- |
+| 1   | <div style="width: 150pt">very very very very very lonng long long long long text</div> | 3   |
 
 ### 有序列表最佳实践
 

@@ -1,3 +1,4 @@
+
 PlayerController继承自AController，是玩家直接操控的逻辑类。一个游戏中同一时刻只能也只有一个PlayerController响应，但是不同Level可以拥有不同的PlayerController
 ![[PlayerController玩家角色控制器-1.png]]
 PlayerController作为玩家直接控制的实体，很多的跟玩家直接相关的操作也都得委托它来完成，因此PlayerController集成了几大模块：
