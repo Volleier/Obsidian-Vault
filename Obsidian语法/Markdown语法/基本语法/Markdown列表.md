@@ -4,12 +4,12 @@
 
 要创建有序列表，请在每个列表项前添加数字并紧跟一个英文句点。数字不必按数学顺序排列，但是列表应当以数字 1 起始。
 
-|Markdown语法|HTML|预览效果|
-|---|---|---|
-|`1. First item   2. Second item   3. Third item   4. Fourth item`|`<ol>   <li>First item</li>   <li>Second item</li>   <li>Third item</li>   <li>Fourth item</li>   </ol>`|<div style="width: 120pt">1. First item<br>2. Second item<br>3. Third item<br>4. Fourth item</div>|
-|`1. First item   1. Second item   1. Third item   1. Fourth item`|`<ol>   <li>First item</li>   <li>Second item</li>   <li>Third item</li>   <li>Fourth item</li>   </ol>`|1. First item<br>2. Second item<br>3. Third item<br>4. Fourth item|
-|`1. First item   8. Second item   3. Third item   5. Fourth item`|`<ol>   <li>First item</li>   <li>Second item</li>   <li>Third item</li>   <li>Fourth item</li>   </ol>`|1. First item<br>2. Second item<br>3. Third item<br>4. Fourth item|
-|`1. First item   2. Second item   3. Third item       1. Indented item       2. Indented item   4. Fourth item`|`<ol>   <li>First item</li>   <li>Second item</li>   <li>Third item   <ol>   <li>Indented item</li>   <li>Indented item</li>   </ol>   </li>   <li>Fourth item</li>   </ol>`|1. First item<br>2. Second item<br>3. Third item<br>    1. Indented item<br>    2. Indented item<br>4. Fourth item|
+| Markdown语法                                                                                                      | HTML                                                                                                                                                                         | 预览效果                                                                                                               |
+| --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `1. First item   2. Second item   3. Third item   4. Fourth item`                                               | `<ol>   <li>First item</li>   <li>Second item</li>   <li>Third item</li>   <li>Fourth item</li>   </ol>`                                                                     | <div style="width: 120pt">1. First item<br>2. Second item<br>3. Third item<br>4. Fourth item</div>                 |
+| `1. First item   1. Second item   1. Third item   1. Fourth item`                                               | `<ol>   <li>First item</li>   <li>Second item</li>   <li>Third item</li>   <li>Fourth item</li>   </ol>`                                                                     | 1. First item<br>2. Second item<br>3. Third item<br>4. Fourth item                                                 |
+| `1. First item   8. Second item   3. Third item   5. Fourth item`                                               | `<ol>   <li>First item</li>   <li>Second item</li>   <li>Third item</li>   <li>Fourth item</li>   </ol>`                                                                     | 1. First item<br>2. Second item<br>3. Third item<br>4. Fourth item                                                 |
+| `1. First item   2. Second item   3. Third item       1. Indented item       2. Indented item   4. Fourth item` | `<ol>   <li>First item</li>   <li>Second item</li>   <li>Third item   <ol>   <li>Indented item</li>   <li>Indented item</li>   </ol>   </li>   <li>Fourth item</li>   </ol>` | 1. First item<br>2. Second item<br>3. Third item<br>    1. Indented item<br>    2. Indented item<br>4. Fourth item |
 text
 **默认**
 
