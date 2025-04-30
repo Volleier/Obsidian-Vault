@@ -5,7 +5,10 @@
 - 关卡之间的过渡，包括游戏是否以动画模式开场。
 
 # 概览
-一个World就是一个Game，而游戏玩法自然就称为Mode。GameMode由AInfo派生，负责游戏逻辑
+一个World就是一个Game，而游戏玩法自然就称为Mode。
+
+# 关系
+GameMode继承自`GameModeBase`， 由AInfo派生，负责游戏逻辑
 ![[GameMode游戏模式-1.png]]
 GameMode身为一场游戏的唯一逻辑操纵者身兼重任，在功能实现上有许多的接口，但主要可以分为以下几大块：
 1. **Class登记**，GameMode里登记了游戏里基本需要的类型信息，在需要的时候通过UClass的反射可以自动Spawn出相应的对象来添加进关卡中。前文说过的Controller的类型登记也是在此，GameMode就是比Controller更高一级的领导。
