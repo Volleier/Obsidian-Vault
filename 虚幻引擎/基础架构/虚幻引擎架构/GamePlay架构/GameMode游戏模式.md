@@ -1,3 +1,10 @@
+>即使最开放的游戏也拥有基础规则，而这些规则构成了 GameMode。在最基础的层面上，这些规则包括：
+- 出现的玩家和观众数量，以及允许的玩家和观众最大数量。
+- 玩家进入游戏的方式，可包含选择生成地点和其他生成/重生成行为的规则。
+- 游戏是否可以暂停，以及如何处理游戏暂停。
+- 关卡之间的过渡，包括游戏是否以动画模式开场。
+
+# 概览
 一个World就是一个Game，而游戏玩法自然就称为Mode。GameMode由AInfo派生，负责游戏逻辑
 ![[GameMode游戏模式-1.png]]
 GameMode身为一场游戏的唯一逻辑操纵者身兼重任，在功能实现上有许多的接口，但主要可以分为以下几大块：
@@ -39,3 +46,21 @@ void AGameMode::GetSeamlessTravelActorList(bool bToTransition, TArray<AActor*>& 
 ```
 在第一步从CurrentWorld到TransitionWorld的迁移时候，bToTransition\==true，这个时候GameMode也会迁移进TransitionWorld（TransitionMap可以在ProjectSettings里配置），也包括GameState和GameSession，然后CurrentWorld释放掉。第二步从TransitionWorld到NewWorld的迁移，GameMode（已经在TransitionWorld中了）会再次调用GetSeamlessTravelActorList，这个时候bToTransition\==false，所以第二次的时候如代码所见当前的GameMode、GameState和GameSession就被排除在外了。这样NewWorld再继续InitWorld的时候，一发现当前没有GameMode，就会根据配置的GameModeClass重新生成一个出来。所以这个时候GameMode也是不同的。  
 结论是，UE的流程travelling，GameMode在新的World里是会新生成一个的，即使Class类型一致，即使bUseSeamlessTravel，因此在travelling的时候要小心GameMode里保存的状态丢失。不过Pawn和Controller默认是一致的。
+
+# 关系
+## AGameModeBase
+所有 GameMode 均为 `AGameModeBase` 的子类。而 `AGameModeBase` 包含大量可覆盖的基础功能。部分常见函数包括：
+
+| 函数/事件                         | 目的                                                                                                                                        |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `InitGame`                    | `InitGame` 事件在其他脚本之前调用，由 `AGameModeBase` 使用，初始化参数并生成其助手类。<br><br>它在任意 Actor 运行 `PreInitializeComponents` 前调用。                             |
+| `PreLogin`                    | 接受或拒绝尝试加入服务器的玩家。如它将 `ErrorMessage` 设为一个非空字符串，会导致 `Login` 函数失败。`PreLogin` 在 `Login` 前调用，Login 调用前可能需要大量时间，加入的玩家需要下载游戏内容时尤其如此。              |
+| `PostLogin`                   | 成功登录后调用。这是首个在 `PlayerController` 上安全调用复制函数之处。`OnPostLogin` 可在蓝图中实现，以添加额外的逻辑。                                                              |
+| `HandleStartingNewPlayer`     | 在 `PostLogin` 后或无缝游历后调用，可在蓝图中覆盖，修改新玩家身上发生的事件。它将默认创建一个玩家 pawn。                                                                             |
+| `RestartPlayer`               | 调用开始生成一个玩家 pawn。如需要指定 Pawn 生成的地点，还可使用 `RestartPlayerAtPlayerStart` 和 `RestartPlayerAtTransform` 函数。`OnRestartPlayer` 可在蓝图中实现，在此函数完成后添加逻辑。 |
+| `SpawnDefaultPawnAtTransform` | 这实际生成玩家 Pawn，可在蓝图中覆盖。                                                                                                                     |
+| `Logout`                      | 玩家离开游戏或被摧毁时调用。可实现 `OnLogout` 执行蓝图逻辑。                                                                                                      |
+
+
+## AGameMode
+`AGameMode` 是 `AGameModeBase` 的子类，拥有一些额外的功能支持多人游戏和旧行为。所有新建项目默认使用 `AGameModeBase`。如果需要此额外行为，可切换到从 `AGameMode` 进行继承。如从 `AGameMode` 进行继承，也可从 `AGameState` 继承游戏状态（其支持比赛状态机）。
