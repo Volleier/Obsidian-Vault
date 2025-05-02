@@ -6,16 +6,12 @@
 
 # 概览
 一个World就是一个Game，而游戏玩法自然就称为Mode。
-
-# 关系
-GameMode继承自`GameModeBase`， 由AInfo派生，负责游戏逻辑
-![[GameMode游戏模式-1.png]]
 GameMode身为一场游戏的唯一逻辑操纵者身兼重任，在功能实现上有许多的接口，但主要可以分为以下几大块：
-1. **Class登记**，GameMode里登记了游戏里基本需要的类型信息，在需要的时候通过UClass的反射可以自动Spawn出相应的对象来添加进关卡中。前文说过的Controller的类型登记也是在此，GameMode就是比Controller更高一级的领导。
-2. **游戏内实体的Spawn**，不光登记，GameMode既然作为一场游戏的主要负责人，那么游戏的加载释放过程中涉及到的实体的产生，包括玩家Pawn和PlayerController，AIController也都是由GameMode负责。最主要的SpawnDefaultPawnFor、SpawnPlayerController、ShouldSpawnAtStartSpot这一系列函数都是在接管玩家实体的生成和释放，玩家进入该游戏的过程叫做Login（和服务器统一），也控制进来后在什么位置，等等这些实体管理的工作。GameMode也控制着本场游戏支持的玩家、旁观者和AI实体的数目。
-3. **游戏的进度**，一个游戏支不支持暂停，怎么重启等这些涉及到游戏内状态的操作也都是GameMode的工作之一，SetPause、ResartPlayer等函数可以控制相应逻辑。
-4. **Level的切换**，或者说World的切换更加合适，GameMode也决定了刚进入一场游戏的时候是否应该开始播放开场动画（cinematic），也决定了当要切换到下一个关卡时是否要bUseSeamlessTravel，一旦开启后，你可以重载GameMode和PlayerController的GetSeamlessTravelActorList方法和GetSeamlessTravelActorList来指定哪些Actors不被释放而进入下一个World的Level。
-5. **多人游戏的步调同步**，在多人游戏的时候，我们常常需要等所有加入的玩家连上之后，载入地图完毕后才能一起开始逻辑。因此UE提供了一个MatchState来指定一场游戏运行的状态，意义看名称也是不言自明的，就是用了一个状态机来标记开始和结束的状态，并触发各种回调
+1. **Class登记**：GameMode里登记了游戏里基本需要的类型信息，在需要的时候通过UClass的反射可以自动Spawn出相应的对象来添加进关卡中。
+2. **游戏内实体的Spawn**：GameMode既然作为一场游戏的主要负责人，那么游戏的加载释放过程中涉及到的实体的产生，包括玩家Pawn和PlayerController，AIController也都是由GameMode负责。GameMode也控制着本场游戏支持的玩家、旁观者和AI实体的数目。
+3. **游戏的进度**：一个游戏支不支持暂停，怎么重启等这些涉及到游戏内状态的操作也都是GameMode的工作之一，SetPause、ResartPlayer等函数可以控制相应逻辑。
+4. **Level的切换**：GameMode也决定了刚进入一场游戏的时候是否应该开始播放开场动画，也决定了当要切换到下一个关卡时是否要bUseSeamlessTravel。一旦开启后，可以选择重载GameMode和PlayerController的GetSeamlessTravelActorList方法和GetSeamlessTravelActorList来指定哪些Actors不被释放而进入下一个World的Level。
+5. **多人游戏的步调同步**：在多人游戏的时候，需要等所有加入的玩家连接服务器完成之后，载入地图完毕后才能一起开始逻辑。因此UE提供了一个MatchState来指定一场游戏运行的状态，使用一个状态机来标记开始和结束的状态，并触发各种回调。
 
 除了配置全局的GameModeClass之外，我们还能为每个Level单独的配置不同的GameModeClass。但是当一个World由多个Level组成的时候，这样就相当于配置了多个GameModeClass，那么应用的是哪一个？首先第一个原则需要记住的就是，一个World里只会有一个GameMode实例，否则肯定乱套了。因此当有多个Level的时候，一定是PersistentLevel和多个StreamingLevel，这时就算它们配置了不同的GameModeClass，UE也只会为第一次创建World时加载PersistentLevel的时候创建GameMode，在后续的LoadStreamingLevel时候，并不会再动态创建出别的GameMode，所以GameMode从始至终只有一个，PersistentLevel的那个。
   
@@ -52,7 +48,9 @@ void AGameMode::GetSeamlessTravelActorList(bool bToTransition, TArray<AActor*>& 
 
 # 关系
 ## AGameModeBase
-所有 GameMode 均为 `AGameModeBase` 的子类。而 `AGameModeBase` 包含大量可覆盖的基础功能。部分常见函数包括：
+GameMode均继承自`GameModeBase`，`GameModeBase` 由AInfo派生，负责游戏逻辑。
+![[GameMode游戏模式-1.png]]
+`AGameModeBase` 包含大量可覆盖的基础功能。部分常见函数包括：
 
 | 函数/事件                         | 目的                                                                                                                                        |
 | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
