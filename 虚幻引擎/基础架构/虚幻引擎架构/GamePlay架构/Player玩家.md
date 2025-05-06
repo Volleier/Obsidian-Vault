@@ -1,5 +1,4 @@
-在游戏引擎看来，玩家就是输入的发起者。游戏的本质也是一个接受输入产生输出的程序。输入不止包括本地键盘手柄等输入设备的按键，也包括网线里传过来的信号，是广义的该游戏能接受到的外界输入。
-在UE的眼里，Player玩家是如此广义的一个概念。本地的玩家是玩家，网络联机的玩家也是玩家。当然的，本地玩家和网络玩家毕竟还是差别很大，所以UE里也对二者进行了区分，才好更好的管理和应用到不同场景中去。
+Player玩家是外界输入的接收者，接受外界的输入并返回对应的动作。
 Actor是必须在World中才能存在的，而Player却是比World更高一级的对象。玩游戏的过程中，LevelWorld在不停的切换，但是玩家的模式却是脱离不变的。另外，Player也不需要被摆放在Level中，也不需要各种Component组装，所以从AActor继承并不合适。因此直接从UObject继承是一个更好的选择
 ![[Player玩家-1.png]]
 如上图，Player和一个PlayerController关联起来，因此虚幻引擎就可以把输入和PlayerController关联起来，这也符合了[[PlayerController玩家角色控制器|PlayerController]]接受玩家输入的描述。不管是本地玩家还是远程玩家，都需要PlayerController控制一个玩家Pawn的，所以自然也就需要为每个玩家分配一个PlayerController，所以把PlayerController放在UPlayer基类里是合理的。
