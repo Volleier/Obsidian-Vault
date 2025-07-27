@@ -37,7 +37,6 @@
 - 性质1：具有n个（n>0）结点的完全二叉树的高度h为$\ulcorner log_2()n+1 \urcorner$或$\llcorner log_2n\lrcorner+1$
 - 性质2：对于完全二叉树，可以由的结点数n推出度为0、1和2的结点个数为$n_0$、$n_1$ 和 $n_2$。完全二叉树最多只有一个度为1的结点，即$n_1$=0或1，$n_0=n_2+1 \rightarrow n_0+n_2$一定是奇数。
 
-# 存储
 # 二叉树的存储
 二叉树的存储顺序存储（数组实现）和链式存储（指针/引用实现）的核心区别在于物理存储的连续性和节点关系的表示方法
 ## 顺序存储
@@ -71,3 +70,172 @@ struct TreeNode {
 | 灵活支持任意树形结构      | 每个节点需额外存储指针，空间开销大 |
 | 插入/删除节点高效（O(1)） | 无法随机访问，查找需遍历      |
 | 动态扩展无需连续内存      | 指针操作可能引发内存泄漏      |
+
+# 二叉树遍历方式
+二叉树有三种主要的遍历方式：前序遍历、后序遍历和层序遍历
+## 前序遍历
+**根节点 → 左子树 → 右子树**
+- 第一个访问的总是根节点
+- 适合用于复制二叉树结构
+- 表达式树的前序遍历得到前缀表达式（波兰表示法）
+
+代码实现：
+```c
+void PreOrder(BiTree T) {
+    if (T != NULL) {
+        visit(T);             // 访问根节点
+        PreOrder(T->lchild);  // 遍历左子树
+        PreOrder(T->rchild);  // 遍历右子树
+    }
+}
+```
+
+## 中序遍历
+**左子树 → 根节点 → 右子树**
+
+## 后序遍历
+**左子树 → 右子树 → 根节点**
+- 最后一个访问的总是根节点
+- 适合用于删除或释放二叉树
+- 表达式树的后序遍历得到后缀表达式（逆波兰表示法）
+
+代码实现：
+```c
+void PostOrder(BiTree T) {
+    if (T != NULL) {
+        PostOrder(T->lchild); // 遍历左子树
+        PostOrder(T->rchild);  // 遍历右子树
+        visit(T);             // 访问根节点
+    }
+}
+```
+## 层序遍历
+**从上到下，从左到右，逐层访问**
+- 按树的层级顺序访问
+- 需要额外的队列数据结构辅助
+- 适合用于计算树的深度、查找特定层级的节点等
+
+代码实现：
+```c
+void LevelOrder(BiTree T) {
+    LinkQueue Q;
+    InitQueue(&Q);
+    BiTree p;
+    
+    if (T != NULL) {
+        EnQueue(&Q, T);
+    }
+    
+    while (!IsEmpty(Q)) {
+        DeQueue(&Q, &p);
+        visit(p);
+        
+        if (p->lchild != NULL) {
+            EnQueue(&Q, p->lchild);
+        }
+        if (p->rchild != NULL) {
+            EnQueue(&Q, p->rchild);
+        }
+    }
+}
+```
+
+### 完整层序遍历代码实现
+
+```c
+// 二叉树的结点（链式存储）
+typedef struct BiTNode {
+    char data;
+    struct BiTNode *lchild, *rchild;
+} BiTNode, *BiTree;
+
+// 链式队列结点
+typedef struct LinkNode {
+    BiTNode *data;
+    struct LinkNode *next;
+} LinkNode;
+
+// 链式队列
+typedef struct {
+    LinkNode *front, *rear;
+} LinkQueue;
+
+// 初始化队列
+void InitQueue(LinkQueue *Q) {
+    Q->front = Q->rear = NULL;
+}
+
+// 判断队列是否为空
+int IsEmpty(LinkQueue Q) {
+    return Q.front == NULL;
+}
+
+// 入队操作
+void EnQueue(LinkQueue *Q, BiTree p) {
+    LinkNode *newNode = (LinkNode *)malloc(sizeof(LinkNode));
+    newNode->data = p;
+    newNode->next = NULL;
+    
+    if (IsEmpty(*Q)) {
+        Q->front = Q->rear = newNode;
+    } else {
+        Q->rear->next = newNode;
+        Q->rear = newNode;
+    }
+}
+
+// 出队操作
+void DeQueue(LinkQueue *Q, BiTree *p) {
+    if (IsEmpty(*Q)) {
+        *p = NULL;
+        return;
+    }
+    
+    LinkNode *temp = Q->front;
+    *p = temp->data;
+    Q->front = temp->next;
+    
+    if (Q->front == NULL) {
+        Q->rear = NULL;
+    }
+    
+    free(temp);
+}
+
+// 访问结点
+void visit(BiTree p) {
+    printf("%c ", p->data);
+}
+
+// 层序遍历
+void LevelOrder(BiTree T) {
+    LinkQueue Q;
+    InitQueue(&Q);
+    BiTree p;
+    
+    if (T != NULL) {
+        EnQueue(&Q, T);
+    }
+    
+    while (!IsEmpty(Q)) {
+        DeQueue(&Q, &p);
+        visit(p);
+        
+        if (p->lchild != NULL) {
+            EnQueue(&Q, p->lchild); // 左孩子入队
+        }
+        if (p->rchild != NULL) {
+            EnQueue(&Q, p->rchild); // 右孩子入队
+        }
+    }
+}
+
+// 创建二叉树结点
+BiTree CreateNode(char data) {
+    BiTree newNode = (BiTree)malloc(sizeof(BiTNode));
+    newNode->data = data;
+    newNode->lchild = NULL;
+    newNode->rchild = NULL;
+    return newNode;
+}
+```
