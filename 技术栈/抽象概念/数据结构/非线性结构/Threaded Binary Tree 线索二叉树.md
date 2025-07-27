@@ -18,8 +18,6 @@
     - 利用了原本为NULL的指针域
 # 二叉树的线索化
 
-## 前序线索化
-
 ## 中序线索化
 ### 递归线索化
 ```c
@@ -66,3 +64,112 @@ void InOrder_Thread(ThreadTree T) {
     }
 }
 ```
+## 前序线索化
+
+### 递归实现
+```c
+void PreThreading(ThreadTree p) {
+    if (p != NULL) {
+        // 处理当前节点
+        if (p->lchild == NULL) { // 左孩子为空，建立前驱线索
+            p->ltag = 1;
+            p->lchild = pre;
+        } else {
+            p->ltag = 0;
+        }
+        
+        if (pre != NULL && pre->rchild == NULL) { // 前驱的右孩子为空，建立后继线索
+            pre->rtag = 1;
+            pre->rchild = p;
+        } else if (pre != NULL) {
+            pre->rtag = 0;
+        }
+        
+        pre = p; // 更新前驱节点
+        
+        if (p->ltag == 0) { // 只有左孩子是实际子节点时才递归
+            PreThreading(p->lchild);
+        }
+        if (p->rtag == 0) { // 只有右孩子是实际子节点时才递归
+            PreThreading(p->rchild);
+        }
+    }
+}
+```
+
+### 非递归遍历前序线索二叉树
+```c
+void PreOrderTraverse_Thr(ThreadTree T) {
+    ThreadNode *p = T;
+    while (p != NULL) {
+        printf("%c ", p->data);
+        
+        if (p->ltag == 0) { // 有左孩子
+            p = p->lchild;
+        } else { // 无左孩子，找后继
+            p = p->rchild;
+        }
+    }
+}
+```
+
+## 后序线索化
+
+### 递归实现
+
+```c
+void PostThreading(ThreadTree p) {
+    if (p != NULL) {
+        PostThreading(p->lchild); // 线索化左子树
+        PostThreading(p->rchild); // 线索化右子树
+        
+        // 处理当前节点
+        if (p->lchild == NULL) { // 左孩子为空，建立前驱线索
+            p->ltag = 1;
+            p->lchild = pre;
+        } else {
+            p->ltag = 0;
+        }
+        
+        if (pre != NULL && pre->rchild == NULL) { // 前驱的右孩子为空，建立后继线索
+            pre->rtag = 1;
+            pre->rchild = p;
+        } else if (pre != NULL) {
+            pre->rtag = 0;
+        }
+        
+        pre = p; // 更新前驱节点
+    }
+}
+```
+
+### 后序线索二叉树的遍历
+后序线索二叉树的遍历较为复杂，通常需要借助栈或记录父节点指针：
+```c
+void PostOrderTraverse_Thr(ThreadTree T) {
+    ThreadNode *p = T;
+    ThreadNode *lastVisited = NULL;
+    
+    // 找到第一个要访问的节点（最左下的节点）
+    while (p->ltag == 0) {
+        p = p->lchild;
+    }
+    
+    while (p != NULL) {
+        // 如果右孩子是线索或已访问过
+        if (p->rtag == 1 || p->rchild == lastVisited) {
+            printf("%c ", p->data);
+            lastVisited = p;
+            p = p->rchild; // 沿着线索回溯
+        } else {
+            // 转向右子树，并找到该子树的最左下节点
+            p = p->rchild;
+            while (p != NULL && p->ltag == 0) {
+                p = p->lchild;
+            }
+        }
+    }
+}
+```
+
+
