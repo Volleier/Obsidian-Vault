@@ -1,0 +1,210 @@
+{
+  "recentFiles": [
+    {
+      "basename": "Binary Tree 二叉树",
+      "path": "技术栈/抽象概念/数据结构/非线性结构/Binary Tree 二叉树.md"
+    },
+    {
+      "basename": "Tree 树",
+      "path": "技术栈/抽象概念/数据结构/非线性结构/Tree 树.md"
+    },
+    {
+      "basename": "String 串",
+      "path": "技术栈/抽象概念/数据结构/线性结构/String 串.md"
+    },
+    {
+      "basename": "Markdown数学表达",
+      "path": "Obsidian语法/Markdown语法/进阶玩法/Markdown数学表达.md"
+    },
+    {
+      "basename": "Markdown脚注",
+      "path": "Obsidian语法/Markdown语法/进阶玩法/Markdown脚注.md"
+    },
+    {
+      "basename": "Sequential List 顺序表",
+      "path": "技术栈/抽象概念/数据结构/线性结构/Sequential List 顺序表.md"
+    },
+    {
+      "basename": "Static Linked List 静态链表",
+      "path": "技术栈/抽象概念/数据结构/线性结构/Static Linked List 静态链表.md"
+    },
+    {
+      "basename": "Linked List 链表",
+      "path": "技术栈/抽象概念/数据结构/线性结构/Linked List 链表.md"
+    },
+    {
+      "basename": "Linear list 线性表",
+      "path": "技术栈/抽象概念/数据结构/线性结构/Linear list 线性表.md"
+    },
+    {
+      "basename": "Stack 栈 与 Queue 队列",
+      "path": "技术栈/抽象概念/数据结构/线性结构/Stack 栈 与 Queue 队列.md"
+    },
+    {
+      "basename": "数据结构总览",
+      "path": "技术栈/抽象概念/数据结构/数据结构总览.md"
+    },
+    {
+      "basename": "技术栈目录",
+      "path": "技术栈/技术栈目录.md"
+    },
+    {
+      "basename": "战术射击底层3C：守方优势原则在移动参数上的体现",
+      "path": "游戏设计/战术射击底层3C：守方优势原则在移动参数上的体现.md"
+    },
+    {
+      "basename": "组件间的依赖关系",
+      "path": "虚幻引擎/基础架构/构建游戏世界/复杂情况处理/组件间的依赖关系.md"
+    },
+    {
+      "basename": "事件的处理时机",
+      "path": "虚幻引擎/基础架构/构建游戏世界/复杂情况处理/事件的处理时机.md"
+    },
+    {
+      "basename": "gameplay-schematic",
+      "path": "附件/gameplay-schematic.png"
+    },
+    {
+      "basename": "Gameplay框架总览",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/Gameplay框架总览.md"
+    },
+    {
+      "basename": "结构",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/结构.canvas"
+    },
+    {
+      "basename": "Gameplay框架结构",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/Gameplay框架结构.md"
+    },
+    {
+      "basename": "1D混合空间",
+      "path": "虚幻引擎/动画系统/动画系统进阶/混合空间/1D混合空间.md"
+    },
+    {
+      "basename": "WorldContext世界上下文",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/WorldContext世界上下文.md"
+    },
+    {
+      "basename": "PlayerController玩家角色控制器",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/PlayerController玩家角色控制器.md"
+    },
+    {
+      "basename": "Level层级",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Level层级.md"
+    },
+    {
+      "basename": "GameState游戏状态",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/GameState游戏状态.md"
+    },
+    {
+      "basename": "Pawn",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Pawn.md"
+    },
+    {
+      "basename": "Player玩家",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Player玩家.md"
+    },
+    {
+      "basename": "GameMode游戏模式",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/GameMode游戏模式.md"
+    },
+    {
+      "basename": "GameInstance游戏实例",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/GameInstance游戏实例.md"
+    },
+    {
+      "basename": "Engine引擎",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Engine引擎.md"
+    },
+    {
+      "basename": "Component组件",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Component组件.md"
+    },
+    {
+      "basename": "Markdown表格",
+      "path": "Obsidian语法/Markdown语法/进阶玩法/Markdown表格.md"
+    },
+    {
+      "basename": "基本概念",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/基本概念.md"
+    },
+    {
+      "basename": "关系图",
+      "path": "技术栈/抽象概念/设计模式/关系图.canvas"
+    },
+    {
+      "basename": "AIController AI角色控制器",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/AIController AI角色控制器.md"
+    },
+    {
+      "basename": "组合模式（Composite Pattern）",
+      "path": "技术栈/抽象概念/设计模式/结构型/组合模式（Composite Pattern）.md"
+    },
+    {
+      "basename": "设计模式目录结构",
+      "path": "技术栈/抽象概念/设计模式/设计模式目录结构.md"
+    },
+    {
+      "basename": "Markdown列表",
+      "path": "Obsidian语法/Markdown语法/基本语法/Markdown列表.md"
+    },
+    {
+      "basename": "Markdown换行语法",
+      "path": "Obsidian语法/Markdown语法/基本语法/Markdown换行语法.md"
+    },
+    {
+      "basename": "虚幻引擎目录",
+      "path": "虚幻引擎/虚幻引擎目录.md"
+    },
+    {
+      "basename": "Controller控制器",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Controller控制器.md"
+    },
+    {
+      "basename": "Actor实体",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Actor实体.md"
+    },
+    {
+      "basename": "Markdown引用",
+      "path": "Obsidian语法/Markdown语法/基本语法/Markdown引用.md"
+    },
+    {
+      "basename": "Markdown强调",
+      "path": "Obsidian语法/Markdown语法/基本语法/Markdown强调.md"
+    },
+    {
+      "basename": "Markdown内嵌 HTML 标签",
+      "path": "Obsidian语法/Markdown语法/基本语法/Markdown内嵌 HTML 标签.md"
+    },
+    {
+      "basename": "Markdown链接",
+      "path": "Obsidian语法/Markdown语法/基本语法/Markdown链接.md"
+    },
+    {
+      "basename": "Markdown分隔线",
+      "path": "Obsidian语法/Markdown语法/基本语法/Markdown分隔线.md"
+    },
+    {
+      "basename": "Markdown标题",
+      "path": "Obsidian语法/Markdown语法/基本语法/Markdown标题.md"
+    },
+    {
+      "basename": "Markdown段落",
+      "path": "Obsidian语法/Markdown语法/基本语法/Markdown段落.md"
+    },
+    {
+      "basename": "1_UObject基本概念",
+      "path": "虚幻引擎/基础架构/虚幻引擎架构/UObject/1_UObject基本概念.md"
+    },
+    {
+      "basename": "动画系统基础",
+      "path": "虚幻引擎/动画系统/动画系统基础.md"
+    }
+  ],
+  "omittedPaths": [],
+  "omittedTags": [],
+  "updateOn": "file-open",
+  "omitBookmarks": false,
+  "maxLength": null,
+  "openType": "tab"
+}
