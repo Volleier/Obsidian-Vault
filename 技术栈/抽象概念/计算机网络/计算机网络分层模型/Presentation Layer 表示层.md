@@ -1,0 +1,1 @@
+**表示层**()亦称**表达层**，为不同终端的上层用户提供数据和信息正确的语法表示变换方法。如[文本文件](https://zh.wikipedia.org/wiki/%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6 "文本文件")的[ASCII](https://zh.wikipedia.org/wiki/ASCII "ASCII")格式和[UTF-8](https://zh.wikipedia.org/wiki/UTF-8 "UTF-8")格式。
