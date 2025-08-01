@@ -262,53 +262,31 @@ SMTP通信分为三个阶段：
 - HTTP/HTTPS：应用层协议，分别使用80和443端口。
 - HTML：用于结构化网页内容，支持多媒体嵌入。
 
-#### **2. 网页组成与工作原理**
-
-**结构分解**  
+## 网页组成与工作原理
+结构分解：  
 一个典型网页包含：
-
-1. **主HTML文件**：定义页面框架和内容结构。
-    
-2. **关联资源**：
-    
+1. 主HTML文件：定义页面框架和内容结构。
+2. 关联资源：
     - 静态资源：CSS样式表、JavaScript脚本
-        
     - 媒体资源：图片（PNG/JPG）、视频（MP4）、音频
-        
     - 动态数据：通过API获取的JSON/XML数据
-        
+资源加载流程：
+3. 浏览器解析HTML时发现`<img src="logo.png">`标签。
+4. 发起对该图片的独立HTTP请求。
+5. 服务器返回图片数据，浏览器渲染显示。
 
-**资源加载流程**
-
-1. 浏览器解析HTML时发现`<img src="logo.png">`标签。
-    
-2. 发起对该图片的独立HTTP请求。
-    
-3. 服务器返回图片数据，浏览器渲染显示。
-    
-
----
-
-#### **3. HTTP协议深度解析**
-
-##### **协议基础**
-
+## HTTP协议深度解析
+### 协议基础
 - **连接模式**：
-    
     - 非持续连接（HTTP/1.0）：每个资源需单独建立TCP连接。
-        
     - 持续连接（HTTP/1.1默认）：复用TCP连接传输多个资源。
-        
 - **报文结构**：
-    
-    http
-    
-    GET /index.html HTTP/1.1
+	```http
+	GET /index.html HTTP/1.1
     Host: www.example.com
     Connection: keep-alive
-    
-
-##### **关键方法**
+```
+### 关键方法
 
 |方法|用途|典型场景|
 |---|---|---|
@@ -318,104 +296,58 @@ SMTP通信分为三个阶段：
 |PUT|上传完整资源|文件上传|
 |DELETE|删除资源|后台管理系统|
 
-##### **状态码分类**
+### 状态码分类
+- 1xx：信息响应（如100 Continue）
+- 2xx：成功（200 OK，206 Partial Content）
+- 3xx：重定向（301 Moved Permanently）
+- 4xx：客户端错误（404 Not Found）
+- 5xx：服务器错误（503 Service Unavailable）
 
-- **1xx**：信息响应（如100 Continue）
-    
-- **2xx**：成功（200 OK，206 Partial Content）
-    
-- **3xx**：重定向（301 Moved Permanently）
-    
-- **4xx**：客户端错误（404 Not Found）
-    
-- **5xx**：服务器错误（503 Service Unavailable）
-    
-
----
-
-#### **4. 连接管理机制**
-
-**非持续连接**
-
+### 连接管理机制
+非持续连接：
 - 每个资源请求需要完整TCP三次握手。
-    
 - 显著增加延迟，尤其对含多个资源的网页。
-    
+持续连接优化：
+- 非流水线式：串行请求，需等待前一个响应完成。
+- 流水线式：并行发送多个请求，大幅提升效率。
+- 多路复用（HTTP/2）：在单个连接上交错传输多个资源。
 
-**持续连接优化**
-
-- **非流水线式**：串行请求，需等待前一个响应完成。
-    
-- **流水线式**：并行发送多个请求，大幅提升效率。
-    
-- **多路复用（HTTP/2）**：在单个连接上交错传输多个资源。
-    
-
----
-
-#### **5. Cookie与会话跟踪**
-
-**工作原理**
-
+## Cookie与会话跟踪
+工作原理：
 1. 首次访问时，服务器通过`Set-Cookie`头部下发标识。
-    
-    http
-    
+    ```http
     HTTP/1.1 200 OK
     Set-Cookie: sessionid=1234; Path=/
-    
+```
 2. 后续请求自动携带Cookie：
-    
-    http
-    
+    ```http
     GET /account HTTP/1.1
     Cookie: sessionid=1234
-    
+```
 
-**安全实践**
-
+安全实践：
 - 设置`HttpOnly`属性防止XSS攻击。
-    
 - 使用`Secure`标志强制HTTPS传输。
-    
 - 合理设置`Expires`或`Max-Age`控制生命周期。
-    
 
----
-
-#### **6. 完整访问流程示例**
-
-**访问[https://www.example.com](https://www.example.com/)**
-
-1. **DNS解析**：将域名转换为IP地址。
-    
-2. **TCP连接**：与服务器建立443端口HTTPS连接。
-    
-3. **发送请求**：
-    
-    http
-    
+### 完整访问流程示例
+访问[https://www.example.com](https://www.example.com/)
+1. DNS解析：将域名转换为IP地址。
+2. TCP连接：与服务器建立443端口HTTPS连接。
+3. 发送请求：
+```http
     GET / HTTP/1.1
     Host: www.example.com
-    
-4. **接收响应**：
-    
-    http
-    
+```
+4. 接收响应：
+    ```http
     HTTP/1.1 200 OK
     Content-Type: text/html
-    
-5. **解析HTML**：加载并渲染页面中的CSS/JS/图片等资源。
-    
+```
+5. 解析HTML：加载并渲染页面中的CSS/JS/图片等资源。
 
----
-
-#### **7. 性能优化要点**
-
-- **减少HTTP请求**：合并CSS/JS，使用雪碧图。
-    
-- **启用压缩**：通过`Accept-Encoding: gzip`节省带宽。
-    
-- **合理缓存**：利用`Cache-Control`和ETag机制。
-    
-- **CDN加速**：分布式部署静态资源。
+### 性能优化要点
+- 减少HTTP请求：合并CSS/JS，使用雪碧图。
+- 启用压缩：通过`Accept-Encoding: gzip`节省带宽。
+- 合理缓存：利用`Cache-Control`和ETag机制。
+- CDN加速：分布式部署静态资源。
