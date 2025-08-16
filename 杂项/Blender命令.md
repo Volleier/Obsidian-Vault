@@ -1,3 +1,6 @@
+# 删除所有空集合
+
+```python
 import bpy
 
 def delete_empty_collections():
@@ -29,3 +32,4 @@ def delete_empty_collections():
 
 # 执行
 delete_empty_collections()
+```
