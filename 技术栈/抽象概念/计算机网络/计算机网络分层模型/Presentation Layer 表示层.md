@@ -1,1 +1,17 @@
-**表示层**()亦称**表达层**，为不同终端的上层用户提供数据和信息正确的语法表示变换方法。如[文本文件](https://zh.wikipedia.org/wiki/%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6 "文本文件")的[ASCII](https://zh.wikipedia.org/wiki/ASCII "ASCII")格式和[UTF-8](https://zh.wikipedia.org/wiki/UTF-8 "UTF-8")格式。
+表示层(Presentation)亦称表达层，为不同终端的上层用户提供数据和信息正确的语法表示变换方法。如文本文件的ASCII格式和UTF-8格式。
+
+# 主要功能
+- 数据语法转换
+- 语法表示
+- 连接管理
+- 数据处理
+	- 数据加密和解密
+	- 数据压缩和解压
+	- 数据编码和解码'
+
+# 具有表示层的协议
+- HTTP/[[HTTPS]]
+- FTP/FTPS
+- SSH
+- Telnet
+- ASN.1
