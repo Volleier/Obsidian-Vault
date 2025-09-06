@@ -14,7 +14,7 @@ Actor中的很多功能都能在Component实现，但是Actor也有独特的功�
     - Actor 可以直接放置在关卡中，而组件只能作为 Actor 的一部分存在
     - Actor 拥有在游戏世界中的独立身份和生命周期：负责自身及其所拥有组件的初始化、销毁和提供 BeginPlay、Tick、EndPlay 等关键生命周期事件
 2. 组件的所有权与管理
-    - 组件必须依附于 Actor 才能存在，无法独立于 Actor
+，无法独立于 Actor
     - Actor 负责组织和管理多个组件之间的协作关系，通过 `OwnedComponents`、`InstanceComponents` 等集合管理所有组件
 3. 网络复制的主体
     - Actor 是网络复制系统的基本单位，组件只能通过所属 Actor 进行复制
