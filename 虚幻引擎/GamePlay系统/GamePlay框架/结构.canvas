@@ -28,8 +28,10 @@
 		{"id":"f808bdf572b5bb92","type":"text","text":"# AInfo","x":2620,"y":-718,"width":160,"height":77,"color":"1"},
 		{"id":"0ba6ca897a44fe8c","type":"text","text":"# ANavigationObjectBase","x":2820,"y":-718,"width":440,"height":77,"color":"1"},
 		{"id":"71525bdc5f4cb65a","type":"text","text":"# 加载引擎\n设置默认Gameplay框架\n包含：游戏模式、游戏实例、开始地图","x":-2430,"y":-80,"width":300,"height":200,"color":"3"},
-		{"id":"93cee130b79b6b9f","type":"text","text":"# 加载层级\n设置默认Gameplay框架\n包含：游戏模式、游戏实例、开始地图","x":-1520,"y":-80,"width":300,"height":200,"color":"3"},
-		{"id":"5d90bdf3da535724","type":"text","text":"# 加载层级\n设置默认Gameplay框架\n包含：游戏模式、游戏实例、开始地图","x":429,"y":-80,"width":300,"height":200,"color":"3"}
+		{"id":"93cee130b79b6b9f","type":"text","text":"# 加载层级\n在世界上下文中加载所有关卡","x":-1520,"y":-80,"width":300,"height":200,"color":"3"},
+		{"id":"274ebe653fffb1c1","type":"text","text":"# 加载游戏模式\n首先实例化，创建游戏玩法框架","x":-160,"y":-80,"width":300,"height":200,"color":"3"},
+		{"id":"5d90bdf3da535724","type":"text","text":"# 加载玩家\n玩家由代表其物理存在的Pawn和控制其行为的控制器构成","x":1080,"y":-80,"width":300,"height":200,"color":"3"},
+		{"id":"da0eafb35307e18c","x":-146,"y":269,"width":250,"height":60,"type":"text","text":"GameMode"}
 	],
 	"edges":[
 		{"id":"dbe49c867679894e","fromNode":"c2111de431ab894d","fromSide":"top","toNode":"c2b36a0a3101dd41","toSide":"top","label":"继承"},
@@ -53,6 +55,11 @@
 		{"id":"06176bed68f8c6cb","fromNode":"c2b36a0a3101dd41","fromSide":"left","toNode":"98356fa8aad749af","toSide":"right","label":"继承"},
 		{"id":"f487f949ce5e2e41","fromNode":"71525bdc5f4cb65a","fromSide":"top","toNode":"dbab113cfe856350","toSide":"bottom"},
 		{"id":"a3a1b39727ee837f","fromNode":"71525bdc5f4cb65a","fromSide":"right","toNode":"93cee130b79b6b9f","toSide":"left","color":"3"},
-		{"id":"91b98ab397e6465f","fromNode":"93cee130b79b6b9f","fromSide":"right","toNode":"5d90bdf3da535724","toSide":"left","color":"3"}
+		{"id":"91b98ab397e6465f","fromNode":"93cee130b79b6b9f","fromSide":"right","toNode":"5d90bdf3da535724","toSide":"left","color":"3"},
+		{"id":"1ba299dec6287a40","fromNode":"71525bdc5f4cb65a","fromSide":"right","toNode":"98356fa8aad749af","toSide":"bottom"},
+		{"id":"6ae6f8b03b34320a","fromNode":"93cee130b79b6b9f","fromSide":"right","toNode":"274ebe653fffb1c1","toSide":"left","color":"3"},
+		{"id":"0e9e56313926c485","fromNode":"274ebe653fffb1c1","fromSide":"right","toNode":"5d90bdf3da535724","toSide":"left","color":"3"},
+		{"id":"f1bf58c03415b99d","fromNode":"93cee130b79b6b9f","fromSide":"right","toNode":"c2b36a0a3101dd41","toSide":"bottom"},
+		{"id":"93a101762bfe42d1","fromNode":"274ebe653fffb1c1","fromSide":"bottom","toNode":"da0eafb35307e18c","toSide":"top"}
 	]
 }
