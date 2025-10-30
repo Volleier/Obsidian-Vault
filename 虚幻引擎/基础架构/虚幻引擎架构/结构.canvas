@@ -25,7 +25,9 @@
 		{"id":"1faf5a1237e46161","type":"text","text":"# APawn","x":2100,"y":-718,"width":207,"height":77,"color":"1"},
 		{"id":"53877bb047878292","type":"text","text":"# AController\n","x":2347,"y":-718,"width":245,"height":77,"color":"1"},
 		{"id":"f808bdf572b5bb92","type":"text","text":"# AInfo","x":2620,"y":-718,"width":160,"height":77,"color":"1"},
-		{"id":"0ba6ca897a44fe8c","type":"text","text":"# ANavigationObjectBase","x":2820,"y":-718,"width":440,"height":77,"color":"1"}
+		{"id":"0ba6ca897a44fe8c","type":"text","text":"# ANavigationObjectBase","x":2820,"y":-718,"width":440,"height":77,"color":"1"},
+		{"id":"71525bdc5f4cb65a","type":"text","text":"# 加载引擎\n设置默认Gameplay框架\n包含：游戏模式、游戏实例、开始地图","x":-2430,"y":-400,"width":300,"height":200},
+		{"id":"93cee130b79b6b9f","type":"text","text":"# 加载层级\n设置默认Gameplay框架\n包含：游戏模式、游戏实例、开始地图","x":-1520,"y":-400,"width":300,"height":200}
 	],
 	"edges":[
 		{"id":"dbe49c867679894e","fromNode":"c2111de431ab894d","fromSide":"top","toNode":"c2b36a0a3101dd41","toSide":"top","label":"继承"},
@@ -46,6 +48,8 @@
 		{"id":"87d28a753fe8fec3","fromNode":"8ac8b7ad36871783","fromSide":"left","toNode":"bc4ee73c3da2d583","toSide":"right","label":"继承"},
 		{"id":"108282b41d68748c","fromNode":"622fa19b0fb56c65","fromSide":"left","toNode":"bc4ee73c3da2d583","toSide":"right","label":"依附"},
 		{"id":"6c1b5ca573660dc0","fromNode":"98356fa8aad749af","fromSide":"left","toNode":"03c0a363401d9b2e","toSide":"right","label":"继承"},
-		{"id":"06176bed68f8c6cb","fromNode":"c2b36a0a3101dd41","fromSide":"left","toNode":"98356fa8aad749af","toSide":"right","label":"继承"}
+		{"id":"06176bed68f8c6cb","fromNode":"c2b36a0a3101dd41","fromSide":"left","toNode":"98356fa8aad749af","toSide":"right","label":"继承"},
+		{"id":"f487f949ce5e2e41","fromNode":"71525bdc5f4cb65a","fromSide":"top","toNode":"dbab113cfe856350","toSide":"bottom"},
+		{"id":"a3a1b39727ee837f","fromNode":"71525bdc5f4cb65a","fromSide":"right","toNode":"93cee130b79b6b9f","toSide":"left"}
 	]
 }
