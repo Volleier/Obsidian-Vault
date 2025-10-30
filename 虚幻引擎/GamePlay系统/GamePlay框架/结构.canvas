@@ -1,24 +1,25 @@
 {
 	"nodes":[
 		{"id":"58ddf4043b9cb9f1","type":"group","x":1680,"y":-1600,"width":2360,"height":1129,"color":"1","label":"AActor"},
+		{"id":"ef8ea4437cb0fcdb","type":"group","x":-2450,"y":-100,"width":3890,"height":240,"color":"3","label":"游戏加载过程"},
 		{"id":"d636bf10f0397fb4","type":"group","x":400,"y":-1234,"width":940,"height":676,"color":"2","label":"ULevel"},
 		{"id":"b59de64328000197","type":"group","x":3520,"y":-1481,"width":440,"height":923,"color":"#ffffff","label":"Component&Pawn"},
 		{"id":"c2111de431ab894d","type":"group","x":-400,"y":-1184,"width":520,"height":576,"color":"3","label":"UWorld"},
 		{"id":"c2b36a0a3101dd41","type":"group","x":-1120,"y":-1184,"width":520,"height":576,"color":"4","label":"UWorldContext"},
 		{"id":"98356fa8aad749af","type":"group","x":-1840,"y":-1184,"width":520,"height":576,"color":"5","label":"UGameInstance"},
 		{"id":"03c0a363401d9b2e","type":"group","x":-2560,"y":-1184,"width":520,"height":576,"color":"6","label":"UEngine"},
-		{"id":"dbab113cfe856350","type":"file","file":"虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Engine引擎.md","x":-2480,"y":-1064,"width":400,"height":400,"color":"6"},
-		{"id":"1e6cddcdc827bb05","type":"file","file":"虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/GameInstance游戏实例.md","x":-1760,"y":-1077,"width":400,"height":400,"color":"5"},
-		{"id":"341781292ef3e639","type":"file","file":"虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/WorldContext世界上下文.md","x":-1040,"y":-1064,"width":400,"height":400,"color":"4"},
-		{"id":"c1015fcdd4bdf713","type":"file","file":"虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/World世界.md","x":-300,"y":-1064,"width":400,"height":400,"color":"3"},
+		{"id":"dbab113cfe856350","type":"file","file":"虚幻引擎/GamePlay系统/GamePlay框架/内容/Engine引擎.md","x":-2480,"y":-1064,"width":400,"height":400,"color":"6"},
+		{"id":"1e6cddcdc827bb05","type":"file","file":"虚幻引擎/GamePlay系统/GamePlay框架/内容/GameInstance游戏实例.md","x":-1760,"y":-1077,"width":400,"height":400,"color":"5"},
+		{"id":"341781292ef3e639","type":"file","file":"虚幻引擎/GamePlay系统/GamePlay框架/内容/WorldContext世界上下文.md","x":-1040,"y":-1064,"width":400,"height":400,"color":"4"},
+		{"id":"c1015fcdd4bdf713","type":"file","file":"虚幻引擎/GamePlay系统/GamePlay框架/内容/World世界.md","x":-300,"y":-1064,"width":400,"height":400,"color":"3"},
 		{"id":"0b034f90ff8d708d","type":"text","text":"# StreamLevel","x":420,"y":-651,"width":250,"height":73,"color":"2"},
-		{"id":"a6ba7e951c708125","type":"file","file":"虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Level层级.md","x":671,"y":-1214,"width":400,"height":400,"color":"2"},
+		{"id":"a6ba7e951c708125","type":"file","file":"虚幻引擎/GamePlay系统/GamePlay框架/内容/Level层级.md","x":671,"y":-1214,"width":400,"height":400,"color":"2"},
 		{"id":"3b72acb067bc7eb1","type":"text","text":"# PersistentLevel","x":729,"y":-651,"width":283,"height":73,"color":"2"},
-		{"id":"8ab2a24b85f565b5","type":"text","text":"# StreamLevel","x":1070,"y":-651,"width":250,"height":73,"color":"2"},
-		{"id":"622fa19b0fb56c65","type":"file","file":"虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Component组件.md","x":3540,"y":-1461,"width":400,"height":400,"color":"#ffffff"},
-		{"id":"bc4ee73c3da2d583","type":"file","file":"虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Actor实体.md","x":2100,"y":-1302,"width":400,"height":400,"color":"1"},
-		{"id":"8ac8b7ad36871783","type":"file","file":"虚幻引擎/基础架构/虚幻引擎架构/GamePlay架构/Pawn.md","x":3540,"y":-978,"width":400,"height":400,"color":"#ffffff"},
+		{"id":"622fa19b0fb56c65","type":"file","file":"虚幻引擎/GamePlay系统/GamePlay框架/内容/Component组件.md","x":3540,"y":-1461,"width":400,"height":400,"color":"#ffffff"},
+		{"id":"bc4ee73c3da2d583","type":"file","file":"虚幻引擎/GamePlay系统/GamePlay框架/内容/Actor实体.md","x":2100,"y":-1302,"width":400,"height":400,"color":"1"},
+		{"id":"8ac8b7ad36871783","type":"file","file":"虚幻引擎/GamePlay系统/GamePlay框架/内容/Pawn.md","x":3540,"y":-978,"width":400,"height":400,"color":"#ffffff"},
 		{"id":"3a11b193d3617bb1","type":"text","text":"# ALevelScriptActor","x":1700,"y":-718,"width":360,"height":77,"color":"1"},
+		{"id":"8ab2a24b85f565b5","type":"text","text":"# StreamLevel","x":1070,"y":-651,"width":250,"height":73,"color":"2"},
 		{"id":"43c2d5a54208f8d9","type":"text","text":"# AHUD","x":1994,"y":-561,"width":210,"height":71,"color":"1"},
 		{"id":"e57492b370334383","type":"text","text":"# Others","x":2820,"y":-561,"width":200,"height":71,"color":"1"},
 		{"id":"a3ee2d3e5a3e9292","type":"text","text":"# APlayerGameraManager","x":2307,"y":-561,"width":433,"height":71,"color":"1"},
@@ -26,8 +27,9 @@
 		{"id":"53877bb047878292","type":"text","text":"# AController\n","x":2347,"y":-718,"width":245,"height":77,"color":"1"},
 		{"id":"f808bdf572b5bb92","type":"text","text":"# AInfo","x":2620,"y":-718,"width":160,"height":77,"color":"1"},
 		{"id":"0ba6ca897a44fe8c","type":"text","text":"# ANavigationObjectBase","x":2820,"y":-718,"width":440,"height":77,"color":"1"},
-		{"id":"71525bdc5f4cb65a","type":"text","text":"# 加载引擎\n设置默认Gameplay框架\n包含：游戏模式、游戏实例、开始地图","x":-2430,"y":-400,"width":300,"height":200},
-		{"id":"93cee130b79b6b9f","type":"text","text":"# 加载层级\n设置默认Gameplay框架\n包含：游戏模式、游戏实例、开始地图","x":-1520,"y":-400,"width":300,"height":200}
+		{"id":"71525bdc5f4cb65a","type":"text","text":"# 加载引擎\n设置默认Gameplay框架\n包含：游戏模式、游戏实例、开始地图","x":-2430,"y":-80,"width":300,"height":200,"color":"3"},
+		{"id":"93cee130b79b6b9f","type":"text","text":"# 加载层级\n设置默认Gameplay框架\n包含：游戏模式、游戏实例、开始地图","x":-1520,"y":-80,"width":300,"height":200,"color":"3"},
+		{"id":"5d90bdf3da535724","type":"text","text":"# 加载层级\n设置默认Gameplay框架\n包含：游戏模式、游戏实例、开始地图","x":429,"y":-80,"width":300,"height":200,"color":"3"}
 	],
 	"edges":[
 		{"id":"dbe49c867679894e","fromNode":"c2111de431ab894d","fromSide":"top","toNode":"c2b36a0a3101dd41","toSide":"top","label":"继承"},
@@ -50,6 +52,7 @@
 		{"id":"6c1b5ca573660dc0","fromNode":"98356fa8aad749af","fromSide":"left","toNode":"03c0a363401d9b2e","toSide":"right","label":"继承"},
 		{"id":"06176bed68f8c6cb","fromNode":"c2b36a0a3101dd41","fromSide":"left","toNode":"98356fa8aad749af","toSide":"right","label":"继承"},
 		{"id":"f487f949ce5e2e41","fromNode":"71525bdc5f4cb65a","fromSide":"top","toNode":"dbab113cfe856350","toSide":"bottom"},
-		{"id":"a3a1b39727ee837f","fromNode":"71525bdc5f4cb65a","fromSide":"right","toNode":"93cee130b79b6b9f","toSide":"left"}
+		{"id":"a3a1b39727ee837f","fromNode":"71525bdc5f4cb65a","fromSide":"right","toNode":"93cee130b79b6b9f","toSide":"left","color":"3"},
+		{"id":"91b98ab397e6465f","fromNode":"93cee130b79b6b9f","fromSide":"right","toNode":"5d90bdf3da535724","toSide":"left","color":"3"}
 	]
 }
