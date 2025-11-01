@@ -1,6 +1,6 @@
 {
 	"nodes":[
-		{"id":"58ddf4043b9cb9f1","type":"group","x":-1260,"y":1316,"width":1740,"height":1129,"color":"1","label":"AActor"},
+		{"id":"58ddf4043b9cb9f1","type":"group","x":-2310,"y":1307,"width":1740,"height":1149,"color":"1","label":"AActor"},
 		{"id":"ef8ea4437cb0fcdb","type":"group","x":-3280,"y":-100,"width":6341,"height":240,"color":"3","label":"游戏加载过程"},
 		{"id":"ae6ee98832a4fa9b","type":"group","x":1880,"y":470,"width":1061,"height":870,"label":"角色控制器"},
 		{"id":"d636bf10f0397fb4","type":"group","x":-750,"y":-940,"width":940,"height":676,"color":"2","label":"ULevel"},
@@ -8,8 +8,9 @@
 		{"id":"c2111de431ab894d","type":"group","x":480,"y":-940,"width":520,"height":576,"color":"3","label":"UWorld"},
 		{"id":"98356fa8aad749af","type":"group","x":-1700,"y":-840,"width":520,"height":576,"color":"5","label":"UGameInstance"},
 		{"id":"03c0a363401d9b2e","type":"group","x":-2760,"y":-840,"width":520,"height":576,"color":"6","label":"UEngine"},
-		{"id":"b59de64328000197","type":"group","x":1800,"y":1880,"width":440,"height":462,"color":"#ffffff","label":"Component&Pawn"},
-		{"id":"5016b1017e71e2ef","x":-160,"y":400,"width":304,"height":258,"type":"group","label":"GameMode"},
+		{"id":"b59de64328000197","type":"group","x":1000,"y":1650,"width":440,"height":462,"color":"#ffffff","label":"Component&Pawn"},
+		{"id":"07f3c15b71418a3f","x":513,"y":1708,"width":326,"height":346,"type":"group","label":"角色"},
+		{"id":"5016b1017e71e2ef","type":"group","x":-160,"y":400,"width":304,"height":258,"label":"GameMode"},
 		{"id":"71525bdc5f4cb65a","type":"text","text":"# 加载引擎\n设置默认Gameplay框架\n包含：游戏模式、游戏实例、开始地图","x":-2430,"y":-80,"width":300,"height":200,"color":"3"},
 		{"id":"93cee130b79b6b9f","type":"text","text":"# 加载层级\n在世界上下文中加载所有关卡","x":-1520,"y":-80,"width":300,"height":200,"color":"3"},
 		{"id":"274ebe653fffb1c1","type":"text","text":"# 加载游戏模式\n首先实例化，创建游戏玩法框架","x":-160,"y":-80,"width":300,"height":200,"color":"3"},
@@ -28,11 +29,13 @@
 		{"id":"079118a516acfe72","type":"file","file":"虚幻引擎/GamePlay系统/GamePlay框架/内容/AIControllerAI角色控制器.md","x":2521,"y":490,"width":400,"height":400},
 		{"id":"13fd67274822f8f1","type":"text","text":"Pawn","x":950,"y":1236,"width":250,"height":60},
 		{"id":"901eb36b3cf06140","type":"file","file":"虚幻引擎/GamePlay系统/GamePlay框架/内容/Pawn.md","x":152,"y":980,"width":400,"height":400},
-		{"id":"622fa19b0fb56c65","type":"file","file":"虚幻引擎/GamePlay系统/GamePlay框架/内容/Component组件.md","x":1820,"y":1900,"width":400,"height":400,"color":"#ffffff"},
-		{"id":"bc4ee73c3da2d583","type":"file","file":"虚幻引擎/GamePlay系统/GamePlay框架/内容/Actor实体.md","x":-760,"y":1614,"width":400,"height":400,"color":"1"},
-		{"id":"900d137c2c02d406","x":-126,"y":578,"width":250,"height":60,"type":"text","text":"GameMode"},
+		{"id":"900d137c2c02d406","type":"text","text":"GameMode","x":-126,"y":578,"width":250,"height":60},
 		{"id":"da0eafb35307e18c","type":"text","text":"GameMode","x":-140,"y":420,"width":250,"height":60},
-		{"id":"f808bdf572b5bb92","type":"text","text":"# AInfo","x":-161,"y":1380,"width":160,"height":77,"color":"1"}
+		{"id":"622fa19b0fb56c65","type":"file","file":"虚幻引擎/GamePlay系统/GamePlay框架/内容/Component组件.md","x":1020,"y":1670,"width":400,"height":400,"color":"#ffffff"},
+		{"id":"f808bdf572b5bb92","type":"text","text":"# AInfo","x":-1211,"y":1391,"width":160,"height":77,"color":"1"},
+		{"id":"bc4ee73c3da2d583","type":"file","file":"虚幻引擎/GamePlay系统/GamePlay框架/内容/Actor实体.md","x":-1650,"y":1711,"width":400,"height":400,"color":"1"},
+		{"id":"7ac366c3b3d37d94","x":569,"y":1974,"width":250,"height":60,"type":"text","text":"角色"},
+		{"id":"ca37bdbdd1f9b02f","x":533,"y":1728,"width":250,"height":60,"type":"text","text":"juese"}
 	],
 	"edges":[
 		{"id":"3d1e24e4e5d91ffc","fromNode":"f808bdf572b5bb92","fromSide":"bottom","toNode":"bc4ee73c3da2d583","toSide":"top","label":"继承"},
@@ -40,7 +43,6 @@
 		{"id":"7995ad6abd75e3c2","fromNode":"0b034f90ff8d708d","fromSide":"top","toNode":"a6ba7e951c708125","toSide":"bottom"},
 		{"id":"9b7d37347c8a6e0d","fromNode":"8ab2a24b85f565b5","fromSide":"top","toNode":"a6ba7e951c708125","toSide":"bottom"},
 		{"id":"108282b41d68748c","fromNode":"622fa19b0fb56c65","fromSide":"left","toNode":"bc4ee73c3da2d583","toSide":"right","label":"依附"},
-		{"id":"6c1b5ca573660dc0","fromNode":"98356fa8aad749af","fromSide":"left","toNode":"e9caad72577669ec","toSide":"right","label":"继承"},
 		{"id":"f487f949ce5e2e41","fromNode":"71525bdc5f4cb65a","fromSide":"top","toNode":"dbab113cfe856350","toSide":"bottom"},
 		{"id":"a3a1b39727ee837f","fromNode":"71525bdc5f4cb65a","fromSide":"right","toNode":"93cee130b79b6b9f","toSide":"left","color":"3"},
 		{"id":"91b98ab397e6465f","fromNode":"93cee130b79b6b9f","fromSide":"right","toNode":"5d90bdf3da535724","toSide":"left","color":"3"},
@@ -59,6 +61,9 @@
 		{"id":"6fe36d8cf69c3ddf","fromNode":"5d90bdf3da535724","fromSide":"right","toNode":"490f8c0a7eb37084","toSide":"left"},
 		{"id":"fe7794d1accfe269","fromNode":"58ddf4043b9cb9f1","fromSide":"top","toNode":"e9caad72577669ec","toSide":"bottom","label":"继承"},
 		{"id":"ebe3ff49882321ac","fromNode":"da0eafb35307e18c","fromSide":"bottom","toNode":"900d137c2c02d406","toSide":"top"},
-		{"id":"367b514359f9b2e8","fromNode":"5016b1017e71e2ef","fromSide":"bottom","toNode":"f808bdf572b5bb92","toSide":"top"}
+		{"id":"367b514359f9b2e8","fromNode":"5016b1017e71e2ef","fromSide":"bottom","toNode":"f808bdf572b5bb92","toSide":"top"},
+		{"id":"6c1b5ca573660dc0","fromNode":"98356fa8aad749af","fromSide":"left","toNode":"e9caad72577669ec","toSide":"right","label":"继承"},
+		{"id":"0b352d64ed16660a","fromNode":"e9caad72577669ec","fromSide":"bottom","toNode":"622fa19b0fb56c65","toSide":"top"},
+		{"id":"a0858508cc8389c8","fromNode":"7ac366c3b3d37d94","fromSide":"top","toNode":"ca37bdbdd1f9b02f","toSide":"bottom"}
 	]
 }
