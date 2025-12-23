@@ -1,0 +1,17 @@
+{
+	"nodes":[
+		{"id":"804b48d9c4487ac2","type":"text","text":"# 数据结构","x":-100,"y":-60,"width":181,"height":52},
+		{"id":"667f6c7ecd0aed65","type":"file","file":"计算机科学与技术/A-理论基础/AA-计算机系统基础/AAA-数据结构/AAAA-绪论/数据结构总览.md","x":-209,"y":-540,"width":400,"height":400},
+		{"id":"fdcf975ef3f07407","type":"text","text":"## 线性结构\n","x":-420,"y":120,"width":160,"height":60},
+		{"id":"e67662f0cbe91ff5","x":328,"y":169,"width":250,"height":60,"type":"text","text":"## 非线性结构"},
+		{"id":"cadd42ff26e9ce80","type":"text","text":"## 树与二次二叉树\n","x":451,"y":328,"width":254,"height":60},
+		{"id":"876169146358238f","type":"text","text":"## 图","x":524,"y":-8,"width":109,"height":58}
+	],
+	"edges":[
+		{"id":"ab78829836a11d0f","fromNode":"804b48d9c4487ac2","fromSide":"top","toNode":"667f6c7ecd0aed65","toSide":"bottom"},
+		{"id":"ec363357521ab4b4","fromNode":"804b48d9c4487ac2","fromSide":"bottom","toNode":"fdcf975ef3f07407","toSide":"top"},
+		{"id":"ae1a79d88725b154","fromNode":"804b48d9c4487ac2","fromSide":"bottom","toNode":"e67662f0cbe91ff5","toSide":"top"},
+		{"id":"a6fbbdc96ea8db5c","fromNode":"e67662f0cbe91ff5","fromSide":"bottom","toNode":"876169146358238f","toSide":"top"},
+		{"id":"65ea12bfde04b184","fromNode":"e67662f0cbe91ff5","fromSide":"bottom","toNode":"cadd42ff26e9ce80","toSide":"top"}
+	]
+}
