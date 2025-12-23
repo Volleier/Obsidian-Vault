@@ -1,17 +1,29 @@
 {
 	"nodes":[
-		{"id":"804b48d9c4487ac2","type":"text","text":"# 数据结构","x":-100,"y":-60,"width":181,"height":52},
-		{"id":"667f6c7ecd0aed65","type":"file","file":"计算机科学与技术/A-理论基础/AA-计算机系统基础/AAA-数据结构/AAAA-绪论/数据结构总览.md","x":-209,"y":-540,"width":400,"height":400},
-		{"id":"fdcf975ef3f07407","type":"text","text":"## 线性结构\n","x":-420,"y":120,"width":160,"height":60},
-		{"id":"e67662f0cbe91ff5","x":328,"y":169,"width":250,"height":60,"type":"text","text":"## 非线性结构"},
-		{"id":"cadd42ff26e9ce80","type":"text","text":"## 树与二次二叉树\n","x":451,"y":328,"width":254,"height":60},
-		{"id":"876169146358238f","type":"text","text":"## 图","x":524,"y":-8,"width":109,"height":58}
+		{"id":"265d06af9a5bf2d9","type":"text","text":"# 数据结构","x":-441,"y":-85,"width":250,"height":60},
+		{"id":"806117dd796ae3b3","type":"text","text":"## 非线性结构","x":-440,"y":66,"width":250,"height":60},
+		{"id":"f40e49e88d8df08b","type":"text","text":"## 线性结构","x":-441,"y":-260,"width":250,"height":60},
+		{"id":"e4ce0af8f914bfb4","type":"text","text":"### [[Sequential List 顺序表|顺序表]]","x":-287,"y":-480,"width":250,"height":60},
+		{"id":"4a9ea8f107183d3e","type":"text","text":"### [[Linked List 链表|链表]]","x":-566,"y":-480,"width":250,"height":60},
+		{"id":"07fc9160f616ae17","type":"text","text":"### 线性表","x":-858,"y":-480,"width":250,"height":60},
+		{"id":"a51ace919ae0707d","type":"text","text":"### [[Stack 栈 与 Queue 队列|栈与队列]]","x":13,"y":-480,"width":250,"height":60},
+		{"id":"aac0f35836863323","type":"text","text":"### [[Tree 树|树]]","x":-637,"y":263,"width":250,"height":60},
+		{"id":"f2b439852b035302","type":"text","text":"#### 平衡二叉树","x":-960,"y":547,"width":250,"height":60},
+		{"id":"6b6394668332ccd5","x":-960,"y":667,"width":250,"height":60,"type":"text","text":"#### 完全二叉树"},
+		{"id":"194bc382787b178b","x":-960,"y":787,"width":250,"height":60,"type":"text","text":"#### 二叉搜索树"},
+		{"id":"cd991747f30cbe53","x":-960,"y":440,"width":250,"height":60,"type":"text","text":"#### 二叉树"}
 	],
 	"edges":[
-		{"id":"ab78829836a11d0f","fromNode":"804b48d9c4487ac2","fromSide":"top","toNode":"667f6c7ecd0aed65","toSide":"bottom"},
-		{"id":"ec363357521ab4b4","fromNode":"804b48d9c4487ac2","fromSide":"bottom","toNode":"fdcf975ef3f07407","toSide":"top"},
-		{"id":"ae1a79d88725b154","fromNode":"804b48d9c4487ac2","fromSide":"bottom","toNode":"e67662f0cbe91ff5","toSide":"top"},
-		{"id":"a6fbbdc96ea8db5c","fromNode":"e67662f0cbe91ff5","fromSide":"bottom","toNode":"876169146358238f","toSide":"top"},
-		{"id":"65ea12bfde04b184","fromNode":"e67662f0cbe91ff5","fromSide":"bottom","toNode":"cadd42ff26e9ce80","toSide":"top"}
+		{"id":"8287be876de330de","fromNode":"265d06af9a5bf2d9","fromSide":"bottom","toNode":"806117dd796ae3b3","toSide":"top"},
+		{"id":"caa6497f8652b87c","fromNode":"265d06af9a5bf2d9","fromSide":"top","toNode":"f40e49e88d8df08b","toSide":"bottom"},
+		{"id":"ae6dcad13edee5c9","fromNode":"f40e49e88d8df08b","fromSide":"top","toNode":"07fc9160f616ae17","toSide":"bottom"},
+		{"id":"47917d0109824cb3","fromNode":"f40e49e88d8df08b","fromSide":"top","toNode":"4a9ea8f107183d3e","toSide":"bottom"},
+		{"id":"6dd146773d4ffa91","fromNode":"f40e49e88d8df08b","fromSide":"top","toNode":"e4ce0af8f914bfb4","toSide":"bottom"},
+		{"id":"51803604ede9a517","fromNode":"f40e49e88d8df08b","fromSide":"top","toNode":"a51ace919ae0707d","toSide":"bottom"},
+		{"id":"b3bc52f5741bced2","fromNode":"806117dd796ae3b3","fromSide":"bottom","toNode":"aac0f35836863323","toSide":"top"},
+		{"id":"4657835d4cd3853b","fromNode":"aac0f35836863323","fromSide":"bottom","toNode":"f2b439852b035302","toSide":"right"},
+		{"id":"ee8369ee413c4353","fromNode":"aac0f35836863323","fromSide":"bottom","toNode":"6b6394668332ccd5","toSide":"right"},
+		{"id":"c6d5b68b00981288","fromNode":"aac0f35836863323","fromSide":"bottom","toNode":"194bc382787b178b","toSide":"right"},
+		{"id":"8335e285e90c0511","fromNode":"aac0f35836863323","fromSide":"bottom","toNode":"cd991747f30cbe53","toSide":"right"}
 	]
 }
