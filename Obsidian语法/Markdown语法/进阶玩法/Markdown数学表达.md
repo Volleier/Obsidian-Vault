@@ -9,32 +9,32 @@ $$log_2n\frac{1}{n} = -1log_2n$$
 写法是：`$$log_2n\frac{1}{n} = -1log_2n$$`
 
 # 特殊字符
-| 名称 | 大写 | 写法 | 小写 | 写法 |
-| ---- | ---- | ---- | ---- | ---- |
-| alpha | A | A | α | \alpha |
-| beta | B | B | β | \beat |
-| gamma | Γ | Gamma | γ | \gamma |
-| delta | Δ | \Delta | δ | \delta |
-| epsilon | E | E | ϵ | \epsilon |
-| zeta | Z | Z | ζ | \zeta |
-| eta | H | H | η | \eta |
-| theta | Θ | \Theta | θ | \theta |
-| iota | I | I | ι | \iota |
-| kappa | K | K | κ | \kappa |
-| lambda | Λ | \Lambda | λ | \lambda |
-| mu | M | M | μ | \mu |
-| nu | N | N | ν | \nu |
-| xi | Ξ | \Xi | ξ | \xi |
-| omicron | O | O | ο | \omicron |
-| pi	|Π | \Pi | π | \pi |  |
-| rho | P | P | ρ | \rho |
-| sigma | Σ | \Sigma | σ	|\sigma |  |
-| tau | T | T | τ | \tau |
-| upsilon | Υ | \Upsilon | υ | \upsilon |
-| phi | Φ | \Phi | ϕ | \phi |
-| chi | X | X | χ | \chi |
-| psi | Ψ | \Psi | ψ | \psi |
-| omega | Ω | \Omega | ω | \omega |
+| 名称      | 大写  | 写法       | 小写  | 写法       |     |
+| ------- | --- | -------- | --- | -------- | --- |
+| alpha   | A   | A        | α   | \alpha   |     |
+| beta    | B   | B        | β   | \beat    |     |
+| gamma   | Γ   | Gamma    | γ   | \gamma   |     |
+| delta   | Δ   | \Delta   | δ   | \delta   |     |
+| epsilon | E   | E        | ϵ   | \epsilon |     |
+| zeta    | Z   | Z        | ζ   | \zeta    |     |
+| eta     | H   | H        | η   | \eta     |     |
+| theta   | Θ   | \Theta   | θ   | \theta   |     |
+| iota    | I   | I        | ι   | \iota    |     |
+| kappa   | K   | K        | κ   | \kappa   |     |
+| lambda  | Λ   | \Lambda  | λ   | \lambda  |     |
+| mu      | M   | M        | μ   | \mu      |     |
+| nu      | N   | N        | ν   | \nu      |     |
+| xi      | Ξ   | \Xi      | ξ   | \xi      |     |
+| omicron | O   | O        | ο   | \omicron |     |
+| pi      | Π   | \Pi      | π   | \pi      |     |
+| rho     | P   | P        | ρ   | \rho     |     |
+| sigma   | Σ   | \Sigma   | σ   | \sigma   |     |
+| tau     | T   | T        | τ   | \tau     |     |
+| upsilon | Υ   | \Upsilon | υ   | \upsilon |     |
+| phi     | Φ   | \Phi     | ϕ   | \phi     |     |
+| chi     | X   | X        | χ   | \chi     |     |
+| psi     | Ψ   | \Psi     | ψ   | \psi     |     |
+| omega   | Ω   | \Omega   | ω   | \omega   |     |
 
 # 上标/下标
 上标和下标分别使用^和_来实现
