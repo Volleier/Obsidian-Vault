@@ -172,6 +172,7 @@ TIFF的图像格式很复杂，但由于它对图像信息的存放灵活多变�
 	```
 2. 高级特性标签
 	```text
+		//cpp
 	StripOffsets(273)        // 数据条偏移
 	RowsPerStrip(278)        // 每条行数
 	SamplesPerPixel(277)     // 每像素样本数
@@ -206,101 +207,80 @@ BMP格式是Windows操作系统中的标准图像文件格式，能够被多种W
 ```text
 |BMP文件头 (14字节)| → |DIB头 (大小可变)| → |颜色表 (可选)| → |像素数据|
 ```
-## 详细结构解析
+#### 关键块结构：
+##### BMP文件头 (BITMAPFILEHEADER)：固定14字节
 
-### 1. **BMP文件头 (BITMAPFILEHEADER)**
-
-**固定14字节**
-
-cpp
-
+```cpp
+//cpp
 typedef struct tagBITMAPFILEHEADER {
-  WORD  bfType;       // 2字节：文件类型，必须为"BM"（0x4D42）
-  DWORD bfSize;       // 4字节：整个文件大小（字节）
-  WORD  bfReserved1;  // 2字节：保留，必须为0
-  WORD  bfReserved2;  // 2字节：保留，必须为0
-  DWORD bfOffBits;    // 4字节：像素数据偏移量（从文件开始）
+WORD  bfType;       // 2字节：文件类型，必须为"BM"（0x4D42）
+DWORD bfSize;       // 4字节：整个文件大小（字节）
+WORD  bfReserved1;  // 2字节：保留，必须为0
+WORD  bfReserved2;  // 2字节：保留，必须为0
+DWORD bfOffBits;    // 4字节：像素数据偏移量（从文件开始）
 } BITMAPFILEHEADER;
+```
 
-### 2. **DIB头 (设备无关位图头)**
+##### DIB头 (设备无关位图头)：
+有多个版本，最常见的是BITMAPINFOHEADER（40字节）
 
-**有多个版本，最常见的是BITMAPINFOHEADER（40字节）**
-
-#### **V3：BITMAPINFOHEADER (Windows 3.x)**
-
-cpp
-
+- V3：BITMAPINFOHEADER (Windows 3.x)
+	```cpp
+//cpp
 typedef struct tagBITMAPINFOHEADER {
-  DWORD biSize;          // 4字节：本结构大小（40）
-  LONG  biWidth;         // 4字节：图像宽度（像素），可正可负
-  LONG  biHeight;        // 4字节：图像高度（像素），正数：倒序，负数：正序
-  WORD  biPlanes;        // 2字节：颜色平面数，必须为1
-  WORD  biBitCount;      // 2字节：每像素位数（1,4,8,16,24,32）
-  DWORD biCompression;   // 4字节：压缩方式
-  DWORD biSizeImage;     // 4字节：像素数据大小（字节）
-  LONG  biXPelsPerMeter; // 4字节：水平分辨率（像素/米）
-  LONG  biYPelsPerMeter; // 4字节：垂直分辨率（像素/米）
-  DWORD biClrUsed;       // 4字节：实际使用的颜色数（0=全部）
-  DWORD biClrImportant;  // 4字节：重要颜色数（0=全部重要）
-} BITMAPINFOHEADER;
+	  DWORD biSize;          // 4字节：本结构大小（40）
+	  LONG  biWidth;         // 4字节：图像宽度（像素），可正可负
+	  LONG  biHeight;        // 4字节：图像高度（像素），正数：倒序，负数：正序
+	  WORD  biPlanes;        // 2字节：颜色平面数，必须为1
+	  WORD  biBitCount;      // 2字节：每像素位数（1,4,8,16,24,32）
+	  DWORD biCompression;   // 4字节：压缩方式
+	  DWORD biSizeImage;     // 4字节：像素数据大小（字节）
+	  LONG  biXPelsPerMeter; // 4字节：水平分辨率（像素/米）
+	  LONG  biYPelsPerMeter; // 4字节：垂直分辨率（像素/米）
+	  DWORD biClrUsed;       // 4字节：实际使用的颜色数（0=全部）
+	  DWORD biClrImportant;  // 4字节：重要颜色数（0=全部重要）
+	} BITMAPINFOHEADER;
+	```
+- V4：BITMAPV4HEADER (Windows 95)：在V3基础上增加**：颜色掩码、Gamma值、色彩空间，总大小108字节
+- V5：BITMAPV5HEADER (Windows 98/2000)：在V4基础上增加：ICC配置文件支持，总大小124字节
 
-#### **V4：BITMAPV4HEADER (Windows 95)**
+##### 压缩方式 (biCompression) 值
 
-- **在V3基础上增加**：颜色掩码、Gamma值、色彩空间
-    
-- **总大小**：108字节
-    
 
-#### **V5：BITMAPV5HEADER (Windows 98/2000)**
+	```cpp
+	BI_RGB       = 0  // 未压缩
+	BI_RLE8      = 1  // 8位像素游程编码
+	BI_RLE4      = 2  // 4位像素游程编码
+	BI_BITFIELDS = 3  // 16/32位像素使用颜色掩码
+	BI_JPEG      = 4  // 包含JPEG图像（仅打印）
+	BI_PNG       = 5  // 包含PNG图像（仅打印）
+	```
 
-- **在V4基础上增加**：ICC配置文件支持
-    
-- **总大小**：124字节
-    
 
-### 3. **压缩方式 (biCompression) 值**
-
-cpp
-
-BI_RGB       = 0  // 未压缩
-BI_RLE8      = 1  // 8位像素游程编码
-BI_RLE4      = 2  // 4位像素游程编码
-BI_BITFIELDS = 3  // 16/32位像素使用颜色掩码
-BI_JPEG      = 4  // 包含JPEG图像（仅打印）
-BI_PNG       = 5  // 包含PNG图像（仅打印）
-
-### 4. **颜色表 (调色板)**
-
-- **仅当** biBitCount ≤ 8 时存在
-    
-- **每个表项**：4字节（BGR顺序 + 保留字节）
-    
-
-cpp
-
+4. 颜色表 (调色板)
+- 仅当 biBitCount ≤ 8 时存在
+- 每个表项：4字节（BGR顺序 + 保留字节）
+	```cpp
 typedef struct tagRGBQUAD {
   BYTE rgbBlue;     // 蓝色分量
   BYTE rgbGreen;    // 绿色分量
   BYTE rgbRed;      // 红色分量
   BYTE rgbReserved; // 保留，必须为0
 } RGBQUAD;
-
-**颜色表大小** = `颜色数 × 4` 字节
-
+	```
+颜色表大小 = 颜色数 × 4 字节
 - 1位：最大2色（实际2项）
-    
 - 4位：最大16色（实际16项）
-    
 - 8位：最大256色（实际256项）
-    
 
-### 5. **像素数据存储**
+##### 像素数据存储
 
-#### **行对齐规则**
+1. 行对齐规则
+	```text
+	每行字节数 = floor((biWidth × biBitCount + 31) / 32) × 4
+	```
 
-text
 
-每行字节数 = floor((biWidth × biBitCount + 31) / 32) × 4
 
 - 每行必须填充到4字节边界
     
