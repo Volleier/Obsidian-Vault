@@ -238,119 +238,77 @@ $$M=T(c_x,c_y) \cdot R(\theta) \cdot T(−c_x,−c_y)$$
 
 ## 点与向量的数学区分
 ### 点的特性
-
 - 表示空间中的绝对位置
-    
-- 齐次坐标 w=1w=1
-    
+- 齐次坐标 $w=1$
 - 受平移变换影响
-    
 - 可进行：点 - 点 = 向量
-    
 
 ### 向量的特性
-
 - 表示方向和大小
-    
-- 齐次坐标 w=0w=0
-    
+- 齐次坐标 $w=0$
 - 不受平移影响
-    
 - 可进行：向量加减、数乘、点积、叉积
-    
 
 ## 基本向量运算
 
 ### 向量加法与减法
-
 - 几何意义：三角形法则/平行四边形法则
-    
-- 代数形式：u⃗±v⃗=(ux±vx,uy±vy)u±v=(ux​±vx​,uy​±vy​)
-    
+- 代数形式：$\vec{u} \pm \vec{v} = (u_x \pm v_x, u_y \pm v_y)$
 - 应用：计算位移、相对位置
-    
 
 ### 数乘运算
-
-- 定义：kv⃗=(kvx,kvy)kv=(kvx​,kvy​)
-    
+- 定义：$k\vec{v} = (kv_x, kv_y)$
 - 几何意义：缩放向量长度，保持/反转方向
-    
-- k>0k>0：同向缩放
-    
-- k<0k<0：反向缩放
-    
-- k=0k=0：零向量
-    
+- $k>0$：同向缩放
+- $k<0$：反向缩放
+- $k=0$：零向量
 
 ### 点积（内积）
-
-**定义**：
-
-u⃗⋅v⃗=uxvx+uyvy=∥u⃗∥∥v⃗∥cos⁡θu⋅v=ux​vx​+uy​vy​=∥u∥∥v∥cosθ
-
-**几何意义与应用**：
-
-1. 计算夹角：cos⁡θ=u⃗⋅v⃗∥u⃗∥∥v⃗∥cosθ=∥u∥∥v∥u⋅v​
-    
-2. 向量投影：projv⃗u⃗=u⃗⋅v⃗v⃗⋅v⃗v⃗projv​u=v⋅vu⋅v​v
-    
-3. 判断垂直：u⃗⋅v⃗=0  ⟺  u⃗⊥v⃗u⋅v=0⟺u⊥v
-    
-4. 计算长度平方：v⃗⋅v⃗=∥v⃗∥2v⋅v=∥v∥2
-    
+定义
+$$\vec{u} \cdot \vec{v} = u_x v_x + u_y v_y = \|\vec{u}\|\|\vec{v}\|\cos\theta $$
+几何意义与应用
+1. 计算夹角：$\cos\theta = \frac{\vec{u} \cdot \vec{v}}{\|\vec{u}\|\|\vec{v}\|}$
+2. 向量投影：$\text{proj}_{\vec{v}}\vec{u} = \frac{\vec{u} \cdot \vec{v}}{\vec{v} \cdot \vec{v}} \vec{v}$
+3. 判断垂直：$\vec{u} \cdot \vec{v} = 0 \iff \vec{u} \perp \vec{v}$
+4. 计算长度平方：$\vec{v} \cdot \vec{v} = \|\vec{v}\|^2$
 
 ### 二维叉积（外积）
+定义：
+$$\vec{u} \times \vec{v} = u_x v_y - u_y v_x = \|\vec{u}\|\|\vec{v}\|\sin\theta$$
 
-**定义**：
-
-u⃗×v⃗=uxvy−uyvx=∥u⃗∥∥v⃗∥sin⁡θu×v=ux​vy​−uy​vx​=∥u∥∥v∥sinθ
-
-**几何意义与应用**：
-
-1. 计算平行四边形/三角形面积：Area=∣u⃗×v⃗∣Area=∣u×v∣
-    
+几何意义与应用
+1. 计算平行四边形/三角形面积：$\text{Area} = |\vec{u} \times \vec{v}|$
 2. 判断方向/旋转：
-    
-    - u⃗×v⃗>0u×v>0：v⃗v 在 u⃗u 逆时针方向
-        
-    - u⃗×v⃗<0u×v<0：v⃗v 在 u⃗u 顺时针方向
-        
-    - u⃗×v⃗=0u×v=0：两向量共线
-        
+    - $\vec{u} \times\vec{v}>0$：$\vec{v}$ 在 $\vec{u}$ 逆时针方向
+    -  $\vec{u} \times\vec{v}<0$：$\vec{v}$ 在 $\vec{u}$ 顺时针方向
+    - $\vec{u} \times\vec{v}=0$：两向量共线
 3. 多边形凸性测试
-    
 4. 光线与线段求交
-    
 
 ## 坐标系变换
 
 ### 局部坐标到世界坐标
+对象定义在自己的局部坐标系中，需要放置到场景的世界坐标系。
 
-**问题**：对象定义在自己的局部坐标系中，需要放置到场景的世界坐标系。
-
-**变换矩阵**：
-
-Mlocal→world=Tworld⋅Rworld⋅SworldMlocal→world​=Tworld​⋅Rworld​⋅Sworld​
+变换矩阵
+$$M_{\text{local→world}} = T_{\text{world}} \cdot R_{\text{world}} \cdot S_{\text{world}}$$
 
 ### 世界坐标到视图坐标
+从世界坐标系转换到相机/观察者坐标系
 
-**问题**：从世界坐标系转换到相机/观察者坐标系。
-
-**构造视图矩阵**：
-
-1. 计算相机坐标系基向量：
-    
-    - z^=相机位置−目标位置∥相机位置−目标位置∥z^=∥相机位置−目标位置∥相机位置−目标位置​
-        
-    - x^=上方向×z^∥上方向×z^∥x^=∥上方向×z^∥上方向×z^​
-        
-    - y^=z^×x^y^​=z^×x^
-        
-2. 视图矩阵：
-    
-    V=[x^xx^y−(x^⋅相机位置)y^xy^y−(y^⋅相机位置)z^xz^y−(z^⋅相机位置)001]V=​x^x​y^​x​z^x​0​x^y​y^​y​z^y​0​−(x^⋅相机位置)−(y^​⋅相机位置)−(z^⋅相机位置)1​​
+构造视图矩阵
+1. 计算相机坐标系基向量
+    - $\hat{z} = \frac{\text{相机位置} - \text{目标位置}}{\|\text{相机位置} - \text{目标位置}\|}$
+    - $\hat{x} = \frac{\text{上方向} \times \hat{z}}{\|\text{上方向} \times \hat{z}\|}$
+    - $\hat{y} = \hat{z} \times \hat{x}$
+2. 视图矩阵
+$$V = \begin{bmatrix}
+\hat{x}_x & \hat{x}_y & -(\hat{x} \cdot \text{相机位置}) \\
+\hat{y}_x & \hat{y}_y & -(\hat{y} \cdot \text{相机位置}) \\
+\hat{z}_x & \hat{z}_y & -(\hat{z} \cdot \text{相机位置}) \\
+0 & 0 & 1
+\end{bmatrix}$$
 
 ### 坐标变换链
 完整图形管线中的坐标变换：
-Pscreen=Mprojection⋅Mview⋅Mworld⋅PlocalPscreen​=Mprojection​⋅Mview​⋅Mworld​⋅Plocal​
+$$P_{screen}=M_{projection} \cdot M_{view} \cdot M_{world} \cdot P_{local}$$
