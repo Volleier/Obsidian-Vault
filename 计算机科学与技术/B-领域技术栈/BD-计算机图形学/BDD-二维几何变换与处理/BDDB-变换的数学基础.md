@@ -11,23 +11,19 @@
 #### 非齐次坐标： 
 $$
 \begin{gather}
-x + y = 1 \\
-x - y = 2
+x'=x+t_x \\
+y'=y+t_y
 \end{gather}
-$$
-$$x′=x+txx′=x+tx \quad y′=y+tyy′=y+ty​$$
+​$$
 #### 齐次坐标矩阵（3×3）
-    
-$$M_{\text{scale}} = \begin{bmatrix}
-s_x & 0 & 0 \\
-0 & s_y & 0 \\
+$$
+T{(t_x,t_y)}=
+M_{\text{tran}} = \begin{bmatrix}
+1 & 0 & t_x \\
+0 & 1 & t_y \\
 0 & 0 & 1
 \end{bmatrix}
-= \begin{bmatrix}
-3 & 0 & 0 \\
-0 & 4 & 0 \\
-0 & 0 & 1
-\end{bmatrix}$$
+$$
 
 ### 几何意义
 - 保持图形形状、大小、方向不变
@@ -35,6 +31,29 @@ s_x & 0 & 0 \\
 - 无法用2×2线性变换矩阵表示
 ## 缩放变换
 沿坐标轴方向拉伸或压缩图形。
+
+### 数学表示
+#### 非齐次坐标： 
+    x′=sx⋅xx′=sx​⋅x  
+    y′=sy⋅yy′=sy​⋅y
+    
+#### 齐次坐标矩阵：
+$$
+S{(s_x,s_y)}=
+M_{\text{scale}} = \begin{bmatrix}
+s_x & 0 & 0 \\
+0 & s_y & 0 \\
+0 & 0 & 1
+\end{bmatrix}
+$$
+类型：
+- 均匀缩放：sx=sysx​=sy​，保持形状比例
+- 非均匀缩放：sx≠sysx​=sy​，产生拉伸或压缩变形
+
+### 几何性质
+- 当 sx,sy>1sx​,sy​>1 时，图形放大
+- 当 0<sx,sy<10<sx​,sy​<1 时，图形缩小
+- 当缩放因子为负时，产生反射效果
 
 ## 旋转变换
 
