@@ -30,7 +30,8 @@ JPEG格式可分为标准JPEG、渐进式JPEG及JPEG2000三种格式。
 3. JPEG2000；它是新一代的影像压缩法，压缩品质更高，并可改善在无线传输时，常因信号不稳造成马赛克现象及位置错乱的情况，改善传输的品质。
 ### 文件结构
 ```text
-SOI标记(FFD8) → APPn段(元数据) → DQT(量化表) → SOF0(帧开始) → DHT(霍夫曼表) → SOS(扫描开始) → 压缩数据流 → EOI标记(FFD9)
+|SOI标记(FFD8)| → |APPn段(元数据)| → |DQT(量化表)| → |SOF0(帧开始)| → |
+DHT(霍夫曼表)| → |SOS(扫描开始)| → |压缩数据流| → |EOI标记(FFD9)|
 ```
 关键段结构：
 - EXIF数据：存储在APP1段，包含相机参数、GPS信息
@@ -64,7 +65,7 @@ PNG是一种采用无损压缩算法的位图格式，支持索引、灰度、RG
 
 ### 文件结构
 ```text
-PNG签名(8字节) → IHDR(图像头) → 可选块 → IDAT(图像数据) → IEND(结束)
+|PNG签名(8字节)| → |IHDR(图像头)| → |可选块| → |IDAT(图像数据)| → |IEND(结束)|
 ```
 关键块结构：
 1. IHDR块（必需）
@@ -84,8 +85,17 @@ PNG签名(8字节) → IHDR(图像头) → 可选块 → IDAT(图像数据) → 
 
 ### 优缺点
 #### PNG的优点
+- 无损压缩：图像质量完美保留
+- 支持真彩色+Alpha通道：1600万色+256级透明度
+- 透明效果优秀：平滑半透明边缘
+- 网络优化：隔行扫描、渐进式加载
+- 开放标准：无专利限制
 
 #### PNG的缺点
+- 文件体积较大：不适合照片存储
+- 无动画支持：需APNG扩展（兼容性差）
+- 压缩效率有限：对连续色调图像不如JPEG
+- 不支持CMYK：印刷准备需转换
 
 ## GIF（Graphics Interchange Format）
 ### 介绍
@@ -99,7 +109,7 @@ GIF是一种位图。位图的大致原理是：图片由许多的像素组成�
 GIF格式和其他图像格式的最大区别在于，它完全是作为一种公用标准而设计的，由于Compu Serve网络的流行，许多平台都支持GIF格式。Compu Serve通过免费发行格式说明书推广GIF，但要求使用GIF文件格式的软件要包含其版权信息的说明。
 ### 文件结构
 ```text
-头部(6字节) → 逻辑屏幕描述符 → 全局调色板 → [图像块/扩展块]* → 文件终止符(3B)
+|头部(6字节)| → |逻辑屏幕描述符| → |全局调色板| → |[图像块/扩展块]*| → |文件终止符(3B)|
 ```
 关键块结构：
 1. GIF头部："GIF87a"或"GIF89a"标识
@@ -120,13 +130,22 @@ GIF格式和其他图像格式的最大区别在于，它完全是作为一种�
 
 ### 优缺点
 #### GIF的优点
+- 支持动画：所有浏览器原生支持
+- 文件极小：简单图像/动画文件很小
+- 硬件要求低：解码简单，老设备兼容
+- 透明背景：1位透明度（全透/不透）
 
 #### GIF的缺点
+- 仅256色：色彩严重受限
+- 无半透明：边缘锯齿明显
+- 压缩率低：对复杂图像效率差
+- 已过时：被WebP等现代格式替代
+
 ## TIFF（Tagged Image File Format）
 ### 介绍
-| 英文全名                     | 中文名      | 扩展名  | 方式            |
-| ------------------------ | -------- | ---- | ----------- |
-| Tagged Image File Format | 标签图像文件格式 | .t   一种灵活的位图格式 的位图格式 |
+| 英文全名                     | 中文名      | 扩展名 | 方式              |
+| ------------------------ | -------- | --- | --------------- |
+| Tagged Image File Format | 标签图像文件格式 | .t  | 一种灵活的位图格式 的位图格式 |
 标签图像文件格式（Tag Image File Format，TIFF）是一种灵活的位图格式，主要用来存储包括照片和艺术图在内的图像，最初由Aldus公司与微软公司一起为PostScript打印开发。TIFF与JPEG和PNG一起成为流行的高位彩色图像格式。TIFF格式在业界得到了广泛的支持，如Adobe公司的Photoshop、The GIMP Team的GIMP、Ulead PhotoImpact和Paint Shop Pro等图像处理应用、QuarkXPress和Adobe InDesign这样的桌面印刷和页面排版应用，扫描、传真、文字处理、光学字符识别和其它一些应用等都支持这种格式。从Aldus获得了PageMaker印刷应用程序的Adobe公司控制着TIFF规范。
 
 TIFF最初的设计目的是为了1980年代中期桌面扫描仪厂商达成一个公用的统一的扫描图像文件格式，而不是每个厂商使用自己专有的格式。在刚开始的时候， TIFF只是一个二值图像格式，因为当时的桌面扫描仪只能处理这种格式，随着扫描仪的功能越来越强大，并且计算机的磁盘空间越来越大，TIFF逐渐支持灰阶图像和彩色图像。
@@ -135,40 +154,239 @@ TIFF的图像格式很复杂，但由于它对图像信息的存放灵活多变�
 
 ### 文件结构
 ```text
-字节序标记(2B) → 版本号(42)(2B) → 第一个IFD偏移(4B) → IFD1 → 图像数据1 → IFD2 → 图像数据2 → ...
+|字节序标记(2B)| → |版本号(42)(2B)| → |第一个IFD偏移(4B)| → |IFD1| → |图像数据1| → |IFD2| → |图像数据2| → |...
 ```
 关键块结构：
 - IFD详细结构
-  ```text
-目录项数量(2B) → [标签(2B) | 类型(2B) | 计数(4B) | 值/偏移(4B)]* → 下一个IFD偏移(4B)```
-
-### 核心标签系统
-
-1. **基本图像参数标签**
-    
-
-c
-
-ImageWidth(256)          // 图像宽度
-ImageLength(257)         // 图像高度
-BitsPerSample(258)       // 每样本位数
-Compression(259)         // 压缩方案
-PhotometricInterpretation(262) // 色彩空间
-
-2. **高级特性标签**
-    
-
-c
-
-StripOffsets(273)        // 数据条偏移
-RowsPerStrip(278)        // 每条行数
-SamplesPerPixel(277)     // 每像素样本数
-XResolution(282)         // 水平分辨率
-YResolution(283)         // 垂直分辨率
+	```text
+	目录项数量(2B) → [标签(2B) | 类型(2B) | 计数(4B) | 值/偏移(4B)]* → 下一个IFD偏移(4B)
+	```
+- 核心标签系统
+1. 基本图像参数标签
+	```text
+	ImageWidth(256)          // 图像宽度
+	ImageLength(257)         // 图像高度
+	BitsPerSample(258)       // 每样本位数
+	Compression(259)         // 压缩方案
+	PhotometricInterpretation(262) // 色彩空间
+	```
+2. 高级特性标签
+	```text
+	StripOffsets(273)        // 数据条偏移
+	RowsPerStrip(278)        // 每条行数
+	SamplesPerPixel(277)     // 每像素样本数
+	XResolution(282)         // 水平分辨率
+	YResolution(283)         // 垂直分辨率
+	```
 
 ### 性能
 
 ### 优缺点
 #### TIFF的优点
+- 极度灵活：标签系统支持无限扩展
+- 专业级质量：支持32位/通道、CMYK等
+- 印刷标准：DPI控制、ICC色彩管理
+- 多页/图层：文档化结构
+- 元数据丰富：EXIF、地理数据等完整保存
 
 #### TIFF的缺点
+- 文件巨大：不适合网络传输
+- 解析复杂：格式变体多，解码困难
+- 浏览器支持差：需要转换才能网页显示
+- 性能开销大：加载处理慢
+
+## BMP（Bitmap-File）
+
+| 英文全名                     | 中文名      | 扩展名                  | 方式  |
+| ------------------------ | -------- | -------------------- | --- |
+| Tagged Image File Format | 标签图像文件格式 | .t   一种灵活的位图格式 的位图格式 |     |
+BMP格式是Windows操作系统中的标准图像文件格式，能够被多种Windows应用程序所支持。这种格式的特点是包含的图像信息较丰富，几乎不进行压缩，但由此导致了占用磁盘空间过大。
+
+### 文件结构
+```text
+|BMP文件头 (14字节)| → |DIB头 (大小可变)| → |颜色表 (可选)| → |像素数据|
+```
+## 详细结构解析
+
+### 1. **BMP文件头 (BITMAPFILEHEADER)**
+
+**固定14字节**
+
+cpp
+
+typedef struct tagBITMAPFILEHEADER {
+  WORD  bfType;       // 2字节：文件类型，必须为"BM"（0x4D42）
+  DWORD bfSize;       // 4字节：整个文件大小（字节）
+  WORD  bfReserved1;  // 2字节：保留，必须为0
+  WORD  bfReserved2;  // 2字节：保留，必须为0
+  DWORD bfOffBits;    // 4字节：像素数据偏移量（从文件开始）
+} BITMAPFILEHEADER;
+
+### 2. **DIB头 (设备无关位图头)**
+
+**有多个版本，最常见的是BITMAPINFOHEADER（40字节）**
+
+#### **V3：BITMAPINFOHEADER (Windows 3.x)**
+
+cpp
+
+typedef struct tagBITMAPINFOHEADER {
+  DWORD biSize;          // 4字节：本结构大小（40）
+  LONG  biWidth;         // 4字节：图像宽度（像素），可正可负
+  LONG  biHeight;        // 4字节：图像高度（像素），正数：倒序，负数：正序
+  WORD  biPlanes;        // 2字节：颜色平面数，必须为1
+  WORD  biBitCount;      // 2字节：每像素位数（1,4,8,16,24,32）
+  DWORD biCompression;   // 4字节：压缩方式
+  DWORD biSizeImage;     // 4字节：像素数据大小（字节）
+  LONG  biXPelsPerMeter; // 4字节：水平分辨率（像素/米）
+  LONG  biYPelsPerMeter; // 4字节：垂直分辨率（像素/米）
+  DWORD biClrUsed;       // 4字节：实际使用的颜色数（0=全部）
+  DWORD biClrImportant;  // 4字节：重要颜色数（0=全部重要）
+} BITMAPINFOHEADER;
+
+#### **V4：BITMAPV4HEADER (Windows 95)**
+
+- **在V3基础上增加**：颜色掩码、Gamma值、色彩空间
+    
+- **总大小**：108字节
+    
+
+#### **V5：BITMAPV5HEADER (Windows 98/2000)**
+
+- **在V4基础上增加**：ICC配置文件支持
+    
+- **总大小**：124字节
+    
+
+### 3. **压缩方式 (biCompression) 值**
+
+cpp
+
+BI_RGB       = 0  // 未压缩
+BI_RLE8      = 1  // 8位像素游程编码
+BI_RLE4      = 2  // 4位像素游程编码
+BI_BITFIELDS = 3  // 16/32位像素使用颜色掩码
+BI_JPEG      = 4  // 包含JPEG图像（仅打印）
+BI_PNG       = 5  // 包含PNG图像（仅打印）
+
+### 4. **颜色表 (调色板)**
+
+- **仅当** biBitCount ≤ 8 时存在
+    
+- **每个表项**：4字节（BGR顺序 + 保留字节）
+    
+
+cpp
+
+typedef struct tagRGBQUAD {
+  BYTE rgbBlue;     // 蓝色分量
+  BYTE rgbGreen;    // 绿色分量
+  BYTE rgbRed;      // 红色分量
+  BYTE rgbReserved; // 保留，必须为0
+} RGBQUAD;
+
+**颜色表大小** = `颜色数 × 4` 字节
+
+- 1位：最大2色（实际2项）
+    
+- 4位：最大16色（实际16项）
+    
+- 8位：最大256色（实际256项）
+    
+
+### 5. **像素数据存储**
+
+#### **行对齐规则**
+
+text
+
+每行字节数 = floor((biWidth × biBitCount + 31) / 32) × 4
+
+- 每行必须填充到4字节边界
+    
+- 填充值通常为0
+    
+
+#### **像素排列顺序**
+
+cpp
+
+// 典型24位BMP像素格式（无颜色表）
+BYTE blue  = data[row][col * 3 + 0];
+BYTE green = data[row][col * 3 + 1];
+BYTE red   = data[row][col * 3 + 2];
+
+// 行存储：从最后一行开始（如果biHeight > 0）
+// 即图像在文件中是"倒着"存储的
+
+#### **不同色深的像素格式**
+
+**1位（单色）**
+
+- 每个像素1位
+    
+- 每字节存储8个像素
+    
+- MSB对应最左像素
+    
+
+**4位（16色）**
+
+- 每个像素4位
+    
+- 每字节存储2个像素
+    
+- 高4位：左像素，低4位：右像素
+    
+
+**8位（256色）**
+
+- 每个像素1字节
+    
+- 值为颜色表索引
+    
+
+**16位（高彩色）**
+
+- **无压缩**：通常为5-5-5格式（1位未用）
+    
+- **BITFIELDS**：使用颜色掩码指定R/G/B位分布
+    
+
+cpp
+
+// 常见掩码值
+565格式：R=0xF800, G=0x07E0, B=0x001F
+555格式：R=0x7C00, G=0x03E0, B=0x001F
+
+**24位（真彩色）**
+
+- 每像素3字节：BGR顺序
+    
+
+**32位（带Alpha）**
+
+- 每像素4字节：BGRA顺序（A通常为0xFF）
+    
+- 或使用BITFIELDS指定包含Alpha通道
+    
+
+### 6. **BITFIELDS颜色掩码**
+
+- 当 biCompression = BI_BITFIELDS 时使用
+    
+- 紧接在DIB头之后，颜色表之前
+    
+- **3个DWORD**：红、绿、蓝掩码（32位图像还有Alpha掩码）
+    
+
+cpp
+
+DWORD redMask   = 0x00FF0000;  // 红色掩码（典型32位）
+DWORD greenMask = 0x0000FF00;  // 绿色掩码
+DWORD blueMask  = 0x000000FF;  // 蓝色掩码
+DWORD alphaMask = 0xFF000000;  // Alpha掩码（如果存在）
+
+
+## WebP（WebP）
+
