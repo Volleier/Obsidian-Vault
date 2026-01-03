@@ -84,31 +84,7 @@ def sutherland_hodgman(subject, clipper):
 3. 从未访问的交点开始，按 entry/exit 规则在两表间切换遍历，形成一条输出回路；重复直到所有交点被访问。
 
 #### 算法实现
-
-### 数据结构建议
-- 使用循环链表（或双向链表）存储顶点，交点以节点形式插入并互相链接（跨链表指针）。
-- 每交点记录：位置、参数、已访问标志、entry/exit 标志、对端点引用。
-
-## Greiner–Hormann / 通用布尔运算
-
-与 Weiler–Atherton 思路相近，目标是支持任意两个简单多边形的交/并/差运算。实现包含交点插入、entry/exit 标记、交替遍历输出。重点在于重叠边/顶点相交的特殊处理与排序稳定性。
-
-
-## 数值稳定性与通用建议
-- 统一顶点方向（外环/内环约定）。
-- 使用小量 $\\varepsilon$ 判断相等或共线，或将坐标缩放为整数以避免浮点误差。
-- 对重叠边做分割处理并合并近似点以去除微小环或退化多边形。
-
-## 简要 Python 参考实现（核心函数片段，非完整脚本）
-
-1) Sutherland–Hodgman 核心函数（半平面判断与交点）
-
-
-2) 完整化的 Weiler–Atherton 思路骨架与实现提示
-
-下面给出一个较为完整但仍简化的 Python 参考实现：包含交点查找、在链表中插入交点、标记 entry/exit、以及按链表遍历提取输出多边形的核心步骤。此实现为教学/参考用途，生产环境应补充分支、共线/重叠合并和数值容差处理。
-
-```python
+``` python
 class Node:
     def __init__(self, pt, is_inter=False, alpha=0.0):
         self.pt = pt            # (x,y)
@@ -222,22 +198,26 @@ def traverse(subject_nodes):
         if poly:
             results.append(poly)
     return results
-
-# 使用示例（高层）：
-# s_nodes = make_ring(subject)
-# c_nodes = make_ring(clipper)
-# insert_intersections(s_nodes, c_nodes)
-# mark_entry_exit(s_nodes, clipper)
-# result_polys = traverse(s_nodes)
 ```
+算法核心要点
+- 使用循环链表（或双向链表）存储顶点，交点以节点形式插入并互相链接（跨链表指针）。
+- 每交点记录：位置、参数、已访问标志、entry/exit 标志、对端点引用。
 
-说明：上例为可参考的骨架，重点演示交点插入与链表遍历的核心逻辑。实际工程需对插入位置按 alpha 排序、处理重复交点、共线/重叠段分割、以及 robustness 做大量补充。
+## Greiner–Hormann / 通用布尔运算
+与 Weiler–Atherton 思路相近，目标是支持任意两个简单多边形的交/并/差运算。实现包含交点插入、entry/exit 标记、交替遍历输出。重点在于重叠边/顶点相交的特殊处理与排序稳定性。
 
-3) Greiner–Hormann（通用布尔运算）实现要点与参考片段
-
-Greiner–Hormann 与 Weiler–Atherton 思路相近，但更直接针对布尔运算（交、并、差）设计遍历策略。下面给出核心数据结构与遍历示例：
-
-```python
+### 实现
+#### 实现要点
+1. 规范输入：统一顶点方向，去掉重复或几乎重合的顶点，必要时把浮点坐标 scale→整数
+2. 建环：把 subject 与 clipper 各自转为双向循环链表，节点含：坐标、is_inter、alpha、neighbor、visited、type（entry/exit）。
+3. 计算所有边对的相交点：遍历 subject 的每条边与 clipper 的每条边，使用线段相交公式求参数 t（在 subject 边上）和 u（在 clip 边上）；若 0≤t≤1 且 0≤u≤1，则计算交点坐标。
+4. 在链表中插入交点节点并建立配对：在对应边的链表上按 alpha插入交点节点；为两个交点互设 neighbor/other 指针。
+5. 合并与处理重叠/共线：合并数值上接近的交点；若检测到边重叠，把重叠段分割为端点与交点以便后续决策。
+6. 标记 entry / exit：对每个交点，在其所属边上取交点前的一个微小采样点，判断该采样点是否在另一个多边形内部，从而确定交点是“进入”还是“离开”。不同的布尔操作会改变入/出判定规则。
+7. 遍历输出多边形环：从任一未访问的交点开始：沿当前多边形向前遍历并记录顶点，遇到交点则切换到 neighbor 节点所在的另一个多边形并继续；直到回到起点，得一输出环。重复直到所有交点被访问。
+8. 后处理与校验：删除面积或顶点数过小的退化环；合并共线顶点，规范环的朝向（外环/内环约定）；校验无自交、连通性正确
+#### 算法实现
+``` python 
 class GHNode(Node):
     def __init__(self, pt, is_inter=False, alpha=0.0):
         super().__init__(pt, is_inter, alpha)
@@ -278,10 +258,7 @@ def gh_traverse(intersections):
     return results
 
 ```
-
-说明：Greiner–Hormann 的实现会根据布尔类型（intersection/union/difference）改变 entry/exit 的判定和遍历中的方向选择；共线/重叠需要将重叠段分割为多个交点并按策略选择包含/排除。
-
-
-3) Greiner–Hormann/布尔运算提示：
-- 实现路径与 Weiler–Atherton 类似，关键在于插入交点时的排序、entry/exit 标记规则（针对交/并/差不同）以及共线/重叠段的分割处理。
-
+算法核心要点
+- 统一顶点方向（外环/内环约定）。
+- 使用小量 $\varepsilon$ 判断相等或共线，或将坐标缩放为整数以避免浮点误差。
+- 对重叠边做分割处理并合并近似点以去除微小环或退化多边形。
