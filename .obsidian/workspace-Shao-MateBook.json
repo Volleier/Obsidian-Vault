@@ -15,30 +15,10 @@
                 "id": "8f19bc361332ed85",
                 "type": "leaf",
                 "state": {
-                  "type": "markdown",
-                  "state": {
-                    "file": "技术栈/抽象概念/数据结构/非线性结构/Binary Tree 二叉树.md",
-                    "mode": "source",
-                    "source": false,
-                    "backlinks": false
-                  },
+                  "type": "empty",
+                  "state": {},
                   "icon": "lucide-file",
-                  "title": "Binary Tree 二叉树"
-                }
-              },
-              {
-                "id": "76a44a34f2e8cba7",
-                "type": "leaf",
-                "state": {
-                  "type": "markdown",
-                  "state": {
-                    "file": "技术栈/抽象概念/数据结构/非线性结构/Tree 树.md",
-                    "mode": "source",
-                    "source": false,
-                    "backlinks": false
-                  },
-                  "icon": "lucide-file",
-                  "title": "Tree 树"
+                  "title": "新标签页"
                 }
               }
             ]
@@ -51,15 +31,10 @@
                 "id": "84202b7547bdc73f",
                 "type": "leaf",
                 "state": {
-                  "type": "markdown",
-                  "state": {
-                    "file": "技术栈/抽象概念/数据结构/非线性结构/Binary Tree 二叉树.md",
-                    "mode": "preview",
-                    "source": false,
-                    "backlinks": false
-                  },
+                  "type": "empty",
+                  "state": {},
                   "icon": "lucide-file",
-                  "title": "Binary Tree 二叉树"
+                  "title": "新标签页"
                 }
               }
             ],
@@ -141,8 +116,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 278.5,
-    "collapsed": true
+    "width": 292.5
   },
   "right": {
     "id": "f13bb476cbe2b2d2",
@@ -174,27 +148,25 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "技术栈/抽象概念/数据结构/非线性结构/Binary Tree 二叉树.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Binary Tree 二叉树 的大纲"
+              "title": "大纲"
             }
           },
           {
-            "id": "a9577a695ab90337",
+            "id": "0795f12be3075f74",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "技术栈/抽象概念/数据结构/非线性结构/Binary Tree 二叉树.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Binary Tree 二叉树 的出链列表"
+              "title": "出链"
             }
           }
         ],
@@ -236,11 +208,11 @@
       }
     ],
     "direction": "horizontal",
-    "width": 289.5,
-    "collapsed": true
+    "width": 328.5
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:创建新数据库": false,
       "obsidian-git:Open Git source control": false,
       "obsidian-kanban:创建新看板": false,
       "zk-prefixer:创建时间戳笔记": false,
@@ -252,61 +224,61 @@
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
-      "workspaces:管理工作区布局": false,
-      "remotely-save:Remotely Save": false
+      "workspaces:管理工作区布局": false
     }
   },
-  "active": "8f19bc361332ed85",
+  "active": "84202b7547bdc73f",
   "lastOpenFiles": [
-    "技术栈/抽象概念/数据结构/非线性结构/Tree 树.md",
-    "技术栈/抽象概念/数据结构/非线性结构/Binary Tree 二叉树.md",
-    "技术栈/抽象概念/数据结构/线性结构/String 串.md",
-    "Obsidian语法/Markdown语法/进阶玩法/Markdown数学表达.md",
-    "Obsidian语法/Markdown语法/进阶玩法/Markdown脚注.md",
-    "技术栈/抽象概念/数据结构/线性结构/Sequential List 顺序表.md",
-    "技术栈/抽象概念/数据结构/线性结构/Static Linked List 静态链表.md",
-    "技术栈/抽象概念/数据结构/线性结构/Linked List 链表.md",
-    "技术栈/抽象概念/数据结构/线性结构/Linear list 线性表.md",
-    "技术栈/抽象概念/数据结构/线性结构/Stack 栈 与 Queue 队列.md",
-    "未命名.md",
-    "未命名 1.md",
-    "技术栈/抽象概念/数据结构/线性结构/未命名",
-    "技术栈/抽象概念/数据结构/非线性结构",
-    "技术栈/抽象概念/数据结构/线性结构",
-    "技术栈/抽象概念/数据结构/数据结构总览.md",
-    "技术栈/抽象概念/数据结构/大纲.canvas",
-    "技术栈/技术栈目录.md",
-    "技术栈/抽象概念/数据结构/数据的逻辑结构",
-    "技术栈/抽象概念/数据结构",
-    "技术栈/抽象概念/基础概念/未命名",
-    "游戏设计/游戏世界观",
-    "UnrealEngineLearn/Primary/6_重写BeginPlay、Tick、EndPlay.md",
-    "UnrealEngineLearn/Primary/2_UBT和UHT.md",
-    "UnrealEngineLearn/Primary/1_VS解决方案内容.md",
-    "UnrealEngineLearn/Primary/4_GameModeBase的头文件.md",
-    "UnrealEngineLearn/Primary/9_UPROPERTY.md",
-    "UnrealEngineLearn/Primary/8_UE_LOG和AddOnScreenDebugMessage.md",
-    "UnrealEngineLearn/Primary/7_虚幻容器TArray、TMap、TSet.md",
-    "UnrealEngineLearn/Primary",
-    "UnrealEngineLearn",
-    "UnrealEngineLearn/Primary/5_虚幻5C++架构.md",
-    "游戏设计/战术射击底层3C：守方优势原则在移动参数上的体现.md",
-    "虚幻引擎/基础架构/构建游戏世界/复杂情况处理/组件间的依赖关系.md",
-    "虚幻引擎/基础架构/构建游戏世界/复杂情况处理/事件的处理时机.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDD-二维图形学/BDDC-二维变换.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDC-基本图形生成与绘制/BDCB-线段绘制算法.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDC-基本图形生成与绘制/BDCC-三角形光栅化.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDC-基本图形生成与绘制/BDCA-图形生成.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDD-二维图形学/BDDA-二维图形.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDD-二维图形学/BDDB-变换的数学基础.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDE-二维观察与裁剪/BDEA-图形裁剪.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDB-图形硬件与显示技术/BDBA-图像表示.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDG-真实感图形绘制/BDGA-图形渲染.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDB-图形硬件与显示技术/BDBB-图像格式.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDF-三维图形学/BDFA-三维图形.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDH-工具和API/BDHB-调试与性能.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDH-工具和API/BDHA-开发工具.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDH-工具和API/BDHC-OpenGL.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDF-三维图形学/BDFD-光照和阴影.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDH-工具和API",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDF-三维图形学/BDFC-动画与骨骼.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDA-计算机图形学导论与总览.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDC-基本图形生成与绘制/BDCE-圆与椭圆绘制.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDC-基本图形生成与绘制/BDCD-多边形填充.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形学/BDB-图形硬件与显示技术/BDBC-颜色模型.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形栈/BDC-基本图形生成与绘制/BDCA-线段绘制算法（Line Drawing Algorithms）.md",
+    "2025-12-28.md",
+    "conflict-files-obsidian-git.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形栈/BDA-基础理论与导论/BDAA-计算机图形学导论.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形栈/BDD-二维几何变换与处理/变换的数学基础.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形栈/BDB-图形硬件与显示技术/BDBB-图像格式.md",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形栈/BDB-图形硬件与显示技术/未命名",
+    "计算机科学与技术/A-理论基础/AC-软件工程原理/ACA-设计模式/关系图.canvas",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形栈/BDG-真实感图形绘制",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形栈/BDF-三维图形学基础",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形栈/BDE-二维观察与裁剪",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形栈/BDD-二维几何变换与处理",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形栈/BDC-基本图形生成与绘制",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形栈/BDB-图形硬件与显示技术",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形栈/BDA-基础理论与导论",
+    "计算机科学与技术/B-领域技术栈/BD-计算机图形栈",
+    "计算机科学与技术/A-理论基础/AA-计算机系统基础/AAA-数据结构/数据结构路线图.canvas",
+    "虚幻引擎/GamePlay系统/GamePlay框架/结构.canvas",
     "附件/gameplay-schematic.png",
-    "附件/Drawing 2025-07-05 15.17.06.excalidraw.md",
-    "虚幻引擎/基础架构/虚幻引擎架构/结构.canvas",
-    "附件/模板",
-    "技术栈/抽象概念/设计模式/关系图.canvas",
-    "附件/技术栈/状态模式-1.png",
-    "附件/技术栈/中介者模式-1.png",
-    "附件/技术栈/责任链模式-1.png",
-    "附件/技术栈/模板模式-1.png",
-    "附件/技术栈/命令模式-1.png",
-    "附件/技术栈/解释器模式-1.png",
-    "附件/技术栈/访问者模式-1.png",
-    "附件/技术栈/迭代器模式-1.png",
-    "附件/技术栈/策略模式-1.png",
+    "附件/虚幻引擎/UObject基本概念-1.png",
+    "附件/虚幻引擎/Player玩家-3.png",
+    "附件/虚幻引擎/PlayerController玩家角色控制器-1.png",
+    "附件/游戏设计/游戏世界观/边狱巴士/Pasted image 20250910151048.png",
+    "附件/游戏设计/游戏世界观/边狱巴士/边狱巴士-38.png",
+    "附件/游戏设计/游戏世界观/边狱巴士/边狱巴士-37.png",
+    "附件/游戏设计/游戏世界观/边狱巴士/边狱巴士-36.png",
+    "附件/游戏设计/游戏世界观/边狱巴士/边狱巴士-35.png",
+    "附件/游戏设计/游戏世界观/边狱巴士/边狱巴士-34.png",
+    "技术栈/抽象概念/数据结构/大纲.canvas",
     "技术栈/抽象概念/设计模式 1/关系图.canvas",
     "技术栈/抽象概念/设计模式/未命名 1.canvas",
     "测试文件夹/测试白板.canvas"
