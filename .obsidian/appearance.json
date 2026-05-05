@@ -4,5 +4,6 @@
   "textFontFamily": "HarmonyOS Sans SC",
   "monospaceFontFamily": "Consolas",
   "baseFontSize": 17,
-  "cssTheme": "Obsidianite"
+  "cssTheme": "Obsidianite",
+  "enabledCssSnippets": []
 }
