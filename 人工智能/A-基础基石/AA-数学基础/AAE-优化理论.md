@@ -1,176 +1,110 @@
 
-优化理论是机器学习的引擎——它将"从数据中学习"这一抽象目标转化为具体的数学问题：寻找使损失函数最小化（或目标函数最大化）的模型参数。从线性回归的简单凸优化到深度神经网络的高维非凸优化，优化算法的选择直接影响训练效率、收敛质量和最终模型性能。
+优化理论是连接"数学公式"和"可工作的模型"之间的桥梁。机器学习将学习过程抽象为最小化损失函数：$f(\mathbf{w}) = \frac{1}{n}\sum_i \ell(\mathbf{w}; \mathbf{x}_i, y_i)$。优化算法的作用就是在这个损失函数的曲面上高效地寻找最低点，将这些参数从随机初始值调整到能做出准确预测的状态。优化器的选择直接影响训练速度、收敛质量和最终模型表现。
 
-优化问题的基本形式
+# 优化问题的基本形式
 
-无约束优化问题的一般形式为：
+在机器学习中，优化问题几乎总是以最小化损失函数的形式出现：
 $$\min_{\mathbf{w} \in \mathbb{R}^d} f(\mathbf{w})$$
 
-其中 $f: \mathbb{R}^d \to \mathbb{R}$ 为目标函数（在机器学习中通常为损失函数或负对数似然），$\mathbf{w}$ 为待优化参数。优化的目标是找到 $\mathbf{w}^*$ 使得 $f(\mathbf{w}^*)$ 达到全局最小值。
+目标函数 $f$ 在不同场景中有不同的名字：在线性回归中叫均方误差，在分类中叫交叉熵损失，在强化学习中叫负期望回报。但不论名称如何，优化的目标是一致的——找到使 $f$ 尽可能小的参数 $\mathbf{w}^*$。
 
-在机器学习中，$f(\mathbf{w})$ 通常写为训练集上各样本损失的平均值：
-$$f(\mathbf{w}) = \frac{1}{n} \sum_{i=1}^n \ell(\mathbf{w}; \mathbf{x}_i, y_i) + \lambda R(\mathbf{w})$$
+$f$ 的结构通常包含两部分：经验风险 $\frac{1}{n}\sum_{i=1}^n \ell(\mathbf{w}; \mathbf{x}_i, y_i)$——模型在训练数据上的平均表现；正则化项 $\lambda R(\mathbf{w})$——抑制过拟合的惩罚。优化算法是在这两个目标之间的平衡中找到最优参数。
 
-其中 $\ell$ 为每个样本的损失，$R(\mathbf{w})$ 为正则化项。这种"经验风险 + 正则化"的结构驱动了绝大多数监督学习算法。
+凸函数具有"碗状"的优美形状——任意两点间的连线位于函数图之上。凸函数的关键性质是：局部最小值就是全局最小值，这使凸优化问题在理论上被很好地理解，在实践中能被可靠地求解。然而，深度神经网络中的损失函数通常是高度非凸的——曲面上遍布鞍点和局部极小值——这恰恰是现代优化研究最活跃也最具挑战性的领域。
 
-梯度下降法
+# 梯度下降法及其变体
 
-梯度下降是最基础的迭代优化算法。每一步沿负梯度方向更新参数：
-$$\mathbf{w}_{t+1} = \mathbf{w}_t - \eta \nabla f(\mathbf{w}_t)$$
+梯度下降是优化算法中最基本也是最重要的方法。它的核心直觉极其朴素：既然梯度的反方向是函数下降最快的方向，那就一直朝这个方向走，直到到达谷底。每步的参数更新规则为 $\mathbf{w}_{t+1} = \mathbf{w}_t - \eta \nabla f(\mathbf{w}_t)$，其中学习率 $\eta$ 控制着每步的长度。
 
-其中 $\eta > 0$ 为学习率（步长）。当 $f$ 为凸函数且 $\nabla f$ Lipschitz 连续时，取 $\eta = 1/L$（$L$ 为 Lipschitz 常数）可保证收敛。
+学习率的选择是一把双刃剑。$\eta$ 太大——参数在最优解周围剧烈振荡甚至发散；$\eta$ 太小——收敛极其缓慢。实践中常采用学习率衰减策略来折中：训练初期用较大学习率快速逼近最优区域，后期逐步衰减以精细收敛。阶梯衰减每隔固定轮次将学习率乘以衰减因子；余弦退火 $\eta_t = \eta_{\min} + \frac{1}{2}(\eta_{\max} - \eta_{\min})(1 + \cos(\frac{t\pi}{T}))$ 让学习率沿余弦曲线平滑下降至最小值；预热（warmup）则在训练最初几轮从极小的学习率线性增加，避免初始不稳定。
 
-学习率的选择至关重要——过大会导致振荡甚至发散，过小则收敛缓慢。实践中常用学习率衰减策略：
+三种梯度下降变体根据每步使用的数据量划分：
 
-阶梯衰减：每经过固定轮次将学习率乘以衰减因子
+批量梯度下降（BGD）每步扫描全部训练集计算精确梯度。噪声最小、下降最稳定，但每步 $O(nd)$ 的代价使大数据集上完全无法使用。
 
-指数衰减：$\eta_t = \eta_0 \cdot \gamma^t$
+随机梯度下降（SGD）每步只随机抽取一个样本计算梯度。更新极快但梯度噪声大——每步的梯度方向可能与真实下山方向偏差很大。不过噪声并非全是缺点：在非凸优化中，噪声帮助参数从鞍点逃逸。
 
-余弦退火：$\eta_t = \eta_{\min} + \frac{1}{2}(\eta_{\max} - \eta_{\min})(1 + \cos(\frac{t\pi}{T}))$，让学习率按照余弦曲线平滑下降
+小批量梯度下降（Mini-batch SGD）每步使用 $m$ 个样本（如 32 或 256），在计算效率和梯度准确性之间取得了实用平衡。这是深度学习训练的标准方式。
 
-预热（Warmup）：训练初期从极小学习率线性增加至目标值，避免初期不稳定
+# 动量法与 Nesterov 加速梯度
 
-梯度下降的三种主要变体根据每次更新使用的数据量区分：
+动量法为优化过程引入"惯性"，使参数更新获得记忆能力——不再只依赖当前的瞬时梯度，还延续之前的运动趋势。物理类比再直观不过：一个小球从山坡滚下，不会在每个坑洼处停下来，而是凭着惯性翻越小障碍，沿着下坡的大方向持续加速。
 
-批量梯度下降（BGD）：每步扫描全部 $n$ 个样本计算精确梯度 $\nabla f = \frac{1}{n}\sum_{i=1}^n \nabla \ell_i$。每步代价为 $O(nd)$，大数据集上不可行，但能保证稳定下降
+动量法的更新规则由两步组成：先更新速度 $\mathbf{v}_{t+1} = \beta \mathbf{v}_t + \eta \nabla f(\mathbf{w}_t)$（旧速度折损后加当前梯度），再更新位置 $\mathbf{w}_{t+1} = \mathbf{w}_t - \mathbf{v}_{t+1}$。动量系数 $\beta$（常用 0.9）控制旧速度的保持程度——$\beta = 0$ 退化为普通 SGD，$\beta$ 接近 1 则保持很长的惯性记忆。
 
-随机梯度下降（SGD）：每步随机抽取一个样本 $i$，用 $\nabla \ell_i$ 作为梯度的无偏估计。更新极快但噪声大、收敛轨迹剧烈震荡
+动量带来的两个关键收益：第一，当梯度一致指向同一方向时（如沿山谷底部向下），动量累积加速，收敛更快；第二，当梯度在狭窄的峡谷中左右振荡时（如损失曲面在不同方向曲率差异悬殊），动量正负交替互相抵消，平滑了锯齿状的轨迹。
 
-小批量梯度下降（Mini-batch SGD）：每步使用 $m$ 个样本（如 $m=32$ 或 $m=256$），在梯度精度和计算效率之间取得平衡，是深度学习中实际使用的标准方式
+Nesterov 加速梯度（NAG）对动量做了智能改进——不从当前位置直接计算梯度，而是沿着之前的动量方向"先看一眼"：$\mathbf{v}_{t+1} = \beta \mathbf{v}_t + \eta \nabla f(\mathbf{w}_t - \beta \mathbf{v}_t)$。相当于在迈出步子之前先向惯性方向滑动一段，在那里的前瞻点评估梯度，再做修正。NAG 对于曲率急剧变化的地形适应更快——如果惯性方向会把小球的滚动引向错误方向，"先看一眼"就能提前调整。
 
-动量法
+# 自适应学习率方法
 
-动量法引入"惯性"来加速收敛并抑制振荡：
-$$\mathbf{v}_{t+1} = \beta \mathbf{v}_t + \eta \nabla f(\mathbf{w}_t)$$
-$$\mathbf{w}_{t+1} = \mathbf{w}_t - \mathbf{v}_{t+1}$$
+当不同参数的变化尺度差异悬殊时——嵌入层的每个词出现频率迥异，深层卷积核的梯度量级各异——统一的学习率对稀疏更新的参数过慢而对频繁更新的参数过快。自适应方法为每个参数独立调整学习率，解决了这个痛点。
 
-动量系数 $\beta \in [0, 1)$（常用 $0.9$）控制历史梯度方向对当前更新的持续影响。在梯度方向一致时，动量累积加速了前进；在梯度方向反复反转时，动量互相抵消，减轻了锯齿状震荡。物理类比：球沿山谷滚落——平行的走向使球加速，垂直上下的震荡被惯性平滑。
+AdaGrad 对每个参数维护一个累积量 $G_i = \sum_{\tau=1}^t (\frac{\partial f}{\partial w_i})^2$——历史梯度的平方和。更新规则为 $w_{i} \leftarrow w_i - \frac{\eta}{\sqrt{G_i + \epsilon}} \cdot \frac{\partial f}{\partial w_i}$，累积量 $G_i$ 越大，该参数的有效学习率就越小。这一设计的直觉是：频繁更新的参数（累积量大）已经"学得差不多了"，需要减速；稀疏更新的参数（累积量小）可以保持较大的学习率。但 AdaGrad 的致命缺陷是累积量只增不减——训练后期所有参数的学习率都趋于零，模型停止学习。
 
-Nesterov 加速梯度（NAG）是动量法的改进，先沿动量方向位移一步，在该前瞻位置评估梯度——"先看一眼再决定怎么走"：
-$$\mathbf{v}_{t+1} = \beta \mathbf{v}_t + \eta \nabla f(\mathbf{w}_t - \beta \mathbf{v}_t)$$
-$$\mathbf{w}_{t+1} = \mathbf{w}_t - \mathbf{v}_{t+1}$$
+RMSProp 修正了 AdaGrad 的单调衰减问题，将累积改为指数移动平均：$G_t = \beta G_{t-1} + (1 - \beta)(\nabla f_t \odot \nabla f_t)$。旧的梯度信息随时间按指数衰减——$\beta$ 越接近 1，记忆越长，越接近 AdaGrad；$\beta$ 越小，越依赖最近梯度。这使得学习率始终保持一定的灵活性，不会萎缩到零。
 
-在凸优化中，NAG 的理论收敛率为 $O(1/t^2)$，优于标准动量的 $O(1/t)$。
+Adam（Adaptive Moment Estimation）将动量法的"一阶矩累积"和 RMSProp 的"二阶矩自适应缩放"结合起来，是当前深度学习中最通用的优化器：
 
-自适应学习率方法
+$$\mathbf{m}_t = \beta_1 \mathbf{m}_{t-1} + (1 - \beta_1)\nabla f(\mathbf{w}_t) \quad \text{（一阶矩——动量方向）}$$
+$$\mathbf{v}_t = \beta_2 \mathbf{v}_{t-1} + (1 - \beta_2)(\nabla f(\mathbf{w}_t) \odot \nabla f(\mathbf{w}_t)) \quad \text{（二阶矩——自适应缩放）}$$
 
-自适应方法为每个参数独立调整学习率，特别适合参数尺度差异大的问题（如嵌入层与全连接层的学习率需求不同）。
+由于 $\mathbf{m}_0 = \mathbf{0}, \mathbf{v}_0 = \mathbf{0}$ 且 $\beta_1, \beta_2 \approx 1$，早期梯度的贡献被系统性低估。偏差校正 $\hat{\mathbf{m}}_t = \frac{\mathbf{m}_t}{1 - \beta_1^t}, \hat{\mathbf{v}}_t = \frac{\mathbf{v}_t}{1 - \beta_2^t}$ 通过除以一个从接近 0 到接近 1 的系数来消除初始化偏差。最终更新为 $\mathbf{w}_{t+1} = \mathbf{w}_t - \frac{\eta}{\sqrt{\hat{\mathbf{v}}_t} + \epsilon} \hat{\mathbf{m}}_t$。默认超参数 $\eta = 0.001, \beta_1 = 0.9, \beta_2 = 0.999$ 在绝大多数任务上表现良好。
 
-AdaGrad 累积历史梯度的平方和，用于缩放当前学习率：
-$$\mathbf{g}_t = \nabla f(\mathbf{w}_t), \quad \mathbf{G}_t = \sum_{\tau=1}^t \mathbf{g}_\tau \odot \mathbf{g}_\tau$$
-$$\mathbf{w}_{t+1} = \mathbf{w}_t - \frac{\eta}{\sqrt{\mathbf{G}_t + \epsilon}} \odot \mathbf{g}_t$$
+AdamW 修正了 Adam 中一个微妙但重要的实现细节——在 Adam 中，添加 L2 正则化（即 weight decay）等价于将惩罚分配到梯度中参与自适应缩放，这削弱了正则化效果。AdamW 将 weight decay 从梯度更新中解耦，作为独立的衰减项直接施加于参数，解决了这个问题。
 
-对于频繁更新的参数，累积量 $\mathbf{G}_t$ 大，学习率被压得很小；对于稀疏更新的参数，学习率保持较大。但 AdaGrad 的累积量会单向增长，导致训练后期学习率趋向零。
+# 凸优化
 
-RMSProp 修正了 AdaGrad 的单调衰减缺陷，改用指数移动平均：
-$$\mathbf{G}_t = \beta \mathbf{G}_{t-1} + (1 - \beta)(\mathbf{g}_t \odot \mathbf{g}_t)$$
-$$\mathbf{w}_{t+1} = \mathbf{w}_t - \frac{\eta}{\sqrt{\mathbf{G}_t + \epsilon}} \odot \mathbf{g}_t$$
+凸优化构成了机器学习理论的最坚实基础。凸函数 $f$ 的定义是其图形在任何两点之间都位于弦之下：$f(\lambda\mathbf{x} + (1-\lambda)\mathbf{y}) \leq \lambda f(\mathbf{x}) + (1-\lambda)f(\mathbf{y})$。这个看似平凡的条件保证了"每座山只有一个谷底"——任何局部极小值必定是全局最小值。
 
-指数衰减使较旧的梯度信息逐渐"遗忘"，保持了学习率的适应性而不走向零。
+判别凸性有两种方式。二阶条件要求海森矩阵处处半正定 $\nabla^2 f(\mathbf{x}) \succeq \mathbf{0}$——曲面处处向上弯曲或不弯。一阶条件要求 $f(\mathbf{y}) \geq f(\mathbf{x}) + \nabla f(\mathbf{x})^\top(\mathbf{y} - \mathbf{x})$——函数始终位于其任意一点切线的上方。常见的凸损失包括：逻辑回归的对数损失、线性 SVM 的 Hinge 损失、最小二乘的均方误差。L1 正则化（绝对值函数）是凸函数但不可微——这是其诱导稀疏性的代价。
 
-Adam（Adaptive Moment Estimation）是动量法和 RMSProp 的结合，已成为深度学习中最常用的优化器。Adam 同时维护梯度的一阶矩（均值）和二阶矩（未中心化的方差）的指数移动平均：
-$$\mathbf{m}_t = \beta_1 \mathbf{m}_{t-1} + (1 - \beta_1)\mathbf{g}_t$$
-$$\mathbf{v}_t = \beta_2 \mathbf{v}_{t-1} + (1 - \beta_2)(\mathbf{g}_t \odot \mathbf{g}_t)$$
+# 拉格朗日乘子法与 KKT 条件
 
-初始化 $\mathbf{m}_0 = \mathbf{0}, \mathbf{v}_0 = \mathbf{0}$ 会导致早期步骤中的估计向零偏置（因为 $\beta_1, \beta_2$ 接近 1）。偏差校正修正了这个问题：
-$$\hat{\mathbf{m}}_t = \frac{\mathbf{m}_t}{1 - \beta_1^t}, \quad \hat{\mathbf{v}}_t = \frac{\mathbf{v}_t}{1 - \beta_2^t}$$
-$$\mathbf{w}_{t+1} = \mathbf{w}_t - \frac{\eta}{\sqrt{\hat{\mathbf{v}}_t} + \epsilon} \hat{\mathbf{m}}_t$$
+许多实际优化问题都带有约束——如限制模型复杂度、保证概率之和为 1、或要求矩阵低秩。拉格朗日乘子法将带约束的优化问题转化为无约束问题，是处理约束优化的核心数学工具。
 
-默认超参数：$\eta = 0.001, \beta_1 = 0.9, \beta_2 = 0.999, \epsilon = 10^{-8}$。
+对于等式约束 $\min f(\mathbf{x})$ s.t. $h_i(\mathbf{x}) = 0$，构造拉格朗日函数 $\mathcal{L}(\mathbf{x}, \boldsymbol{\lambda}) = f(\mathbf{x}) + \sum_i \lambda_i h_i(\mathbf{x})$，其中 $\lambda_i$ 称为拉格朗日乘子。对 $\mathbf{x}$ 和 $\boldsymbol{\lambda}$ 分别置导数为零，得到 $\nabla f + \sum \lambda_i \nabla h_i = \mathbf{0}$ 和 $h_i = \mathbf{0}$，联立求解即得候选极值点。几何上，约束曲面的法向量 $\nabla h_i$ 与目标函数的梯度 $\nabla f$ 在最优解处共线——这意味着沿着约束曲面的切向方向移动不会再提升（或降低）目标函数值。
 
-AdamW 将权重衰减从 Adam 的梯度步骤中分离出来单独施加，解决了 Adam 中 L2 正则化等同于自适应学习率缩放下的权重衰减这一微妙问题。这是当前大规模训练的推荐优化器。
+KKT 条件（Karush-Kuhn-Tucker）将这一思想推广到不等式约束 $g_j(\mathbf{x}) \leq 0$。其核心创新是互补松弛条件：$\mu_j^* g_j(\mathbf{x}^*) = 0$——若某个约束在最优解处是非紧的（$g_j < 0$，即"还有余量"），其乘子必为零，该约束不参与决定最优解；若乘子大于零，则该约束必定是紧的（$g_j = 0$）。在 SVM 的对偶推导中，互补松弛性告诉我们只有支持向量（margin 上或 margin 内的点）对应的 $\mu_j > 0$——其余训练样本完全不影响决策边界的位置。
 
-凸优化
+# 二阶优化方法
 
-凸集：集合 $C$ 中任意两点连线上的所有点仍在 $C$ 内。即对任意 $\mathbf{x}, \mathbf{y} \in C$ 及 $\lambda \in [0,1]$，有 $\lambda\mathbf{x} + (1-\lambda)\mathbf{y} \in C$。
+二阶方法利用损失函数的曲率信息（海森矩阵）来指导每一步的步长和方向。一阶梯度方法只问"哪边是下坡？"，二阶方法还问"下坡变得有多快？"——这使它们能针对曲率自适应调整。
 
-凸函数满足：$f(\lambda\mathbf{x} + (1-\lambda)\mathbf{y}) \leq \lambda f(\mathbf{x}) + (1-\lambda)f(\mathbf{y})$——函数图像始终在弦之下。凸函数的局部最小值即为全局最小值，这使凸优化问题有良好的理论性质。
+牛顿法的更新规则为 $\mathbf{w}_{t+1} = \mathbf{w}_t - \mathbf{H}_t^{-1} \nabla f(\mathbf{w}_t)$，其中 $\mathbf{H}_t$ 是当前点的海森矩阵。这个公式的推导使用二阶泰勒展开——在当前点用一个二次函数精确逼近原损失曲面，一步跳到该二次函数的极小值点。在靠近最优解的区域，牛顿法达到二次收敛率——每步的有效数字翻倍。
 
-凸函数的判别条件：
+牛顿法在实际深度学习中的致命障碍是规模：对于 $d$ 个参数的模型，海森矩阵的维度为 $d \times d$。存储这个矩阵需要 $\frac{d(d+1)}{2}$ 个浮点数，若 $d = 10^7$，存储量超过 500 TB，完全不可行。
 
-一阶条件：$f(\mathbf{y}) \geq f(\mathbf{x}) + \nabla f(\mathbf{x})^\top(\mathbf{y} - \mathbf{x})$
+拟牛顿法通过只利用梯度变化的信息来逐步近似海森矩阵的逆，避免了显式计算二阶导数。BFGS 是最经典的方法，它用参数变化 $\mathbf{s}_t = \mathbf{w}_{t+1} - \mathbf{w}_t$ 和梯度变化 $\mathbf{y}_t = \nabla f_{t+1} - \nabla f_t$，通过如下 rank-2 更新迭代改进近似逆矩阵：
+$$\mathbf{B}_{t+1} = \left(\mathbf{I} - \frac{\mathbf{s}_t\mathbf{y}_t^\top}{\mathbf{y}_t^\top\mathbf{s}_t}\right)\mathbf{B}_t\left(\mathbf{I} - \frac{\mathbf{y}_t\mathbf{s}_t^\top}{\mathbf{y}_t^\top\mathbf{s}_t}\right) + \frac{\mathbf{s}_t\mathbf{s}_t^\top}{\mathbf{y}_t^\top\mathbf{s}_t}$$
 
-二阶条件：海森矩阵 $\nabla^2 f(\mathbf{x}) \succeq \mathbf{0}$（半正定），对所有 $\mathbf{x}$ 成立
+L-BFGS 是 BFGS 的内存受限版本——它不显式存储 $d \times d$ 的矩阵，而是仅保留最近 $m$ 步的 $(\mathbf{s}, \mathbf{y})$ 向量对（通常 $m = 10\sim20$），通过两层递归隐式计算矩阵-向量乘积 $\mathbf{B}\mathbf{g}$。这使得空间复杂度从 $O(d^2)$ 降至 $O(md)$。L-BFGS 在凸优化问题中表现优异——逻辑回归、条件随机场等——但在深度学习的非凸、大批量、高随机性场景中不及自适应的一阶方法。
 
-常见的机器学习凸损失包括：逻辑回归的对数损失（二次可微且强凸）、线性 SVM 的 Hinge 损失（凸但非光滑）、Lasso（L1 正则化）的绝对值惩罚（凸但非光滑）。
+# EM 算法
 
-拉格朗日乘子法将约束优化转化为无约束问题。对于等式约束 $\min f(\mathbf{x})$ s.t. $h_i(\mathbf{x}) = 0$，构造拉格朗日函数：
-$$\mathcal{L}(\mathbf{x}, \boldsymbol{\lambda}) = f(\mathbf{x}) + \sum_i \lambda_i h_i(\mathbf{x})$$
+许多概率模型中包含了未观测到的隐变量——例如高斯混合模型的各成分归属、隐马尔可夫模型的隐藏状态序列、VAE 中潜在编码向量。如果这些隐变量能被观测到，极大似然估计将简单得多。EM 算法就是为这类场景设计的：它交替执行"猜测"（E 步）和"优化"（M 步），逐步提升对数似然。
 
-对 $\mathbf{x}$ 和 $\boldsymbol{\lambda}$ 分别求导并置零，解出候选极值点。
+E 步负责"猜测"——在当前参数 $\theta^{(t)}$ 下，计算每个样本的隐变量的后验分布，然后构造 Q 函数——完整数据的对数似然在这些隐变量后验下的期望：
+$$Q(\theta|\theta^{(t)}) = \mathbb{E}_{\mathbf{Z}|\mathbf{X}, \theta^{(t)}}[\log p(\mathbf{X},\mathbf{Z}|\theta)]$$
 
-KKT 条件（Karush-Kuhn-Tucker）推广到不等式约束 $g_j(\mathbf{x}) \leq 0$。对于 $\min f(\mathbf{x})$ s.t. $g_j(\mathbf{x}) \leq 0, h_i(\mathbf{x}) = 0$，在最优解 $\mathbf{x}^*$ 处存在乘子 $\mu_j^* \geq 0$ 和 $\lambda_i^*$ 满足：
+M 步负责"优化"——最大化 Q 函数得到新参数 $\theta^{(t+1)} = \arg\max_\theta Q(\theta|\theta^{(t)})$。
 
-平稳性：$\nabla f(\mathbf{x}^*) + \sum_j \mu_j^* \nabla g_j(\mathbf{x}^*) + \sum_i \lambda_i^* \nabla h_i(\mathbf{x}^*) = \mathbf{0}$
+EM 算法的迭代从不降低观测数据的对数似然（单调上升性），但初始值的选择会影响收敛到哪个局部最优。高斯混合模型的 EM 训练是经典案例：E 步计算每个样本属于每个高斯成分的"责任概率"（给定当前位置后该样本来自该成分的后验概率），M 步基于这些责任概率的加权重新估计各成分的均值、协方差和混合权重。
 
-可行性：$g_j(\mathbf{x}^*) \leq 0, h_i(\mathbf{x}^*) = 0$
+# 正则化（L1 / L2 / 弹性网络）
 
-互补松弛性：$\mu_j^* g_j(\mathbf{x}^*) = 0$——若约束是非紧的（$g_j < 0$），则其乘子必为零；若乘子非零，其对应的约束必为零
+正则化通过在损失函数中添加对参数大小的惩罚来抑制过拟合——它相当于告诉模型"你的参数不要太大，除非数据非常支持你这样做"。从优化的角度看，正则化项改变了损失曲面的形状，使最优解向原点方向收缩。
 
-拉格朗日对偶性给出了原问题与对偶问题的关系。原问题 $\inf_{\mathbf{x}} \sup_{\boldsymbol{\lambda} \geq \mathbf{0}} \mathcal{L}$ 的对偶问题为 $\sup_{\boldsymbol{\lambda} \geq \mathbf{0}} \inf_{\mathbf{x}} \mathcal{L}$。弱对偶性保证对偶最优值不超过原最优值；强对偶性（在 Slater 条件下成立）使得在满足约束规约时两者相等。对偶间隙为零是 SVM 的对偶推导能成立的理论保证。
+L1 正则化（Lasso）：$R(\mathbf{w}) = \lambda\sum_i |w_i|$。二维约束空间是一个菱形——顶点恰好落在坐标轴上。由于目标函数的等高线与正则化约束区域的切点倾向于出现在顶点，L1 正则化的最优解中通常有大量参数恰好为零。这一性质称为"稀疏性"——模型自动选择了最重要的特征而抛弃了其余。
 
-二阶优化方法
+L2 正则化（Ridge）：$R(\mathbf{w}) = \lambda\sum_i w_i^2$。约束区域为圆形，切点一般不在坐标轴上，不会产生精确的零——所有参数被均匀收缩但不被消除。L2 还能解决共线性问题：在线性回归中，当 $\mathbf{X}^\top\mathbf{X}$ 接近奇异时，加上 $\lambda\mathbf{I}$ 使矩阵变为 $\mathbf{X}^\top\mathbf{X} + \lambda\mathbf{I}$，保证了可逆性。
 
-牛顿法利用二阶泰勒展开逼近目标函数：
-$$f(\mathbf{w} + \Delta\mathbf{w}) \approx f(\mathbf{w}) + \nabla f^\top \Delta\mathbf{w} + \frac{1}{2}\Delta\mathbf{w}^\top \mathbf{H} \Delta\mathbf{w}$$
+弹性网络（Elastic Net）：$R(\mathbf{w}) = \alpha\lambda\|\mathbf{w}\|_1 + (1-\alpha)\lambda\|\mathbf{w}\|_2^2$，结合了 L1 的稀疏性和 L2 的组选择稳定性。在特征组高度相关的场景中——如基因表达数据中的共表达基因——Lasso 倾向于随机选择组中的一个而抛弃其余，弹性网络则倾向于整组一起选入或抛弃。
 
-对 $\Delta\mathbf{w}$ 求导并置零得到更新：
-$$\mathbf{w}_{t+1} = \mathbf{w}_t - \mathbf{H}_t^{-1} \nabla f(\mathbf{w}_t)$$
+# 深度学习中的非凸优化挑战
 
-在凸函数上，牛顿法达到二次收敛率——每步有效数字翻倍。但在深度学习中，参数数量 $d$ 往往达数百万甚至数亿级别，存储和求逆 $d \times d$ 的海森矩阵在实际中完全不可行——即便存储就需要 $\frac{d(d+1)}{2}$ 个浮点数。
+深度神经网络的损失曲面与我们熟悉的三维地形截然不同——在一个百万维的空间中，鞍点（某些方向向上弯、某些方向向下弯）远比真正的极小值点多。这一现象源于纯粹的组合数学：海森矩阵的 $2^d$ 种特征值符号组合中，全正（真正的极小值）只是其中一种组合。
 
-拟牛顿法（Quasi-Newton）通过梯度变化来近似海森矩阵的逆，只存储和更新一个近似逆矩阵。
+梯度下降在鞍点附近的困境在于梯度为零但却不是极值点。然而 SGD 中的随机梯度噪声具有去鞍效应——前后两个 mini-batch 的梯度不可能完全一致，累积噪声使参数有足够的不稳定性从鞍点逃逸。动量进一步强化了这一效应——它的惯性使得参数不会在梯度变零的瞬间立刻停止。
 
-BFGS（Broyden-Fletcher-Goldfarb-Shanno）是最著名的方法，更新公式为：
-$$\mathbf{H}_{t+1}^{-1} = \left(\mathbf{I} - \frac{\mathbf{s}_t\mathbf{y}_t^\top}{\mathbf{y}_t^\top\mathbf{s}_t}\right)\mathbf{H}_t^{-1}\left(\mathbf{I} - \frac{\mathbf{y}_t\mathbf{s}_t^\top}{\mathbf{y}_t^\top\mathbf{s}_t}\right) + \frac{\mathbf{s}_t\mathbf{s}_t^\top}{\mathbf{y}_t^\top\mathbf{s}_t}$$
-
-其中 $\mathbf{s}_t = \mathbf{w}_{t+1} - \mathbf{w}_t$，$\mathbf{y}_t = \nabla f_{t+1} - \nabla f_t$。BFGS 保证正定性并达到超线性收敛率。
-
-L-BFGS（Limited-memory BFGS）仅存储最近 $m$ 步的 $\mathbf{s}_t, \mathbf{y}_t$（通常 $m=10\sim20$），通过两层递归隐式计算矩阵-向量乘积，将内存复杂度从 $O(d^2)$ 降至 $O(md)$。L-BFGS 广泛用于大规模机器学习中的凸问题，如逻辑回归和条件随机场的训练。
-
-EM 算法
-
-EM 算法（Expectation-Maximization）适用于含隐变量模型的极大似然估计。许多概率模型中，直接优化对数似然 $\log p(\mathbf{X}|\theta)$ 很困难，但若隐变量 $\mathbf{Z}$ 被观测到，则 $\log p(\mathbf{X},\mathbf{Z}|\theta)$ 更为简单。
-
-E 步：基于当前参数 $\theta^{(t)}$ 计算隐变量的后验分布 $p(\mathbf{Z}|\mathbf{X}, \theta^{(t)})$，进而构造 Q 函数——完整数据对数似然的期望：
-$$Q(\theta|\theta^{(t)}) = \mathbb{E}_{\mathbf{Z}|\mathbf{X},\theta^{(t)}}[\log p(\mathbf{X},\mathbf{Z}|\theta)]$$
-
-M 步：最大化 Q 函数得到新参数：
-$$\theta^{(t+1)} = \arg\max_\theta Q(\theta|\theta^{(t)})$$
-
-EM 算法的每次迭代单调提升观测数据的对数似然（或至少不降低），但并不保证收敛到全局最优——对于非凸问题（如高斯混合模型），初始化会影响最终解的质量。
-
-典型应用包括：高斯混合模型（GMM）的参数估计（E 步计算每个样本属于各成分的责任概率，M 步更新均值、方差和混合系数）、隐马尔可夫模型（HMM）的 Baum-Welch 训练、含缺失数据的统计分析等。
-
-推导 EM 算法的另一种视角是通过 Jensen 不等式构造对数似然的下界，交替优化该下界（变分下界 / ELBO）。这一观点将 EM 与变分推断统一到了一个框架中。
-
-约束优化与正则化
-
-正则化通过在损失函数中增加对参数大小的惩罚，抑制过拟合。从优化视角，均值损失和正则化的最小化等价于在参数空间中约束参数来解决损失函数的最小化。
-
-L1 正则化（Lasso）：$R(\mathbf{w}) = \|\mathbf{w}\|_1 = \sum_i |w_i|$。几何上，L1 约束区域（菱形）的顶点恰好落在坐标轴上，导致解中许多参数恰好为零，实现天然的特征选择。
-
-L2 正则化（Ridge）：$R(\mathbf{w}) = \|\mathbf{w}\|_2^2 = \sum_i w_i^2$。L2 约束区域为圆形，最优解将每个参数均匀收缩但不为零。L2 使线性回归中 $(\mathbf{X}^\top\mathbf{X} + \lambda\mathbf{I})$ 总是可逆，解决了共线性的数值不稳定问题。
-
-弹性网络（Elastic Net）：$R(\mathbf{w}) = \alpha\|\mathbf{w}\|_1 + (1-\alpha)\|\mathbf{w}\|_2^2$，结合了 L1 的稀疏性和 L2 的稳定性，在高度相关的特征组上优于单独的 Lasso。
-
-非凸优化与深度学习中的挑战
-
-深度神经网络的损失函数是非凸的——海森矩阵的特征值有正有负，存在大量鞍点。在极高维空间中，鞍点远比局部极小点常见（海森矩阵的 $2^d$ 种特征值符号组合中，只有全正对应极小点）。
-
-鞍点处的梯度为零，但并非最优解——标准梯度下降可能被鞍点"困住"。幸运的是，SGD 中的随机梯度噪声有去鞍效应：由于前后梯度方向不完全一致，噪声带来的扰动有助于从鞍点逃逸。动量法也有类似效果。
-
-高维非凸损失曲面上，局部极小点的质量通常不差。有理论表明：在过参数化的神经网络中，绝大多数局部极小值与全局最小值在函数值上非常接近——问题不在于陷入"坏"的极小值，而在于找到"好"的极小值。
-
-其他重要优化方法
-
-共轭梯度法：在二次问题上能在 $d$ 步内精确收敛，每步计算仅为梯度求值和向量内积。共轭方向确保沿新方向搜索不会破坏之前已最小化的方向。
-
-坐标下降法：每次只优化一个坐标（一个参数）而固定其余，轮替遍历。在 Lasso（问题可分解为对每个系数的单变量软阈值处理）和矩阵分解等问题中极其高效。
-
-近端梯度法（Proximal Gradient Method）：对于形式为 $\min f(\mathbf{w}) + g(\mathbf{w})$ 的问题（$f$ 可微，$g$ 仅需近端算子存在），每步迭代为：
-$$\mathbf{w}_{t+1} = \text{prox}_{\eta g}(\mathbf{w}_t - \eta \nabla f(\mathbf{w}_t))$$
-
-近端算子 $\text{prox}_g(\mathbf{v}) = \arg\min_{\mathbf{x}} \{g(\mathbf{x}) + \frac{1}{2}\|\mathbf{x} - \mathbf{v}\|^2\}$ 对于许多正则化项（如 L1、核范数）有闭式解。近端梯度法将梯度步骤和正则化步骤交替执行，是处理不可微正则化的通用框架。
-
-贝叶斯优化：当目标函数的评估代价昂贵时（如超参数搜索中的模型重训），使用高斯过程作为目标函数的代理模型，采集函数（期望改进 EI、置信上界 UCB 等）在探索未知区域和利用已知好点之间权衡，指导下一步在何处采样。
+近年来，一个更深刻的理论洞见浮出水面：在过参数化的深度网络中，绝大多数局部极小值的函数值与全局最小值非常接近。这意味着优化的实际挑战不在于"陷入坏的极小值"，而在于"如何在曲面上足够快、足够稳地找到好区域"。这从根本上解释了为什么简单的 SGD 加动量就能训练出性能优异的深度网络——曲面的结构远比我们曾担心的友善。

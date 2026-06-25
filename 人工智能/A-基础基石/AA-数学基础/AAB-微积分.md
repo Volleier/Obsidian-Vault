@@ -1,142 +1,76 @@
 
-微积分是研究变化与累积的数学分支，在人工智能中充当优化引擎——它通过导数和梯度告诉我们应如何调整模型参数来降低损失函数值。从线性回归的最小二乘目标到深度神经网络的反向传播，微积分贯穿了机器学习模型训练的每个环节。
+微积分是研究变化与累积的数学分支，在人工智能中充当优化引擎——它告诉我们应该向哪个方向、以多大的步长调整模型参数，才能使损失函数值下降。从线性回归中最小均方误差的求解，到深度神经网络中反向传播的链式求导，微积分贯穿了模型训练的每个环节。
 
-一元微分基础
+# 一元微分基础
 
-导数的直观意义是函数在某一点的瞬时变化率。对于函数 $f(x)$，在点 $x_0$ 处的导数定义为：
+导数描述函数在某一瞬间的变化率——这正是机器学习中"损失函数对参数的敏感度"的数学抽象。当我们调整某个权重 $w_i$ 时，损失函数 $L$ 会增大还是会减小？变化有多快？答案就在导数 $\frac{dL}{dw_i}$ 中。
 
+导数的定义基于极限思想：函数 $f(x)$ 在点 $x_0$ 处的导数为函数增量与自变量增量之比的极限：
 $$f'(x_0) = \lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{h}$$
 
-几何上，导数表示函数曲线在 $x_0$ 处的切线斜率。若 $f'(x_0) > 0$，函数在 $x_0$ 处递增；若 $f'(x_0) < 0$，函数递减；若 $f'(x_0) = 0$，该点可能是极值点（驻点）。
+几何上，导数等于曲线在 $x_0$ 处的切线斜率。$f'(x_0) > 0$ 表示函数在该点递增——增加 $x$ 会使 $f$ 增大；$f'(x_0) < 0$ 表示递减——减少 $x$ 会使 $f$ 减小。若 $f'(x_0) = 0$，该点可能是极值点或鞍点，梯度在此处消失，优化可能停滞。
 
-常用导数规则：
+最基本的导数规则——常数规则 $(c)' = 0$、幂函数规则 $(x^n)' = nx^{n-1}$、和差规则 $(f \pm g)' = f' \pm g'$——构成了更复杂求导的积木块。乘积规则 $(fg)' = f'g + fg'$ 和商规则 $(\frac{f}{g})' = \frac{f'g - fg'}{g^2}$ 处理两个函数的组合。而链式法则——$(f(g(x)))' = f'(g(x)) \cdot g'(x)$——则是处理嵌套函数的核心工具，它解释了"先对外层求导，再乘以内层的导数"的规则，这正是神经网络反向传播的数学雏形。
 
-常数规则：$(c)' = 0$
+# 泰勒展开与函数逼近
 
-幂函数规则：$(x^n)' = nx^{n-1}$
+泰勒展开提供了一种看待函数的新视角：任何光滑函数，在足够小的邻域内，都可以用多项式来近似。这在实际计算中极其重要——许多难以直接优化的函数，通过展开为多项式的形式可以得到显式的近似解。
 
-和差规则：$(f \pm g)' = f' \pm g'$
+一阶泰勒展开 $f(x) \approx f(a) + f'(a)(x-a)$ 是给定点处的线性近似。在梯度下降中，这一步意味着：在当前参数点处将损失函数想象成一张平面，沿最陡的下坡方向——也就是负梯度方向——迈出一步。这种线性近似虽然粗糙，但只要步长足够小就能保证下降。
 
-乘积规则：$(fg)' = f'g + fg'$
+保留到二阶的展开 $f(x) \approx f(a) + f'(a)(x-a) + \frac{f''(a)}{2}(x-a)^2$ 额外捕获了函数的曲率信息。牛顿法正是利用这个二次近似——在当前点用一个抛物线来逼近原函数，一步跳到抛物线的顶点。曲率信息使得二阶方法在接近最优解时收敛速度远超梯度下降——但代价是每一步需要计算和求逆海森矩阵。
 
-商规则：$\left(\frac{f}{g}\right)' = \frac{f'g - fg'}{g^2}$
+# 多元微积分与梯度
 
-链式法则：$(f(g(x)))' = f'(g(x)) \cdot g'(x)$
+真实的机器学习问题几乎从来不是一元函数——模型可能有数百万个参数，损失函数是所有参数的多变量函数。多元微积分告诉我们，当每个参数各自独立变化时，损失是如何变化的。
 
-链式法则是反向传播算法的数学基础——它让我们可以处理嵌套函数（深层神经网络）的复合求导。
+偏导数 $\frac{\partial f}{\partial x_i}$ 就是在固定其他所有变量不变的前提下，函数关于 $x_i$ 的变化率——也就是"只动 $x_i$ 这一个参数，损失会怎么变"。这和实际训练中我们对每个权重独立求导的需求完全对应。
 
-泰勒展开将光滑函数在一点附近近似为多项式之和：
+梯度 $\nabla f = \left(\frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \dots, \frac{\partial f}{\partial x_n}\right)$ 将所有偏导数组装成一个向量。梯度的方向是函数增长最快的方向，其反方向 $-\nabla f$ 是函数下降最快的方向。这个几何事实直接解释了梯度下降的合理性：$\mathbf{w} \leftarrow \mathbf{w} - \eta \nabla_{\mathbf{w}} J$——每一步都朝损失下降最快的方向前进。
 
-$$f(x) \approx f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \frac{f'''(a)}{3!}(x-a)^3 + \dots$$
+梯度具有几个重要性质：在极小值点梯度为零——这是"令导数为零求极值"在高维中的推广；梯度与函数的等值面（contour）处处垂直；沿单位向量 $\mathbf{u}$ 方向的变化率由方向导数 $\nabla f \cdot \mathbf{u}$ 给出。
 
-一阶泰勒展开 $f(x) \approx f(a) + f'(a)(x-a)$ 就是线性近似，梯度下降每一步实质上是在当前点用一阶近似来指引下降方向。保留到二阶的展开则用于牛顿法等二阶优化方法。
+# 雅可比矩阵与海森矩阵
 
-多元微积分与梯度
+当函数的输入和输出都是向量时，雅可比矩阵一次性描述了所有输入对所有输出的影响。对于映射 $\mathbf{f}: \mathbb{R}^n \to \mathbb{R}^m$，雅可比矩阵 $\mathbf{J} \in \mathbb{R}^{m \times n}$ 的元素为 $\mathbf{J}_{ij} = \frac{\partial f_i}{\partial x_j}$。在神经网络中，每一层本质上就是这样一个向量到向量的映射——该层的雅可比矩阵记录了每个输出分量对每个输入分量的敏感度。
 
-当函数有多个输入变量时，每个变量单独求导得到偏导数。对于函数 $f(x_1, x_2, \dots, x_n)$，关于 $x_i$ 的偏导数记作：
+反向传播时，误差信号从后向前传播的过程，就是各层局部雅可比矩阵与上游梯度相乘的过程。自动微分框架（PyTorch Autograd）在构建计算图时，为每个操作节点存储的不是完整的雅可比矩阵（存储 $m \times n$ 矩阵代价过高），而是一个能够快速计算向量-雅可比积的函数——这极大节省了存储和计算。
 
-$$\frac{\partial f}{\partial x_i}$$
+海森矩阵是二阶偏导数组成的方阵 $\mathbf{H}_{ij} = \frac{\partial^2 f}{\partial x_i \partial x_j}$。它描述了函数曲面的曲率——也就是梯度本身变化的速度。在深度学习中，海森矩阵的性质深刻影响优化行为：
 
-梯度（Gradient）是所有偏导数组成的向量：
+若海森矩阵正定（所有特征值 > 0），当前位置是严格的局部极小值
 
-$$\nabla f = \left(\frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \dots, \frac{\partial f}{\partial x_n}\right)$$
+若存在正负混合的特征值，当前位置是鞍点——某些方向向上弯、某些方向向下弯
 
-梯度的方向是函数增长最快的方向，梯度的反方向 $-\nabla f$ 则是函数下降最快的方向。这正是梯度下降算法的几何直觉。
+条件数 $\kappa = \frac{\lambda_{\max}}{\lambda_{\min}}$ 越大，不同方向上的曲率差异越悬殊，梯度下降的锯齿振荡越严重
 
-梯度具有以下重要性质：
+对海森矩阵的分析揭示了深度学习中的一个重要现象：高维空间中，鞍点远多于局部极小值。幸运的是，随机梯度下降中的噪声扰动有助于从鞍点逃逸。
 
-梯度在极值点处为零向量：$\nabla f(\mathbf{x}^*) = \mathbf{0}$
+# 矩阵微积分
 
-梯度与水平集垂直：在 $f$ 的等值面上，梯度方向沿法线方向
+当变量从向量扩展到矩阵时，矩阵微积分提供了统一的求导框架。这在手动推导优化目标函数对权重矩阵的梯度时非常实用。
 
-方向导数：沿单位向量 $\mathbf{u}$ 方向的变化率为 $\nabla f \cdot \mathbf{u}$
+标量对向量的梯度：$\frac{\partial}{\partial \mathbf{x}}(\mathbf{a}^\top\mathbf{x}) = \mathbf{a}$——线性函数对自变量的梯度就是系数向量本身。标量对二次型的梯度：$\frac{\partial}{\partial \mathbf{x}}(\mathbf{x}^\top\mathbf{A}\mathbf{x}) = (\mathbf{A} + \mathbf{A}^\top)\mathbf{x}$，若 $\mathbf{A}$ 对称则为 $2\mathbf{A}\mathbf{x}$。这些公式在推导线性回归的最小二乘解时反复出现。
 
-在机器学习中，损失函数 $J(\mathbf{w})$ 的梯度 $\nabla_{\mathbf{w}} J$ 指示了每个参数 $w_i$ 对损失值的贡献方向，参数更新规则为：
+标量对矩阵的梯度：$\frac{\partial}{\partial \mathbf{X}}(\mathbf{a}^\top\mathbf{X}\mathbf{b}) = \mathbf{a}\mathbf{b}^\top$，$\frac{\partial}{\partial \mathbf{X}}\text{tr}(\mathbf{X}\mathbf{A}) = \mathbf{A}^\top$。这些规则在矩阵分解和度量学习中用于推导参数矩阵的最优解。
 
-$$\mathbf{w} \leftarrow \mathbf{w} - \eta \nabla_{\mathbf{w}} J$$
+需要注意的是，矩阵微积分有两种不同的约定——分子布局（Numerator Layout）和分母布局（Denominator Layout）——它们对梯度的转置做法不同。不同教材和框架可能采用不同约定，查阅公式时需注意匹配。
 
-其中 $\eta$ 为学习率。
+# 反向传播的微积分基础
 
-雅可比矩阵与向量值函数求导
+反向传播是链式法则在计算图上的系统性应用，是深度学习能够有效训练的核心技术。一层神经网络的计算很简单——$\mathbf{z} = \mathbf{W}\mathbf{x} + \mathbf{b}$，激活 $\mathbf{a} = \sigma(\mathbf{z})$——但当几十上百层这样的操作堆叠起来后，手动求导变得不可能。反向传播自动完成了这项工作。
 
-当函数从一个向量空间映射到另一个向量空间时，需要雅可比矩阵来描述导数。对于映射 $\mathbf{f}: \mathbb{R}^n \to \mathbb{R}^m$，雅可比矩阵 $\mathbf{J} \in \mathbb{R}^{m \times n}$ 的各元素为：
-
-$$\mathbf{J}_{ij} = \frac{\partial f_i}{\partial x_j}$$
-
-雅可比矩阵的每一行是输出分量 $f_i$ 的梯度，每一列表示所有输出对某个输入的敏感度。在神经网络中，每一层的前向和后向运算都涉及雅可比矩阵的计算。
-
-海森矩阵与曲率
-
-海森矩阵是二阶偏导数组成的方阵，对于函数 $f: \mathbb{R}^n \to \mathbb{R}$：
-
-$$\mathbf{H}_{ij} = \frac{\partial^2 f}{\partial x_i \partial x_j}$$
-
-海森矩阵描述函数在某点处的曲率信息：
-
-海森矩阵的正定性：若 $\mathbf{H} \succ 0$（所有特征值 > 0），该点是局部极小值；若 $\mathbf{H} \prec 0$（所有特征值 < 0），该点是局部极大值；混合符号的特征值对应鞍点。
-
-条件数（Condition Number）：$\kappa(\mathbf{H}) = \frac{\lambda_{\max}}{\lambda_{\min}}$ 越大，梯度下降越慢、路径越振荡——因为不同方向上的曲率差异悬殊。
-
-牛顿法利用海森矩阵进行二阶优化：$\mathbf{w} \leftarrow \mathbf{w} - \mathbf{H}^{-1}\nabla f$，一步到位调整曲率影响，收敛更快但计算代价高。实际中常用拟牛顿法（如 L-BFGS）来近似海森矩阵的逆。
-
-矩阵微积分
-
-当函数以矩阵为输入或输出时，需要矩阵微积分来高效求导。常见约定分为分子布局（Numerator Layout）和分母布局（Denominator Layout）。关键结果包括：
-
-标量对向量的梯度：$\frac{\partial}{\partial \mathbf{x}}(\mathbf{a}^\top\mathbf{x}) = \mathbf{a}$
-
-标量对矩阵求梯度的二次型：$\frac{\partial}{\partial \mathbf{x}}(\mathbf{x}^\top\mathbf{A}\mathbf{x}) = (\mathbf{A} + \mathbf{A}^\top)\mathbf{x}$
-
-标量对矩阵求梯度的线性型：$\frac{\partial}{\partial \mathbf{X}}(\mathbf{a}^\top\mathbf{X}\mathbf{b}) = \mathbf{a}\mathbf{b}^\top$
-
-迹的矩阵求导：$\frac{\partial}{\partial \mathbf{X}}\text{tr}(\mathbf{X}\mathbf{A}) = \mathbf{A}^\top$
-
-这些规则在手动推导机器学习目标函数的梯度时极为实用。例如推导线性回归闭式解时，将 $\|\mathbf{X}\mathbf{w} - \mathbf{y}\|^2$ 展开并对 $\mathbf{w}$ 求导，令梯度为零可得法方程。
-
-反向传播的微积分基础
-
-反向传播（Backpropagation）是计算图上的自动微分实现，其数学本质是链式法则的系统化应用。考虑一个简单的三层网络：
-
-$$\mathbf{z}_1 = \mathbf{W}_1\mathbf{x}, \quad \mathbf{a}_1 = \sigma(\mathbf{z}_1)$$
-$$\mathbf{z}_2 = \mathbf{W}_2\mathbf{a}_1, \quad \hat{\mathbf{y}} = \sigma(\mathbf{z}_2)$$
-$$L = \|\hat{\mathbf{y}} - \mathbf{y}\|^2$$
-
-要计算 $\frac{\partial L}{\partial \mathbf{W}_1}$，链式法则展开为：
-
+以简单的三层网络为例，要计算 $\frac{\partial L}{\partial \mathbf{W}_1}$，链式法则将其展开为从顶层损失到底层参数的梯度乘积链：
 $$\frac{\partial L}{\partial \mathbf{W}_1} = \frac{\partial L}{\partial \hat{\mathbf{y}}} \cdot \frac{\partial \hat{\mathbf{y}}}{\partial \mathbf{z}_2} \cdot \frac{\partial \mathbf{z}_2}{\partial \mathbf{a}_1} \cdot \frac{\partial \mathbf{a}_1}{\partial \mathbf{z}_1} \cdot \frac{\partial \mathbf{z}_1}{\partial \mathbf{W}_1}$$
 
-反向传播从顶层损失出发，逐层将误差信号 $\delta$（局部梯度与上游梯度的乘积）向底层传播。这种从后往前递归应用链式法则的方式，使得计算所有参数的梯度只需一次前向传播加一次反向传播，复杂度与网络深度线性相关。
+算法从输出层开始，逐层向后计算局部梯度的乘积并累积——一次前向传播存储中间结果，一次反向传播计算所有参数的梯度。这正是"反向传播"名字的由来：误差信号（梯度）从顶层向底层反向流动。
 
-对于深度学习框架（PyTorch、TensorFlow）中的自动微分（Autograd），计算图上的每个节点不仅存储前向计算结果，还记录了局部的雅可比矩阵（或向量-雅可比积），反向遍历计算图时自动合成全局梯度。
+现代深度学习框架如 PyTorch 和 TensorFlow 将这一过程自动化。用户只需定义前向计算，框架在后台构建计算图——图中的每个操作节点记录了前向结果和局部的求导函数。调用 `.backward()` 时，框架从图的输出节点开始，逆向遍历，将向量-雅可比积逐层累积，最终为每个参数叶节点填充梯度。
 
-积分与概率密度
+# 积分与概率密度
 
-积分在机器学习中的主要作用体现在连续概率模型中。概率密度函数 $p(x)$ 满足：
-$$\int_{-\infty}^{\infty} p(x) \,dx = 1$$
+积分在 AI 中的角色主要集中在概率模型的计算上。连续随机变量的概率密度函数 $p(x)$ 本身不是概率——概率由积分给出：$P(a \leq X \leq b) = \int_a^b p(x)dx$。密度函数的归一性 $\int_{-\infty}^{\infty} p(x)dx = 1$ 来自柯尔莫哥洛夫概率公理。期望 $\mathbb{E}[X] = \int x p(x)dx$ 是对随机变量"平均取值"的概率加权积分。
 
-连续随机变量 $X$ 的期望定义为：
-$$\mathbb{E}[X] = \int x \, p(x) \,dx$$
+高斯分布 $p(x) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-(x-\mu)^2/2\sigma^2}$ 是机器学习的核心分布。其归一化常数 $\frac{1}{\sqrt{2\pi\sigma^2}}$ 由高斯积分 $\int_{-\infty}^{\infty} e^{-x^2}dx = \sqrt{\pi}$ 导出。多元高斯分布 $p(\mathbf{x}) = \frac{1}{(2\pi)^{d/2}|\boldsymbol{\Sigma}|^{1/2}} \exp\left(-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\top\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})\right)$ 在高维空间中自然出现，其归一化涉及更复杂的行列式和矩阵积分。
 
-在高斯分布中：
-$$p(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)$$
-
-归一化常数 $\frac{1}{\sqrt{2\pi\sigma^2}}$ 由高斯积分 $\int_{-\infty}^{\infty} e^{-x^2}dx = \sqrt{\pi}$ 导出。在高维空间中，多元高斯分布的归一化涉及更复杂的矩阵积分。
-
-在变分推断中，对后验分布 $p(\mathbf{z}|\mathbf{x})$ 的积分通常是不可解的（intractable），因此引出近似方法——用可解的分布 $q(\mathbf{z})$ 去逼近真实后验，优化证据下界（ELBO）：
-$$\mathcal{L} = \mathbb{E}_{q}[\log p(\mathbf{x},\mathbf{z})] - \mathbb{E}_{q}[\log q(\mathbf{z})]$$
-
-微积分在机器学习中的典型应用总结
-
-梯度下降：利用一阶导数（梯度）信息迭代更新参数，使损失函数收敛到局部最小值
-
-反向传播：链式法则的系统化应用，高效计算深层网络的参数梯度
-
-损失函数设计：交叉熵损失、均方误差等目标函数的梯度需手动推导，均依赖微分
-
-激活函数分析：Sigmoid 的导数 $\sigma'(x) = \sigma(x)(1 - \sigma(x))$，ReLU 的导数分段函数特性，影响梯度流动和网络训练
-
-二阶优化方法：牛顿法、自然梯度下降等利用海森矩阵或 Fisher 信息矩阵的曲率信息
-
-变分推断：通过泛函微分（变分法）推导最优近似分布的条件
-
-连续强化学习：策略梯度定理 $\nabla_\theta J = \mathbb{E}[\nabla_\theta \log \pi_\theta(a|s) Q(s,a)]$ 涉及对策略参数的期望梯度
+在变分推断中，对后验分布 $p(\mathbf{z}|\mathbf{x})$ 的积分通常是不可解的（没有闭式）。变分方法回避了直接积分——用一个易于计算的后验近似 $q(\mathbf{z})$ 代替真实后验，优化证据下界（ELBO）来最小化两者之间的 KL 散度。ELBO 中的 $\mathbb{E}_q[\log p(\mathbf{x},\mathbf{z})]$ 和 $\mathbb{E}_q[\log q(\mathbf{z})]$ 本质上都是对近似分布的积分求期望。
