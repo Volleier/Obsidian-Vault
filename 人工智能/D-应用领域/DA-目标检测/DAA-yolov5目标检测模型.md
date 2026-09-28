@@ -6,20 +6,14 @@ YoloV5 的核心优势在于其 **端到端的目标检测**。该模型可以�
 ## YoloV5 关键技术
 
 - CSPNet (Cross Stage Partial Networks)：这是 YoloV5 中用于优化神经网络层连接的技术，减少了冗余梯度信息的传播，增强了梯度流动，使得模型在保持较低计算量的同时，仍具备良好的学习能力和特征提取能力。
-    
 - FPN (Feature Pyramid Network) 和 PANet (Path Aggregation Network)：
     - FPN：通过多尺度特征融合，增强模型在不同尺寸下的检测能力，尤其是对小目标的检测。
     - PANet：进一步改进了特征融合机制，优化信息在网络中的传递路径，提升了检测性能，特别是在高分辨率图像中。
 - Mosaic 数据增强：YoloV5 引入了 Mosaic 数据增强技术，它通过将四张图像随机拼接为一张来生成训练样本，从而增加训练数据的多样性和随机性。这有助于模型更好地泛化到不同场景，提升对复杂背景下目标的检测能力。
-    
 - AutoAnchor：自动根据数据集生成适合的 anchor box，省去了手动调整 anchor 的麻烦，确保 anchor 与数据集中目标的大小更加匹配，从而提升检测精度。
-    
 - CIoU 损失函数：相较于传统的 IoU 损失函数，CIoU（Complete IoU）综合考虑了目标框的重叠率、中心点距离以及宽高比，能够更准确地优化边界框预测，提升目标定位精度。
-    
 - Multi-scale prediction：YoloV5 通过多尺度预测实现不同大小目标的检测能力，确保从小物体到大物体都能在同一张图片上精确定位。
-    
 - Lightweight 模型结构：YoloV5 提供多种模型尺寸（如 YoloV5s、YoloV5m、YoloV5l、YoloV5x），适合不同计算资源需求的场景。轻量级版本如 YoloV5s 特别适合部署在移动设备或嵌入式系统中。
-    
 - PyTorch 框架：YoloV5 是基于 PyTorch 实现的，使用方便，训练和部署流程相对简单。PyTorch 的模块化设计使得 YoloV5 更容易进行自定义修改和调优
 
 

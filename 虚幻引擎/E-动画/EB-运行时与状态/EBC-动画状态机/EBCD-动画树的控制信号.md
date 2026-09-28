@@ -6,17 +6,14 @@
    用于表示二元状态（真或假），例如角色是否在地面上、是否在攻击等。
    
    - 示例：`IsJumping`、`IsAttacking`
-
 2. 整型信号（Integer Signals）
    用于表示离散的数值状态，例如角色的姿态类型、攻击阶段等。
    
    - 示例：`PoseIndex`、`AttackPhase`
-
 3. 浮点型信号（Float Signals）
    用于表示连续的数值状态，例如角色的速度、方向等。
    
    - 示例：`Speed`、`Direction`
-
 4. 向量型信号（Vector Signals）
    用于表示方向和位置等矢量信息，例如角色的移动方向、目标位置等。
    
@@ -84,7 +81,6 @@
 - Speed（浮点型）：表示角色当前的速度。
 - IsInAir（布尔型）：表示角色是否在空中。
 - Direction（浮点型）：表示角色的移动方向。
-
 1. 定义控制信号变量
    在动画蓝图中定义 `Speed`、`IsInAir` 和 `Direction` 变量。
 
