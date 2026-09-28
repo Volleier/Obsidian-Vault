@@ -1,105 +1,97 @@
-#待重写
+**分部混合（Skeleton Masked Blending，也叫局部混合、per-bone blending）给每根骨骼分配各自的混合权重，让一段动画只作用于骨骼树的一部分，例如上半身播换弹、下半身继续跑。本质是把普通混合的一个全局权重 $\alpha$ 换成逐骨骼的权重 $\alpha \cdot m_j$，$m_j$ 来自骨骼遮罩。UE 里对应 AnimGraph 的 `Layered blend per bone` 节点，遮罩用 Branch Filter 或骨骼资产上的 Blend Mask 定义。**
 
-分部混合（Skeleton Masked Blending）是一种动画混合技术，用于在骨骼动画中实现局部混合。这种方法允许在角色的不同骨骼部分应用不同的动画，同时保持其他部分的动画不变。它非常适合需要对角色不同部位进行独立动画处理的场景，比如在角色的上半身做攻击动作，而下半身保持行走状态。
+> UE 部分对照 Epic 5.8 文档 *Blend Nodes*、*Blend Masks and Blend Profiles*、*Using Layered Animations*。
 
-### Skeleton Masked Blending 的基本概念
+## 从全局权重到逐骨骼权重
 
-1. **骨骼掩码（Skeleton Mask）**：定义哪些骨骼部分参与混合，哪些骨骼部分保持原样。通常使用布尔掩码或权重掩码来指定。
-2. **动画剪辑**：包含全身或局部的动画剪辑。
-3. **混合因子**：控制动画之间的混合比例。
-4. **混合计算**：根据骨骼掩码和混合因子，将不同的动画剪辑应用到指定的骨骼部分。
+普通混合对所有骨骼用同一个权重：
 
-### 应用场景
+$$
+\mathbf{x}_j = \operatorname{blend}(\mathbf{x}^{A}_j, \mathbf{x}^{B}_j, \alpha)\quad\text{对所有骨骼 } j
+$$
 
-1. **复杂角色动画**：例如，在战斗中角色的上半身进行攻击动画，而下半身保持移动动画。
-2. **互动动画**：角色与环境互动时，角色的某些部分（如手部）应用特殊动画，而其他部分保持正常动画。
-3. **动画过渡**：在不同的动画状态之间进行平滑过渡，同时保持某些骨骼的动画不变。
+分部混合给每根骨骼一个遮罩值 $m_j \in [0, 1]$：
 
-### 示例代码
+$$
+\mathbf{x}_j = \operatorname{blend}(\mathbf{x}^{A}_j, \mathbf{x}^{B}_j, \alpha\, m_j)
+$$
 
-以下是一个简单的 C++ 示例代码，展示如何实现骨骼掩码混合。假设我们有两个动画剪辑，并且我们希望在一个剪辑中对角色的上半身进行混合，而下半身保持原样。
+$m_j = 0$ 的骨骼完全保留基础姿势 $A$，$m_j = 1$ 的骨骼在 $\alpha = 1$ 时完全取 $B$。blend 仍是平移、缩放 Lerp 加旋转 NLerp（[[EBAC-线性插值]]）。这就是它和叠加混合的根本区别：分部混合是在指定骨骼上“替换”，叠加混合是在所有骨骼上“加差值”（[[EBDC-叠加混合（Additive Blending）]]）。两者经常一起用：上半身用分部混合换成持枪动作，再叠加瞄准偏移。
 
-#### C++ 示例代码
+## 遮罩边界的问题
 
-```cpp
-#include <iostream>
-#include <vector>
-#include <Eigen/Dense>
-#include <Eigen/Geometry>
+遮罩在骨骼树上从 0 突变到 1 时，边界处的两根骨骼分别来自两个动画。局部空间下每根骨骼的旋转是相对父骨骼的，如果下半身在跑步中骨盆左右扭动，而上半身完全取换弹动画的局部旋转，上半身就会被骨盆带着一起扭：换弹动画里的“胸口朝前”是相对于换弹动画自己的骨盆，放到跑步的骨盆上就歪了。
 
-using namespace Eigen;
+有两种处理：
 
-// 骨骼结构体
-struct Bone {
-    Vector3f position;
-    Quaternionf rotation;
-    Vector3f scale;
-};
+- **渐变遮罩。** 让权重沿脊椎逐节增加，例如 `spine_01` 0.3、`spine_02` 0.6、`spine_03` 1.0，把扭动分摊到几节脊椎上。
+- **在网格空间混合旋转。** 对上半身骨骼，不混合局部旋转，而是混合它们在组件空间里的朝向，再换算回局部。这样上半身在世界里的朝向由上层动画决定，不受下半身骨盆扭动影响。UE 的 `Mesh Space Rotation Blend` 就是这个开关，另有 `Mesh Space Scale Blend` 对缩放做同样处理。
 
-// 动画剪辑结构体
-struct AnimationClip {
-    std::vector<Bone> keyframes;
-};
+上半身持枪瞄准时，枪口必须指向准星，通常要开 Mesh Space Rotation Blend；而像挥手这种希望跟着身体一起动的动作，局部空间混合反而更自然。
 
-// 插值函数
-Quaternionf slerp(const Quaternionf& q1, const Quaternionf& q2, float t) {
-    return q1.slerp(t, q2);
-}
+## 在 UE 里：Layered blend per bone
 
-Vector3f lerp(const Vector3f& v1, const Vector3f& v2, float t) {
-    return (1.0f - t) * v1 + t * v2;
-}
+节点输入是一个 `Base Pose` 和若干个 `Blend Poses N`（右键 `Add Blend Pin` 增加），每个混合姿势有自己的 `Blend Weights N`。Details 面板里的主要属性：
 
-// 骨骼掩码混合
-std::vector<Bone> skeletonMaskedBlend(const std::vector<Bone>& basePose, const std::vector<Bone>& blendPose, float blendFactor, const std::vector<bool>& mask) {
-    std::vector<Bone> blendedPose = basePose;
-    for (size_t i = 0; i < blendedPose.size(); ++i) {
-        if (mask[i]) {
-            blendedPose[i].position = lerp(basePose[i].position, blendPose[i].position, blendFactor);
-            blendedPose[i].rotation = slerp(basePose[i].rotation, blendPose[i].rotation, blendFactor);
-            blendedPose[i].scale = lerp(basePose[i].scale, blendPose[i].scale, blendFactor);
-        }
-    }
-    return blendedPose;
-}
+| 属性 | 作用 |
+| --- | --- |
+| `Blend Mode` | `Branch Filter` 或 `Blend Mask` |
+| `Layer Setup` → `Branch Filters` | 每项一个 `Bone Name` 和 `Blend Depth` |
+| `Blend Masks` | `Blend Mode` 为 Blend Mask 时，选骨骼资产上定义的遮罩 |
+| `Mesh Space Rotation Blend` | 旋转在组件空间混合 |
+| `Mesh Space Scale Blend` | 缩放在组件空间混合 |
+| `Curve Blend Option` | 动画曲线怎么合并 |
+| `Blend Root Motion Based on Root Bone` | 根运动按根骨骼的权重混合 |
 
-int main() {
-    // 定义两个动画剪辑
-    AnimationClip walkClip = {/* keyframes for walking */};
-    AnimationClip attackClip = {/* keyframes for attacking */};
-    
-    // 基础姿势和混合姿势
-    std::vector<Bone> basePose = walkClip.keyframes;
-    std::vector<Bone> blendPose = attackClip.keyframes;
-    
-    // 混合因子（例如，0.5表示50%混合）
-    float blendFactor = 0.5f;
-    
-    // 定义骨骼掩码（假设上半身骨骼需要混合）
-    std::vector<bool> mask = {true, true, false, false}; // 根据具体骨骼数量设置
-    
-    // 计算骨骼掩码混合后的姿势
-    std::vector<Bone> blendedPose = skeletonMaskedBlend(basePose, blendPose, blendFactor, mask);
-    
-    // 输出混合姿势
-    for (const auto& bone : blendedPose) {
-        std::cout << "Position: " << bone.position.transpose() << std::endl;
-        std::cout << "Rotation: " << bone.rotation.coeffs().transpose() << std::endl;
-        std::cout << "Scale: " << bone.scale.transpose() << std::endl;
-    }
-    
-    return 0;
-}
-```
+**Branch Filter 的 `Blend Depth`：**
 
-### 示例场景说明
+| 取值 | 效果 |
+| --- | --- |
+| 0 | `Bone Name` 及其所有子骨骼权重都为 1 |
+| 正数 | 从 `Bone Name` 开始经过若干根骨骼逐渐增加到 1。文档的例子：Blend Depth 为 2 时，`Bone Name` 权重 0.5，下一根子骨骼权重 1 |
+| 负数 | 禁用混合姿势、偏向 Base Pose；小于 -1 时同样在若干根骨骼内渐变 |
 
-1. **定义动画剪辑**：在示例中，我们定义了两个动画剪辑：行走和攻击。
-2. **设置基础姿势和混合姿势**：基础姿势设为行走姿势，混合姿势设为攻击姿势。
-3. **计算混合因子**：设置混合因子为 `0.5`，表示 50% 的混合。
-4. **定义骨骼掩码**：指定哪些骨骼需要进行混合，例如，上半身骨骼参与混合，下半身骨骼保持原样。
-5. **计算骨骼掩码混合后的姿势**：使用 `skeletonMaskedBlend` 函数计算最终的混合姿势。
+正的 Blend Depth 就是上一节说的“渐变遮罩”的快捷写法。Epic 的分层动画教程用的配置是 `Bone Name` = `spine_01`、`Blend Depth` = 1、勾选 `Mesh Space Rotation Blend`。
 
-### 结论
+**Curve Blend Option 的取值：** Override、Do Not Override、Normalize by Weight、Blend by Weight、Use Base Pose、Use Min Value、Use Max Value。动画曲线（比如驱动面部或材质的曲线）不属于任何骨骼，遮罩管不到它们，需要单独决定怎么合并。
 
-Skeleton Masked Blending 允许在骨骼动画中实现复杂的局部混合效果。通过定义骨骼掩码，可以控制哪些骨骼部分参与混合，哪些骨骼部分保持不变。这种方法特别适合需要对角色的不同部分应用不同动画的场景，提升了动画系统的灵活性和表现力。
+## Blend Mask
+
+Branch Filter 写在节点上，每个用到的节点都要重复配置。Blend Mask 把遮罩存到骨骼资产里：在骨骼编辑器的 Skeleton Tree 中点 `Options > Add Blend Mask`，Skeleton Tree 会多出一列 Blend，每根骨骼填 0～1 的值，右键骨骼选 `Recursively Set Blend Scales` 可以一次给所有子骨骼设同一个值。节点里把 `Blend Mode` 设为 `Blend Mask` 并选择这张遮罩即可。多个动画蓝图共享同一套上半身遮罩时，改一处全部生效。修改 Blend Mask 就是在修改骨骼资产。
+
+Blend Mask 和 Blend Profile 都放在同一列、同一个菜单里，名字要起清楚：
+
+| | Blend Mask | Blend Profile |
+| --- | --- | --- |
+| 控制 | 每根骨骼的混合权重（参不参与、参与多少） | 每根骨骼的混合速度（多快完成过渡） |
+| 用在 | `Layered blend per bone` | 状态机过渡、`Blend Poses by bool/int/enum`、蒙太奇 Blend In/Out |
+| 类型 | 一种 | Time Blend Profile、Weight Blend Profile |
+
+## 和蒙太奇配合
+
+最常见的用法是“移动中播上半身动作”：
+
+1. 在蒙太奇里把动画放进一个自定义 Slot，例如 `UpperBody`；
+2. AnimGraph 里移动状态机输出先 `Save Cached Pose`；
+3. 缓存姿势一路接 `Layered blend per bone` 的 `Base Pose`，另一路接 `Slot 'UpperBody'` 节点再接到 `Blend Poses 0`；
+4. 按上面的方式配置 Branch Filter。
+
+没有蒙太奇在播时，Slot 节点直接透传输入的移动姿势，混合结果等于纯移动；播放蒙太奇时，上半身被替换。所有使用 `UpperBody` Slot 的蒙太奇都会自动走这条路径。
+
+需要更细粒度的控制时，`Blend Bone by Channel` 可以指定具体某根骨骼从另一根骨骼取平移、旋转或缩放中的某些通道，并选择在世界、组件、父骨骼或骨骼空间计算，适合单根骨骼的修正而不是整块身体的替换。
+
+## 容易踩的坑
+
+**上半身跟着骨盆扭。** 局部空间混合的典型症状，勾 `Mesh Space Rotation Blend` 或者用渐变遮罩。
+
+**边界处骨骼断裂或抖动。** Blend Depth 为 0 时权重在一根骨骼处突变，两套动画节奏差别大时会很明显，用正的 Blend Depth 做过渡。
+
+**只遮了骨骼，没管曲线。** 面部、材质曲线可能被下层或上层意外覆盖，检查 `Curve Blend Option`。
+
+**根运动被上半身动画影响。** 上半身蒙太奇带根运动时，默认也可能被混进来，用 `Blend Root Motion Based on Root Bone` 或在动画上关掉根运动。
+
+**直接连同一个状态机两次。** Base Pose 和 Slot 输入都来自移动状态机时，用缓存姿势，避免同一子图被求值两遍。
+
+## 相关
+
+[[EBDC-叠加混合（Additive Blending）]] [[EBCE-分层动画状态机]] [[EBCB-Cross Fades]] [[EBAC-线性插值]] [[EAADO-姿势的插值]]

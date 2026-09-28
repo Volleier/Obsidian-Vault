@@ -1,84 +1,113 @@
-#待重写
+**正向运动学（FK，Forward Kinematics）由各关节的旋转沿骨骼链逐级累乘，求出末端（手、脚）在哪里；反向运动学（IK，Inverse Kinematics）反过来，给定末端要到达的位置（和朝向），求各关节该怎么转。动画数据本身就是 FK：每帧存的是每根骨骼的局部变换。IK 在游戏里通常是运行时对 FK 结果的修正，UE 里有 Two Bone IK、FABRIK、CCDIK 等 AnimGraph 节点，以及 Control Rig 和 IK Rig 里的求解器。**
 
-反向动力学（IK, Inverse Kinematics）和正向动力学（FK, Forward Kinematics）是角色动画中的两种重要技术，它们分别用于不同的动画需求。以下是对 IK 和 FK 的详细对比和应用介绍：
+> 中文里常把 kinematics 译作“动力学”，严格说应为“运动学”：它只研究位置和角度，不涉及力和质量。涉及力的是 dynamics（物理动画、布娃娃）。UE 部分对照 Epic 5.8 文档。
 
-# 正向动力学（FK）
+## FK：从根到末端
 
-## 定义
-正向动力学是一种从骨骼的关节角度出发，计算骨骼链中每个骨骼的位置和方向的技术。给定骨骼的旋转和位置，可以确定末端效应器（如手或脚）的位置。
+骨骼链上第 $i$ 根骨骼的局部变换 $L_i$（相对父骨骼）由动画给出，它在模型空间里的变换是从根开始一路乘下来：
 
-## 优点
-- 简单直观：对骨骼的每个关节进行单独控制，操作直观。
-- 易于动画制作：适合需要对每个关节进行细致控制的情况，如角色的行走或奔跑。
+$$
+M_i = M_{i-1}\,L_i = L_0\,L_1 \cdots L_i
+$$
 
-## 缺点
-- 控制复杂：如果目标位置不明确，需要手动调整每个关节，控制复杂。
-- 不适合精确目标：在需要精确控制末端效应器（如手部抓取物体）时，操作较为困难。
+末端位置 $\mathbf{p} = f(\theta_1, \dots, \theta_n)$ 是关节角的确定函数，只有一个答案，计算量是链长的线性函数。FK 的特点是改一个关节会带动它下面的所有子骨骼：转肩膀，整条手臂跟着转。这对动画师做“甩手臂”“挥剑弧线”这类以关节为主导的动作很自然，但要让手恰好按在桌面某一点，就得反复调肩、肘、腕三个关节去凑。
 
-## 应用场景
-- 角色的基础动作：如走路、跑步等。
-- 动画制作：对于需要精细控制每个关节的动画效果，FK 是一种有效的解决方案。
+## IK：从末端到根
 
-# 反向动力学（IK）
+IK 要解的是 $\boldsymbol\theta = f^{-1}(\mathbf{p}_{\text{target}})$。难点在于 $f^{-1}$ 通常不是函数：
 
-## 定义
-反向动力学是一种从末端效应器的位置出发，计算骨骼链中每个关节的旋转角度的技术。给定末端效应器的目标位置，IK 系统会计算需要的关节角度，使末端效应器到达目标位置。
+- **无解。** 目标超出链的总长度，够不到。
+- **多解。** 人的手臂从肩到腕有 7 个自由度，而手的位置和朝向只有 6 个约束，肘部可以绕肩腕连线转一圈，手不动。
+- **奇异。** 链完全伸直时，某些方向的微小位移需要极大的关节转动。
 
-## 优点
-- 精确控制末端位置：适合需要精确控制末端效应器的场景，如角色手部抓取物体、脚部接触地面等。
-- 自动调整：可以自动调整关节角度，以满足末端效应器的位置需求，减少手动调整的复杂性。
+所以 IK 求解器除了“到达目标”，还要额外决定选哪个解：用极向量（pole vector）或关节目标（Joint Target）指定肘膝朝向，用关节角度限制排除不合生理的解，用“离当前姿势最近”作为偏好。
 
-## 缺点
-- 计算复杂：对于复杂的骨骼链，计算较为复杂，可能需要更多的计算资源。
-- 可能出现奇异解：在某些情况下，IK 系统可能会出现不自然的骨骼角度，需要额外处理。
+## 求解方法
 
-## 应用场景
-- 角色的交互：如手部抓取物体、脚部接触地面。
-- 动态调整：用于处理角色在复杂环境中的动态交互，如踩在不平的地面上。
+| 方法 | 思路 | 特点 | 见 |
+| --- | --- | --- | --- |
+| 解析法（两骨骼） | 三角形余弦定理直接算出肘/膝角度，再用极向量确定弯曲平面 | 精确、恒定开销，只适用于三关节两段链 | 本文下节 |
+| CCD | 从末端往根逐个关节旋转，让末端朝向目标 | 简单，每步几何直观，容易加角度限制；链尾关节动得多 | [[ECAH-循环星标下降算法]] |
+| FABRIK | 在位置空间里前后两遍拖拽关节点，保持骨长 | 收敛快、姿势自然，旋转需要从位置反推 | [[ECAA-FABRIK]] |
+| 雅可比法 | 线性化 $f$，用转置、伪逆或阻尼最小二乘求关节增量 | 通用、可处理多末端和多种约束，计算量大，要处理奇异 | [[ECAI-雅可比矩阵法]] |
+| 基于位置的全身 IK | 把骨骼当约束粒子系统迭代求解 | UE 的 Full Body IK 用这一类 | 本文“在 UE 里” |
 
-# IK 和 FK 的比较
+## 两骨骼解析解
 
-- 控制方式
-  - FK：从根部到末端依次控制关节角度。
-  - IK：从末端效应器到根部反向计算关节角度。
+大臂长 $a$，小臂长 $b$，肩到目标距离 $d$（先夹到 $|a-b| \le d \le a+b$）。由余弦定理，肘部内角 $\gamma$ 和肩部相对“肩→目标”方向需要偏开的角度 $\beta$ 为
 
-- 使用场景
-  - FK：适合创建和控制整体动作，尤其是在每个关节的动作都需要精确控制时。
-  - IK：适合实现需要末端效应器到达特定目标的动作，如物体抓取或脚部调整。
+$$
+\cos\gamma = \frac{a^2 + b^2 - d^2}{2ab},\qquad
+\cos\beta = \frac{a^2 + d^2 - b^2}{2ad}
+$$
 
-- 操作复杂度
-  - FK：需要手动调整每个关节，控制复杂度较高。
-  - IK：通过设置末端目标位置，自动调整关节，控制更为直观。
+肩、肘、目标三点确定了一个三角形，但这个三角形可以绕“肩→目标”轴任意转动，所以还需要一个极向量把它钉在某个平面上，这就是 Two Bone IK 节点 `Joint Target Location` 的作用。UE 的两骨骼解析求解实现在 AnimationCore 模块的 `AnimationCore::SolveTwoBoneIK`，蓝图里也有 `Two Bone IK` 函数可以直接调用。
 
-# 实际应用示例
+## 游戏里怎么组合 FK 和 IK
 
-## FK 示例
+DCC 软件里，IK/FK 是给动画师用的两种操控方式，常见“IK/FK 切换”和“IK/FK 匹配”功能：腿部行走用 IK 控制脚锁在地面，手臂甩动用 FK。导出到引擎后，动画数据一律是烘焙好的 FK 局部变换。
 
-角色在走路时，使用 FK 控制每个关节的旋转，以实现自然的步态：
+引擎运行时，IK 作为后处理修正 FK 结果，处理动画制作时无法预知的环境：
+
+| 需求 | 做法 |
+| --- | --- |
+| 脚踩在斜坡、台阶上 | 射线检测地面高度，用 IK 把脚拉到接触点，同时下压骨盆 |
+| 双手握枪 | 以主手为准，用 IK 把副手拉到枪上的握把 socket |
+| 伸手按按钮、开门 | IK 把手拉到交互点，权重随交互进度升降 |
+| 看向目标 | Look At 类节点旋转头颈 |
+| 不同体型共用动画 | 重定向后用 IK 修正手脚位置 |
+
+IK 在 AnimGraph 里通常放在最后面：先由状态机、混合、叠加得出 FK 姿势，再用 IK 修正末端。IK 节点工作在组件空间（Component Space），UE 5 会在局部空间和组件空间节点之间自动插入转换。
+
+## 在 UE 里
+
+| 工具 | 说明 |
+| --- | --- |
+| `Two Bone IK` 节点 | 三关节链的解析解，`IK Bone` 往上数两根骨骼构成链；`Effector Location`、`Joint Target Location`；可允许拉伸（`Allow Stretching`、`Start Stretch Ratio`、`Max Stretch Scale`） |
+| `FABRIK` 节点 | 任意长度链，`Root Bone` 到 `Tip Bone`，`Effector Transform`、`Precision`、`Max Iterations` |
+| `CCDIK` 节点 | 任意长度链，支持每个关节的旋转限制；官方标为 Experimental |
+| Control Rig | 在 Rig Graph 里手写 FK 控制器、Basic IK、FABRIK、Full Body IK 等节点，可以用于运行时也可以用于在 Sequencer 里制作动画 |
+| IK Rig | 资产化的 IK 配置：Solver Stack 里叠加 Body Mover、Limb IK、Full Body IK、Pole Solver、Set Transform 等求解器，AnimGraph 里用 IK Rig 节点驱动，也是 IK Retargeter 的基础 |
+
+Control Rig 和 IK Rig 里的 Full Body IK 据 Epic 文档建立在“基于位置的 IK”框架上，支持每骨骼刚度、偏好角度、角度限制和拉伸。
+
+原笔记里的 IK 示例是给 `AnimGraphNode_Fabrik` 赋值，那个类是编辑器里的节点包装，运行时并不存在，正确的做法是在动画实例里准备好目标位置变量，接到节点的引脚上：
 
 ```cpp
-// 控制角色的上臂和前臂
-UpperArm->SetRotation(UpperArmRotation);
-LowerArm->SetRotation(LowerArmRotation);
+// MyAnimInstance.h（节选）
+UPROPERTY(Transient, BlueprintReadOnly, Category = "IK")
+FVector HandIKTarget = FVector::ZeroVector;   // 世界空间
+
+UPROPERTY(Transient, BlueprintReadOnly, Category = "IK")
+float HandIKAlpha = 0.f;
 ```
-
-## IK 示例
-
-角色手部跟随目标位置，如抓取物体时，使用 IK 计算手部的角度：
 
 ```cpp
-// 使用 FABRIK 节点设置目标位置
-FVector HandTarget = TargetObject->GetActorLocation();
-AnimGraphNode_Fabrik->TargetLocation = HandTarget;
+// MyAnimInstance.cpp（节选）
+void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
+{
+	Super::NativeUpdateAnimation(DeltaSeconds);
+	if (const AMyCharacter* Character = Cast<AMyCharacter>(TryGetPawnOwner()))
+	{
+		// 目标由游戏逻辑决定，比如当前交互物体上的 socket
+		HandIKAlpha = Character->IsInteracting() ? 1.f : 0.f;
+		HandIKTarget = Character->GetInteractionHandLocation();
+	}
+}
 ```
 
-# 综合使用
+AnimGraph 里把 `HandIKTarget` 接到 FABRIK 节点的 `Effector Transform`（`Effector Transform Space` 设为 World Space），`HandIKAlpha` 接到 `Alpha`。`AMyCharacter`、`IsInteracting`、`GetInteractionHandLocation` 是示意用的游戏代码。Alpha 最好平滑过渡，否则 IK 开关时手会瞬移。
 
-在实际项目中，FK 和 IK 通常会结合使用。例如，角色的行走动作可以使用 FK 控制，而手部抓取物体则使用 IK 控制。虚幻引擎（Unreal Engine）允许在同一个动画蓝图中同时使用 FK 和 IK，以实现更复杂的动画效果。
+## 容易踩的坑
 
-# 总结
+**IK 放在混合之前。** IK 修正完的姿势再被后面的混合冲淡，末端就又不准了。
 
-- FK 适合需要对骨骼每个关节进行精细控制的情况，通常用于基础动作的动画制作。
-- IK 适合需要精确控制末端效应器的场景，如物体抓取、脚部调整等。
+**没给极向量。** 两骨骼 IK 缺少 Joint Target 时，膝盖、手肘可能朝奇怪的方向翻。
 
-两者结合使用，可以充分发挥各自的优势，实现更加自然和丰富的角色动画。如果有更具体的问题或需要深入探讨某一方面，请告诉我。
+**目标够不到时抖动。** 目标在可达边缘来回时，链在伸直与弯曲间跳变。给目标加距离限制，或用拉伸选项。
+
+**只改了脚没改骨盆。** 下坡时脚被拉低，骨盆还在原高度，腿就被拉直甚至够不到地面。脚部 IK 通常要配合骨盆下压。
+
+## 相关
+
+[[ECAA-FABRIK]] [[ECAH-循环星标下降算法]] [[ECAI-雅可比矩阵法]] [[EAABAA-IK]] [[EAABA-基于物理的动画]] [[EAABAC-布娃娃系统]]

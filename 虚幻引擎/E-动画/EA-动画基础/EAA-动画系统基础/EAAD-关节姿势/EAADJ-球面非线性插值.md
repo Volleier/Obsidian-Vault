@@ -1,196 +1,85 @@
-#待重写
+**NLERP（Normalized Linear Interpolation，归一化线性插值）是对两个单位四元数先做普通的分量线性插值、再归一化回单位长度的旋转插值方法。它的路径和 SLERP 完全相同（都在单位超球面的同一段大圆弧上），只是沿弧的速度不均匀：两端慢、中间快。它计算便宜、满足交换律，适合多路动画混合，是游戏动画系统里实际用得最多的旋转混合方式。UE 里对应 `FQuat::FastLerp` 加 `Normalize()`，以及姿势混合时 `FTransform` 的"按最短路径累加旋转再归一化"。**
 
-球面非线性插值（NLERP, Normalized Linear Interpolation）是一种用于插值旋转的算法。虽然 NLERP 的计算简单，但在某些情况下会导致非均匀速度变化。为了保证插值结果的最短路径，我们通常需要对插值的四元数进行归一化处理。
+> 参考：Jonathan Blow, *Understanding Slerp, Then Not Using It*（Game Developer, 2004 年 4 月）；《Game Engine Architecture》第 3 版数学与动画两章；UE 部分对照 5.x `TQuat` API 文档。笔记标题"球面非线性插值"是沿用的叫法，NLERP 的 N 实际指 Normalized（归一化），它并不是在"球面上非线性地插值"。
 
-### 基本概念
+## 公式
 
-1. 四元数：用于表示旋转。四元数 \(q\) 有四个分量 \(w, x, y, z\)，能够避免欧拉角的万向节锁问题。
-2. 插值参数 \(t\)：在 [0, 1] 之间的参数，用于表示插值的进度。\(t=0\) 对应起始位置，\(t=1\) 对应结束位置。
+给定单位四元数 $\mathbf{q}_1$、$\mathbf{q}_2$ 和插值参数 $t\in[0,1]$：
 
-### NLERP 算法
+$$
+\text{nlerp}(\mathbf{q}_1, \mathbf{q}_2, t) = \frac{(1-t)\,\mathbf{q}_1 + t\,\mathbf{q}_2}{\left\lVert (1-t)\,\mathbf{q}_1 + t\,\mathbf{q}_2 \right\rVert}
+$$
 
-给定两个四元数 \(q_1\) 和 \(q_2\)，NLERP 插值公式为：
+分子是 4D 空间里连接两点的弦上的一点，它不在单位超球面上（长度小于 1），除以长度就把它投影回球面。因为投影是从原点出发的，弦上每一点投影到的正是两点之间那段大圆弧，所以 NLERP 和 [[EAADK-球面线性插值]]（SLERP）走的是同一条路径。
 
-\[ \text{NLERP}(q_1, q_2, t) = \frac{(1 - t) \cdot q_1 + t \cdot q_2}{||(1 - t) \cdot q_1 + t \cdot q_2||} \]
+## 最短路径
 
-其中，\(\| \cdot \|\) 表示向量的模长。
+四元数是旋转的"双重覆盖"：$\mathbf{q}$ 和 $-\mathbf{q}$ 表示同一个旋转。在 4D 球面上从 $\mathbf{q}_1$ 到 $\mathbf{q}_2$ 有两条弧，一条去 $\mathbf{q}_2$，一条去 $-\mathbf{q}_2$，它们对应的三维旋转一个转了 $\theta$，另一个转了 $360^\circ - \theta$。
 
-### 最短路径插值
+判断的依据是点积：$\mathbf{q}_1\cdot\mathbf{q}_2 = \cos\Omega$，$\Omega$ 是两者在 4D 空间中的夹角，而对应的三维旋转角差是 $2\Omega$。点积为负说明 $\Omega > 90^\circ$，也就是旋转差大于 $180^\circ$，此时应该把 $\mathbf{q}_2$ 取负，改走另一条更短的弧。原笔记里说点积为负意味着"两个四元数之间的夹角大于 180 度"，这里要分清：4D 夹角大于 90°，对应的三维旋转差才大于 180°。
 
-为了保证插值的最短路径，通常需要检查两个四元数的点积是否为负。如果点积为负，则取四元数的反方向（即取负值）来进行插值。
+$$
+\text{if}\ \ \mathbf{q}_1\cdot\mathbf{q}_2 < 0:\quad \mathbf{q}_2 \leftarrow -\mathbf{q}_2
+$$
 
-### 示例代码
+不做这一步，角色在某些插值中会"绕远路"转一大圈，比如从朝向 $170^\circ$ 转到 $-170^\circ$ 时，本应转 $20^\circ$，却转了 $340^\circ$。
 
-以下是如何在 C++ 中实现最短路径的 NLERP 插值示例代码：
+## 速度为什么不均匀
 
-#### C++ 代码
+把问题放到两个四元数张成的平面上：令 $\mathbf{q}_1 = (1, 0)$、$\mathbf{q}_2 = (\cos\Omega, \sin\Omega)$。弦上的点是 $\big((1-t) + t\cos\Omega,\ t\sin\Omega\big)$，归一化后的角度为
 
-```cpp
-#include <iostream>
-#include <Eigen/Dense>
-#include <Eigen/Geometry>
+$$
+\varphi(t) = \operatorname{atan2}\!\big(t\sin\Omega,\ 1 - t + t\cos\Omega\big)
+$$
 
-using namespace Eigen;
+求导可得 $\varphi'(t) = \sin\Omega / r(t)^2$，$r(t)$ 是弦上点到原点的距离。两端 $r=1$，速度是 $\sin\Omega$；中点 $r^2 = (1+\cos\Omega)/2$，速度是 $2\tan(\Omega/2)$。弦的中间离原点最近，投影后被"放大"得最多，所以中间快、两端慢。
 
-// 计算四元数之间的球面非线性插值 (NLERP)
-Quaternionf nlerp(const Quaternionf& q1, const Quaternionf& q2, float t) {
-    Quaternionf q2Modified = q2;
-    // 检查是否需要取反方向以确保最短路径
-    if (q1.dot(q2) < 0.0f) {
-        q2Modified = -q2;
-    }
-    // 计算插值
-    Quaternionf result = (1.0f - t) * q1.coeffs() + t * q2Modified.coeffs();
-    return result.normalized();
-}
+差异随夹角增大：三维旋转 90°（$\Omega=45^\circ$）时，中点速度约为端点的 1.17 倍；三维旋转 180°（$\Omega=90^\circ$）时达到 2 倍。动画里相邻关键帧之间的旋转通常只有几度，这个差异完全看不出来；对于混合权重而言，速度的不均匀表现为权重和实际旋转比例之间的轻微非线性，一般也可以接受。
 
-int main() {
-    // 定义两个四元数
-    Quaternionf rotA = Quaternionf::Identity();
-    Quaternionf rotB = AngleAxisf(M_PI / 2, Vector3f::UnitY());
+## 为什么游戏里更常用 NLERP
 
-    // 插值因子 t
-    float t = 0.5f;
+Blow 在那篇文章里把旋转插值的理想性质归结为三条：**交换律**（多个旋转混合时结果和顺序无关）、**恒定角速度**、**最小力矩**（走最短的大圆弧）。任何方法最多只能满足其中两条：
 
-    // 计算插值结果
-    Quaternionf interpolatedRot = nlerp(rotA, rotB, t);
-    std::cout << "Interpolated Rotation: " << interpolatedRot.coeffs().transpose() << std::endl;
+| 方法 | 交换律 | 恒定角速度 | 最小力矩 |
+| --- | --- | --- | --- |
+| SLERP | 否 | 是 | 是 |
+| NLERP | 是 | 否 | 是 |
+| 对数四元数线性插值 | 是 | 是 | 否 |
 
-    return 0;
-}
-```
+对动画混合来说，交换律比恒定角速度重要得多。动画混合树里经常要把三个、五个甚至更多姿势按权重混合（比如混合空间），NLERP 可以直接写成加权和再归一化：
 
-### GLSL 代码
+$$
+\mathbf{q} = \operatorname{normalize}\left(\sum_{k} w_k\,s_k\,\mathbf{q}_k\right),\qquad s_k = \operatorname{sign}(\mathbf{q}_{\text{ref}}\cdot\mathbf{q}_k)
+$$
 
-在 GLSL 中进行 NLERP 插值时，也需要确保插值的最短路径。假设我们在 C++ 中计算了四元数插值结果，并将其传递到着色器中：
+$s_k$ 是相对某个参考四元数的最短路径符号修正。SLERP 只定义了两个量之间的插值，多路混合只能两两嵌套，结果依赖嵌套顺序。再加上 NLERP 没有三角函数，也不存在 SLERP 在夹角很小时除以 $\sin\Omega$ 的数值问题，它就成了动画混合的默认选择。
 
-```glsl
-#version 330 core
+## 在 UE 里
 
-layout(location = 0) in vec3 a_Position;
-layout(location = 1) in vec3 a_Normal;
-layout(location = 2) in vec4 a_BoneWeights;
-layout(location = 3) in ivec4 a_BoneIndices;
-
-uniform mat4 u_SkinningPalette[100]; // 假设最多有 100 个关节
-
-void main() {
-    mat4 skinningMatrix = mat4(0.0);
-
-    skinningMatrix += a_BoneWeights.x * u_SkinningPalette[a_BoneIndices.x];
-    skinningMatrix += a_BoneWeights.y * u_SkinningPalette[a_BoneIndices.y];
-    skinningMatrix += a_BoneWeights.z * u_SkinningPalette[a_BoneIndices.z];
-    skinningMatrix += a_BoneWeights.w * u_SkinningPalette[a_BoneIndices.w];
-
-    vec4 skinnedPosition = skinningMatrix * vec4(a_Position, 1.0);
-
-    gl_Position = /* 投影矩阵 * 视图矩阵 * */ skinnedPosition;
-}
-```
-
-### NLERP 的应用
-
-1. 动画系统：在关键帧动画系统中，NLERP 用于在关键帧之间平滑插值角色的旋转姿态。
-2. 摄像机运动：在游戏和虚拟现实应用中，NLERP 用于平滑插值摄像机的旋转，使视角切换更加平滑自然。
-3. 机械臂和机器人：在机器人学中，NLERP 用于平滑插值机械臂的关节旋转，实现精确的运动控制。
-
-### 优点
-
-- 计算简单：NLERP 的计算量比 SLERP 小，适用于实时应用。
-- 平滑旋转：虽然不保证恒定速度，但可以产生平滑的旋转效果。
-- 避免万向节锁：使用四元数表示旋转，可以避免欧拉角表示中的万向节锁问题。
-
-### 结论
-
-NLERP 是一种计算简单且有效的旋转插值算法，适用于实时动画和运动控制。通过确保插值过程中的最短路径，可以进一步提高插值结果的质量，使角色动画和视角切换更加自然流畅。
-
-
-球面非线性插值（NLERP）的最短路径插值在计算旋转时确保插值的路径是最短的。为了实现这一点，需要检查两个四元数的点积。如果点积为负，说明两个四元数之间的夹角大于 180 度，此时需要将其中一个四元数取负值，这样插值路径就会是最短的。
-
-### NLERP 最短路径插值
-
-NLERP 插值公式：
-\[ \text{NLERP}(q_1, q_2, t) = \frac{(1 - t) \cdot q_1 + t \cdot q_2}{||(1 - t) \cdot q_1 + t \cdot q_2||} \]
-
-为了确保插值路径是最短的，我们需要在插值前检查四元数的点积：
-
-\[ \text{if} (q_1 \cdot q_2 < 0) \text{ then } q_2 = -q_2 \]
-
-### 示例代码
-
-以下是实现最短路径 NLERP 插值的示例代码：
-
-#### C++ 代码
+`FQuat::FastLerp(A, B, Alpha)` 就是不带归一化的 NLERP：API 文档写明"Fast Linear Quaternion Interpolation. Result is NOT normalized."，实现里已经按点积符号做了最短路径修正。需要单位四元数时要自己归一化：
 
 ```cpp
-#include <iostream>
-#include <Eigen/Dense>
-#include <Eigen/Geometry>
-
-using namespace Eigen;
-
-// 计算四元数之间的球面非线性插值 (NLERP) 并确保最短路径
-Quaternionf nlerp(const Quaternionf& q1, const Quaternionf& q2, float t) {
-    Quaternionf q2Modified = q2;
-    // 检查是否需要取反方向以确保最短路径
-    if (q1.dot(q2) < 0.0f) {
-        q2Modified = -q2;
-    }
-    // 计算插值
-    Quaternionf result = (1.0f - t) * q1.coeffs() + t * q2Modified.coeffs();
-    return result.normalized();
-}
-
-int main() {
-    // 定义两个四元数
-    Quaternionf rotA = Quaternionf::Identity();
-    Quaternionf rotB = AngleAxisf(M_PI / 2, Vector3f::UnitY());
-
-    // 插值因子 t
-    float t = 0.5f;
-
-    // 计算插值结果
-    Quaternionf interpolatedRot = nlerp(rotA, rotB, t);
-    std::cout << "Interpolated Rotation: " << interpolatedRot.coeffs().transpose() << std::endl;
-
-    return 0;
+// NLERP：FastLerp 已处理最短路径，但结果需要手动归一化
+FQuat NLerp(const FQuat& A, const FQuat& B, float Alpha)
+{
+	FQuat Result = FQuat::FastLerp(A, B, Alpha);
+	Result.Normalize();
+	return Result;
 }
 ```
 
-### GLSL 代码
+同族的还有 `FQuat::FastBilerp`（双线性，同样不归一化）。对照来看，`FQuat::Slerp` 会修正对齐并返回归一化结果，`Slerp_NotNormalized` 修正对齐但不归一化，`SlerpFullPath` 不做最短路径检查。
 
-在 GLSL 中进行最短路径 NLERP 插值时，也需要检查四元数的点积以确保插值路径最短。假设我们在 C++ 中计算了四元数插值结果，并将其传递到着色器中：
+动画姿势的多路混合走的是同一个思路。据社区对源码的分析，`FAnimationRuntime` 混合多个姿势时对每个骨骼调用 `FTransform::AccumulateWithShortestRotation(Source, Weight)` 做"按最短路径符号修正后的加权累加"，全部累加完再调用 `NormalizeRotation()`，这正是上面加权和再归一化的公式；具体调用链以你的引擎源码为准。
 
-```glsl
-#version 330 core
+## 容易踩的坑
 
-layout(location = 0) in vec3 a_Position;
-layout(location = 1) in vec3 a_Normal;
-layout(location = 2) in vec4 a_BoneWeights;
-layout(location = 3) in ivec4 a_BoneIndices;
+**忘记归一化。** 用 `FastLerp` 的结果直接构造变换，非单位四元数会给旋转带上缩放。多次累加后误差还会积累。
 
-uniform mat4 u_SkinningPalette[100]; // 假设最多有 100 个关节
+**最短路径检查放错位置。** 多路混合时，所有四元数都要相对同一个参考（通常是第一个或权重最大的那个）判断符号，而不是两两比较。
 
-void main() {
-    mat4 skinningMatrix = mat4(0.0);
+**把 NLERP 用在大角度的匀速转动上。** 比如摄像机匀速转 180°，NLERP 中段速度会快一倍，这种场合用 SLERP。
 
-    skinningMatrix += a_BoneWeights.x * u_SkinningPalette[a_BoneIndices.x];
-    skinningMatrix += a_BoneWeights.y * u_SkinningPalette[a_BoneIndices.y];
-    skinningMatrix += a_BoneWeights.z * u_SkinningPalette[a_BoneIndices.z];
-    skinningMatrix += a_BoneWeights.w * u_SkinningPalette[a_BoneIndices.w];
+## 相关
 
-    vec4 skinnedPosition = skinningMatrix * vec4(a_Position, 1.0);
-
-    gl_Position = /* 投影矩阵 * 视图矩阵 * */ skinnedPosition;
-}
-```
-
-### 关键步骤
-
-1. 检查点积：如果两个四元数的点积为负，说明它们之间的夹角大于 180 度。此时需要将其中一个四元数取反。
-2. 插值：在插值计算时，将四元数的点积检查结果应用到插值公式中，以确保插值路径最短。
-3. 归一化：插值结果需要归一化，以确保结果仍然是一个有效的四元数。
-
-### 结论
-
-通过使用球面非线性插值（NLERP）并确保插值路径的最短，我们可以实现平滑且计算简单的旋转插值。适用于动画系统、摄像机运动和机器人学中的旋转插值。通过检查四元数的点积并进行适当的处理，可以确保插值结果的质量，使得动画和运动更加自然和流畅。
+[[EAADK-球面线性插值]] [[EAADO-姿势的插值]] [[EBAC-线性插值]] [[EBCB-Cross Fades]] [[EBDC-叠加混合（Additive Blending）]]

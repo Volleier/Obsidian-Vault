@@ -1,78 +1,122 @@
-#待重写
+**FABRIK（Forward And Backward Reaching Inverse Kinematics，前后向到达反向运动学）是一种在位置空间里迭代求解 IK 的算法：每次迭代先把末端拉到目标、沿链往回拖动各关节点，再把根拉回原位、沿链往前拖回去，每一步只保持骨骼长度不变。它不涉及角度和矩阵，收敛快、姿势自然。UE 里对应 AnimGraph 的 FABRIK 节点（`FAnimNode_Fabrik`）和 Control Rig 的 FABRIK 节点。**
 
-FABRIK（Forward And Backward Reaching Inverse Kinematics）是一种用于解决逆向运动学（Inverse Kinematics, IK）问题的算法。它由Aristid Lindenmayer和Heinz-Peter Habel于2000年提出，主要用于计算机器人臂、虚拟角色等运动系统的关节角度，使得末端执行器能够到达目标位置。
+> 出处：Andreas Aristidou, Joan Lasenby, *FABRIK: A fast, iterative solver for the Inverse Kinematics problem*, Graphical Models 73(5), 2011, pp. 243–260；此前有 2009 年剑桥大学的技术报告。原笔记把作者写成 Lindenmayer 和 Habel，那是 L-system 的作者，与 FABRIK 无关。
 
-### 算法概述
+## 思路
 
-FABRIK是一种迭代算法，通过前向和后向传播来调整关节的位置，以实现末端执行器的目标位置。它适用于解决具有多个关节的链式结构的IK问题，如机器人臂或动画角色的骨骼系统。
+链上有关节点 $\mathbf{p}_0$（根）到 $\mathbf{p}_n$（末端），骨长 $d_i = \lVert \mathbf{p}_{i+1} - \mathbf{p}_i \rVert$，目标 $\mathbf{t}$。IK 要求末端到达目标，同时所有骨长不变、根不动。
 
-### 算法步骤
+雅可比法和 CCD 都在关节角空间里求解，每一步要算旋转。FABRIK 的观察是：如果只关心关节点的位置，“保持骨长”这个约束在几何上极其简单，给定一个点和一个方向，下一个点就在那个方向上距离 $d_i$ 的地方。于是可以不断地“拖”：拽着末端走到目标，每个关节被它的子关节拖着走，始终离子关节 $d_i$ 远；然后根被拽回原位，再反过来拖一遍。每遍都满足一端约束、破坏另一端，交替几次就同时满足两端。
 
-FABRIK算法的基本步骤如下：
+## 算法
 
-1. 初始化：
-   - 设置初始的关节配置和目标位置。通常，关节的初始位置和目标位置是已知的。
+**可达性检查。** 若 $\lVert \mathbf{t} - \mathbf{p}_0 \rVert > \sum d_i$，目标够不到，直接把整条链朝目标拉直：
 
-2. 前向传播（Forward Reaching）：
-   - 从根关节开始，逐步向末端执行器传递位置。每个关节的位置根据其前一个关节的位置和当前关节的长度进行更新，直到末端执行器达到或接近目标位置。
+$$
+\mathbf{p}_{i+1} = \mathbf{p}_i + d_i \frac{\mathbf{t} - \mathbf{p}_i}{\lVert \mathbf{t} - \mathbf{p}_i \rVert}
+$$
 
-3. 后向传播（Backward Reaching）：
-   - 从末端执行器开始，逐步向根关节传递位置。每个关节的位置根据其下一个关节的位置和当前关节的长度进行更新，直到根关节达到其初始位置。
+**否则迭代，每次两个阶段：**
 
-4. 迭代：
-   - 重复前向和后向传播的步骤，直到末端执行器的位置足够接近目标位置或达到预定的迭代次数。
+第一阶段（论文称 forward reaching，从末端往根）：记住根的原位置 $\mathbf{b} = \mathbf{p}_0$，令 $\mathbf{p}_n = \mathbf{t}$，对 $i = n-1, \dots, 0$：
 
-### 优点
+$$
+\mathbf{p}_i \leftarrow \mathbf{p}_{i+1} + d_i \frac{\mathbf{p}_i - \mathbf{p}_{i+1}}{\lVert \mathbf{p}_i - \mathbf{p}_{i+1} \rVert}
+$$
 
-- 简单易实现：FABRIK算法的实现相对简单，不需要复杂的数学运算或优化方法。
-- 快速收敛：对于大多数问题，FABRIK算法可以在较少的迭代次数内快速收敛到一个接近目标的位置。
-- 适用性广：可以处理具有任意关节数的链式结构，并适用于各种类型的逆向运动学问题。
+第二阶段（backward reaching，从根往末端）：令 $\mathbf{p}_0 = \mathbf{b}$，对 $i = 0, \dots, n-1$：
 
-### 缺点
+$$
+\mathbf{p}_{i+1} \leftarrow \mathbf{p}_i + d_i \frac{\mathbf{p}_{i+1} - \mathbf{p}_i}{\lVert \mathbf{p}_{i+1} - \mathbf{p}_i \rVert}
+$$
 
-- 局部最优：FABRIK算法可能会陷入局部最优解，特别是在目标位置非常接近或远离起始位置时。
-- 精度限制：虽然FABRIK算法通常能够提供较好的解，但其精度可能会受到关节长度和目标位置之间距离的影响。
+当 $\lVert \mathbf{p}_n - \mathbf{t} \rVert$ 小于容差，或达到最大迭代次数时停止。注意“前向/后向”的叫法：论文里的 forward 指从末端出发的那一遍，和很多中文资料的直觉相反，原笔记的描述也把两者弄反了。叫法无所谓，顺序是固定的：先把末端贴到目标，再把根拉回来。
 
-### 应用实例
+```cpp
+// FABRIK 单链求解，只演示位置部分；UE 的 FABRIK 节点内部思路相同
+// Joints[0] 为根，Joints.Num()-1 为末端；BoneLengths[i] 为 Joints[i] 到 Joints[i+1] 的长度
+void SolveFABRIK(TArray<FVector>& Joints, const TArray<float>& BoneLengths,
+                 const FVector& Target, float Tolerance, int32 MaxIterations)
+{
+	const int32 N = Joints.Num() - 1;
+	const FVector Root = Joints[0];
 
-1. 动画角色：
-   - 在计算机动画中，FABRIK算法用于控制虚拟角色的骨骼系统，使角色能够自然地移动和摆姿势。
+	float TotalLength = 0.f;
+	for (float L : BoneLengths) { TotalLength += L; }
 
-2. 机器人控制：
-   - 在机器人领域，FABRIK算法用于计算机器人臂的关节角度，以使其末端执行器能够准确地到达目标位置。
+	if (FVector::Dist(Root, Target) >= TotalLength)
+	{
+		// 够不到：朝目标拉直
+		for (int32 i = 0; i < N; ++i)
+		{
+			const FVector Dir = (Target - Joints[i]).GetSafeNormal();
+			Joints[i + 1] = Joints[i] + Dir * BoneLengths[i];
+		}
+		return;
+	}
 
-3. 虚拟现实：
-   - 在虚拟现实（VR）应用中，FABRIK算法可以用于处理用户虚拟手臂或手部的运动，使其与虚拟环境中的目标进行交互。
+	for (int32 Iter = 0; Iter < MaxIterations; ++Iter)
+	{
+		if (FVector::Dist(Joints[N], Target) <= Tolerance) { break; }
 
-### 示例代码
+		// 第一阶段：末端贴到目标，往根方向拖
+		Joints[N] = Target;
+		for (int32 i = N - 1; i >= 0; --i)
+		{
+			const FVector Dir = (Joints[i] - Joints[i + 1]).GetSafeNormal();
+			Joints[i] = Joints[i + 1] + Dir * BoneLengths[i];
+		}
 
-以下是一个简单的FABRIK算法的伪代码示例：
-
-```python
-def fabrik(target_position, joints, lengths, max_iterations, tolerance):
-    # 初始化
-    num_joints = len(joints)
-    
-    for iteration in range(max_iterations):
-        # 前向传播
-        joints[-1] = target_position
-        for i in range(num_joints - 1, 0, -1):
-            direction = (joints[i] - joints[i-1]).normalized()
-            joints[i-1] = joints[i] - direction * lengths[i-1]
-        
-        # 后向传播
-        joints[0] = [0, 0, 0]  # 设根关节为固定位置
-        for i in range(1, num_joints):
-            direction = (joints[i] - joints[i-1]).normalized()
-            joints[i] = joints[i-1] + direction * lengths[i-1]
-        
-        # 检查收敛
-        if (joints[-1] - target_position).magnitude() < tolerance:
-            break
-    
-    return joints
+		// 第二阶段：根拉回原位，往末端方向拖
+		Joints[0] = Root;
+		for (int32 i = 0; i < N; ++i)
+		{
+			const FVector Dir = (Joints[i + 1] - Joints[i]).GetSafeNormal();
+			Joints[i + 1] = Joints[i] + Dir * BoneLengths[i];
+		}
+	}
+}
 ```
 
-### 总结
+这段只求出了关节点的新位置。要得到骨骼旋转，还要对每根骨骼算“旧方向 → 新方向”的最短旋转（`FQuat::FindBetweenNormals`），叠到原来的旋转上。这一步只确定了骨骼指向，绕骨骼自身轴的扭转保持原样。
 
-FABRIK算法是一种高效且易于实现的逆向运动学解决方案，广泛应用于计算机动画、机器人控制和虚拟现实等领域。它通过前向和后向传播的迭代过程来调整关节位置，能够快速且有效地逼近目标位置。
+## 为什么它好用
+
+每次迭代对每个关节只做一次归一化和一次乘加，开销是 $O(n)$，没有矩阵求逆，也不会遇到奇异。论文给出的对比里，FABRIK 达到同样精度所需的迭代次数和耗时都明显少于 CCD 和雅可比类方法。它的结果也比 CCD 自然：CCD 从末端开始转，靠近末端的关节承担了大部分弯曲，链容易卷成钩状；FABRIK 的拖动把调整分摊到整条链上。
+
+论文还给出了几个扩展：
+
+- **关节约束。** 每次放置关节点后，把它投影到父骨骼允许的方向锥（或更一般的旋转限制区域）内，同时处理扭转限制。
+- **多末端。** 骨骼树有分叉时（例如脊椎上挂两条手臂），先各分支分别做第一阶段，把各分支算出的分叉点位置取平均（质心）作为分叉点，再继续往根拖；第二阶段从根出发，到分叉点后分别向各分支展开。
+- **闭环和运动目标。** 目标每帧移动时，从上一帧的解开始迭代，一两次就能跟上。
+
+## 在 UE 里
+
+AnimGraph 右键搜索 FABRIK 添加节点，它工作在组件空间。主要属性：
+
+| 属性 | 作用 |
+| --- | --- |
+| `Effector Transform` | 目标变换，可以作为引脚接变量 |
+| `Effector Transform Space` | 目标所在空间：World、Component、Parent Bone、Bone |
+| `Effector Transform Bone` | 空间为 Bone 时参照的骨骼 |
+| `Effector Rotation Source` | 末端骨骼的旋转：保持组件空间旋转、保持局部空间旋转，或复制目标的旋转 |
+| `Tip Bone` / `Root Bone` | 链的末端和起点；链至少两段 |
+| `Precision` | 末端与目标的距离容差 |
+| `Max Iterations` | 最大迭代次数 |
+| `Alpha` | 修正结果的权重 |
+
+UE 的 FABRIK 节点不提供关节角度限制，需要限制时用 CCDIK 节点（Experimental），或者 Control Rig / IK Rig 的 Full Body IK。只有三关节的四肢，用 Two Bone IK 的解析解更便宜、更稳定。
+
+## 容易踩的坑
+
+**链太短或 Root/Tip 选反。** Root 必须是 Tip 的祖先，链至少包含两段骨骼。
+
+**扭转丢失或错乱。** FABRIK 只决定骨骼指向，前臂、小腿这类带扭转骨骼的链，扭转仍来自原动画，目标旋转变化很大时要额外处理。
+
+**肘、膝翻向。** 没有约束时，FABRIK 可能从初始姿势收敛到镜像解。关节点的初始位置就是动画姿势，动画本身弯曲方向正确通常就不会翻；对四肢更推荐 Two Bone IK 加 Joint Target。
+
+**迭代次数开得很大。** 目标够不到或被约束卡住时，多出的迭代只是白算，用 `Precision` 和合理的 `Max Iterations` 控制。
+
+## 相关
+
+[[ECAB-IK和FK]] [[ECAH-循环星标下降算法]] [[ECAI-雅可比矩阵法]] [[EAABAA-IK]]

@@ -1,92 +1,192 @@
-#待重写
+**“基于流的消除高阶的时间同步”指的是 Zachary Booth Simpson 在 2000 年提出的一种网络游戏时钟同步方法：客户端向服务器发多次时间请求，按往返延迟排序取中位数，丢掉延迟明显偏高的样本（主要是 TCP 重传造成的离群值），对剩余样本的时钟偏差取平均。“基于流”指它可以跑在 TCP 这类流式协议上，“消除高阶”来自 GAMES104 课件的标题 *Stream-Based Time Synchronization with Elimination of Higher Order Modes*，意思是剔除延迟直方图里高延迟一侧的“杂散众数”，而不是消除什么高阶误差项。**
 
-基于流的消除高阶时间同步协议是一种高级的时间同步机制，旨在提高时间同步的精度，尤其是在高动态网络环境中。这种协议通过对时间同步误差的高阶项进行分析和消除，从而减少由网络延迟、抖动等因素引起的时间偏差。它广泛应用于分布式系统和网络游戏中，以确保系统内部各节点的时间保持高度一致。
+> 出处：Zachary Booth Simpson, *A Stream-based Time Synchronization Technique For Networked Computer Games*, 2000-03-01（原载 mine-control.com，现可在 Internet Archive 查到）；GAMES104 第 18 讲（网络游戏的架构基础）。UE 部分对照 Epic 5.8 API 文档 `AGameStateBase`。
+>
+> 原笔记把这个名字理解成“对网络延迟的二阶、三阶变化率建模并消除”，用多项式拟合、卡尔曼滤波校正高阶误差项。原论文和课件里都没有这些内容，这部分是对译名的误读，已删去。
 
-## 基本原理
+## 要解决的问题
 
-传统的时间同步协议（如NTP）通常假设网络延迟是一个固定或可预测的值，使用一次线性校正来同步时间。然而，在实际应用中，网络延迟往往是动态变化的，包括随机抖动、路径变化、带宽波动等因素，这些都可能导致时间同步误差。基于流的消除高阶时间同步协议通过引入更复杂的数学模型，对时间同步误差的高阶项（如二阶、三阶误差项）进行建模和校正，从而获得更高的时间同步精度。
+网络游戏里大量逻辑需要一个各端认可的“当前时间”：航位推测（dead reckoning）要知道一个位置包是多久以前发出的，才能正确外推；技能冷却、倒计时、回合开始时间要在各端对齐；延迟补偿要把客户端的操作映射回服务器时间线。如果不同步时钟，客户端只能假设每个包都是零延迟到达的，外推误差至少等于那一包的延迟。Simpson 在文中给出的量级是 100～3000 ms，而人对超过约 150 ms 的操作延迟就很敏感。
 
-### 时间同步误差的来源
+通用方案是 NTP，但作者认为它不适合游戏：收敛太慢，玩家不愿意在开局等时钟同步；NTP 和 SNTP 都基于 UDP，当时很多 ISP 和企业网络会拦截 UDP。改用 TCP 又带来新问题：SNTP 这类协议把往返时间除以二当作单程延迟，前提是来回对称，而 TCP 会在底层重传丢失或乱序的包，这次测量就出现了异常且不对称的延迟，上层代码还无从得知重传发生过。
 
-1. 一阶误差：
-   - 主要来源于网络延迟（固定延迟和往返时间）。
-   - 传统的NTP通过对称网络延迟模型来校正一阶误差。
+## 算法
 
-2. 二阶误差：
-   - 来源于网络抖动、动态路径选择等因素，导致网络延迟在时间上的变化（即网络延迟的变化率）。
-   - 这些误差项可能使得简单的线性校正无法准确同步时间。
+1. 客户端在“时间请求”包里写上本地时间 $t_c$，发给服务器；
+2. 服务器收到后写上服务器时间 $t_s$，发回；
+3. 客户端收到时本地时间为 $t_c'$，算出延迟和时钟偏差：
 
-3. 三阶及更高阶误差：
-   - 这些误差项考虑了延迟变化率的变化（加速度）等更复杂的因素。
+$$
+\text{latency} = \frac{t_c' - t_c}{2},\qquad
+\Delta = t_s - t_c' + \text{latency}
+$$
 
-### 高阶误差的消除方法
+  到这一步和 SNTP 基本一样；
+4. 第一个结果立刻用来校正本地时钟，先让时间“大致对”；
+5. 重复 1～3 五次或更多，每次间隔几秒，期间尽量减少其他流量；
+6. 把样本按延迟从低到高排序，取中间那个作为中位延迟；
+7. 丢掉延迟高于中位数约一个标准差的样本，对剩下样本的 $\Delta$ 取算术平均，作为最终的时钟偏差。
 
-1. 多点采样：
-   - 通过多次测量时间偏差，记录多个时间点的网络延迟情况。
-   - 使用多点采样的数据，构建延迟变化的数学模型（如多项式拟合）。
+GAMES104 课件对第 7 步的表述是“丢掉延迟约大于中位数 1.5 倍的样本”，和原文“一个标准差”略有不同，两种阈值都常见，实际效果差不多。
 
-2. 延迟模型拟合：
-   - 对采集的数据进行拟合，以估计高阶误差项的趋势。
-   - 常用方法包括多项式拟合、最小二乘法、卡尔曼滤波等。
+## “消除高阶众数”是什么意思
 
-3. 实时校正：
-   - 利用拟合的延迟模型，在时间同步过程中动态调整同步策略。
-   - 对高阶误差项进行实时校正，确保时间同步更加精确。
+整个算法唯一不平凡的地方就是第 7 步。原文的解释是：五个样本都没有被重传时，延迟直方图只有一个众数（簇），聚集在中位延迟附近；如果其中一个包被 TCP 重传，它的延迟会远远落在直方图右侧，平均约为主众数中位数的两倍远。把离中位数超过一个标准差的样本砍掉，这些“杂散众数”就被剔除了，前提是它们不占样本的大多数。
 
-## 基于流的时间同步协议
+所以“高阶”指的是直方图里比主众数更靠右（延迟更高）的那些众数，“消除”就是丢弃它们。用中位数而不是平均数做基准，也是为了不让离群值把基准本身拉偏。
 
-基于流的时间同步协议进一步考虑了数据流的连续性和网络传输的状态，通过分析数据包的到达时间和顺序，实时调整时间同步的策略。这种协议通常适用于高动态网络环境，如实时流媒体、在线多人游戏等场景。
+## 和 NTP 的关系
 
-### 核心思想
+NTP 每次交换记录四个时间戳：客户端发送 $T_1$、服务器接收 $T_2$、服务器发送 $T_3$、客户端接收 $T_4$，
 
-- 时间戳流分析：每个数据包带有精确的发送时间戳，接收端通过分析这些时间戳与本地时间的差异，来校正本地时间。
-- 流间依赖性：通过分析多个数据流之间的时间关系，可以更好地理解和预测网络延迟的变化。
-- 动态调整：根据实时分析的结果，动态调整时间同步算法，以适应当前网络状况。
+$$
+\theta = \frac{(T_2 - T_1) + (T_3 - T_4)}{2},\qquad
+\delta = (T_4 - T_1) - (T_3 - T_2)
+$$
 
-### 实现步骤
+$\theta$ 是时钟偏差，$\delta$ 是扣除服务器处理时间后的往返延迟。Simpson 的做法只用一个服务器时间戳，把服务器处理时间算进了往返延迟里，精度更低，但实现只要几十行。两者都依赖“来回延迟对称”这个假设，不对称的部分（例如上行走调制解调器、下行走卫星的连接）会原样变成时钟误差，任何只靠往返测量的方法都消除不了。NTP 在此之上还有样本滤波、多服务器选择、时钟频率修正等完整机制，精度高得多，代价是收敛以分钟计。
 
-1. 数据流捕获：
-   - 捕获并记录所有数据包的发送和接收时间戳。
-   - 如果数据包丢失或者乱序，需要考虑纠正机制。
+| | SNTP | Simpson 方法 | NTP |
+| --- | --- | --- | --- |
+| 每次交换的时间戳 | 客户端两个 + 服务器一个 | 同 SNTP | 四个 |
+| 样本处理 | 单次 | 中位数 + 剔除离群 + 平均 | 滤波、选择、聚类、频率修正 |
+| 传输协议 | UDP | 可跑在 TCP 上 | UDP |
+| 收敛 | 一次交换 | 几次交换、十几秒内 | 慢 |
+| 典型精度 | 取决于单次延迟 | 作者报告通常 < 100 ms | 远高于前两者 |
 
-2. 时间差分析：
-   - 计算每个数据包的传输时间，并分析其变化趋势。
-   - 如果网络状态较为稳定，可以直接进行线性校正；如果不稳定，则需要考虑高阶校正。
+作者在 1997 年的即时战略游戏《NetStorm: Islands At War》里用了这个算法，报告同步误差通常小于 100 ms；因重传导致的同步失败很少见，而且出现时往往连接本身已经糟糕到会掉线。
 
-3. 误差模型构建：
-   - 根据时间差分析的结果，构建延迟变化的高阶模型。
-   - 模型的复杂度取决于网络环境的动态性。
+## 在 UE 里
 
-4. 时间同步校正：
-   - 利用误差模型，对本地时间进行校正。
-   - 通过迭代的方式不断优化同步精度。
+UE 自带一个更简单的同步时钟：`AGameStateBase::GetServerWorldTimeSeconds()`，官方描述为“服务器上模拟的 TimeSeconds，在客户端和服务器之间同步”。机制是服务器定期（`ServerWorldTimeSecondsUpdateFrequency`，设为 0 关闭）调用 `UpdateServerTimeSeconds()`，把自己的 `GetWorld()->GetTimeSeconds()` 写进复制变量 `ReplicatedWorldTimeSecondsDouble`（5.x 起为 double，UE4 是 float 的 `ReplicatedWorldTimeSeconds`）；客户端在 `OnRep_ReplicatedWorldTimeSecondsDouble()` 里算出“服务器时间 − 本地时间”，累加求平均（样本数超过 250 时把累积值折算成一个样本重新开始），再把 `ServerWorldTimeSecondsDelta` 以 0.5 的系数向这个平均值靠拢。`GetServerWorldTimeSeconds()` 返回本地 `GetTimeSeconds()` 加上这个 delta。
 
-### 实践中的应用
+这套机制省带宽、足够给 UI 倒计时用，但它**不做延迟补偿**：客户端收到的服务器时间已经过去了一个单程延迟，算出的服务器时间系统性地落后约半个 RTT。更新间隔在 UE4 时代据社区文章是 5 秒，新版本的默认值以头文件为准。需要更准的时钟（射击判定、音乐节奏游戏、同时开局）时，常见做法是在 PlayerController 上用一对 RPC 自己做往返测量，也就是上面的算法：
 
-1. 在线多人游戏：
-   - 基于流的消除高阶时间同步协议可以显著提高游戏中玩家之间的同步性，减少延迟引起的不同步问题。
-   - 通过对玩家操作数据流的分析，服务器可以更准确地调整时间同步，确保所有玩家在同一个时间线上进行互动。
+```cpp
+// MyPlayerController.h
+#pragma once
 
-2. 分布式系统：
-   - 在分布式计算环境中，任务的执行顺序和时间戳非常重要。基于流的时间同步协议可以确保各个节点之间的时间一致性，减少因时间不同步导致的任务冲突和错误。
+#include "GameFramework/PlayerController.h"
+#include "MyPlayerController.generated.h"
 
-3. 物联网：
-   - 在物联网设备之间，时间同步至关重要，尤其是在需要精确协作的场景中。基于流的时间同步协议可以有效应对设备间的网络延迟和抖动，确保协作任务的准确执行。
+UCLASS()
+class MYGAME_API AMyPlayerController : public APlayerController
+{
+	GENERATED_BODY()
 
-## 优势与挑战
+public:
+	// 客户端估计的服务器时间；服务器上直接返回本地时间
+	double GetSyncedServerTime() const;
 
-### 优势
+protected:
+	virtual void ReceivedPlayer() override;
 
-- 高精度：通过消除高阶误差项，基于流的时间同步协议可以达到非常高的时间同步精度。
-- 动态适应性：能够实时适应网络状态的变化，尤其适用于高动态网络环境。
-- 广泛应用：适用于各种需要精确时间同步的场景，包括在线游戏、分布式系统和物联网。
+	UFUNCTION(Server, Unreliable)
+	void ServerRequestTime(double ClientSendTime);
 
-### 挑战
+	UFUNCTION(Client, Unreliable)
+	void ClientReportTime(double ClientSendTime, double ServerTime);
 
-- 计算复杂度：高阶误差的校正通常需要复杂的数学运算和模型拟合，可能增加系统的计算负担。
-- 实时性要求：在一些实时性要求非常高的应用中，如何在保持高精度的同时不增加延迟是一个挑战。
-- 网络环境依赖性：不同的网络环境对时间同步协议的要求不同，需要针对具体应用进行优化。
+private:
+	void SendTimeRequest();
 
-## 总结
+	struct FTimeSample { double Latency; double Offset; };
+	TArray<FTimeSample> Samples;
+	double ServerTimeOffset = 0.0;
+	FTimerHandle TimeSyncTimer;
+};
+```
 
-基于流的消除高阶时间同步协议是提高时间同步精度的重要技术，通过对网络延迟的高阶项进行分析和校正，可以在高动态网络环境中保持系统内部的时间一致性。这种协议特别适用于实时性要求高的分布式系统、在线多人游戏以及物联网设备间的时间同步。尽管实现起来较为复杂，但它在现代计算系统中的重要性和应用前景是显而易见的。
+```cpp
+// MyPlayerController.cpp
+#include "MyPlayerController.h"
+
+#include "Engine/World.h"
+#include "TimerManager.h"
+
+void AMyPlayerController::ReceivedPlayer()
+{
+	Super::ReceivedPlayer();
+	if (IsLocalController() && GetNetMode() == NM_Client)
+	{
+		SendTimeRequest();
+		GetWorldTimerManager().SetTimer(TimeSyncTimer, this, &AMyPlayerController::SendTimeRequest, 2.0f, true);
+	}
+}
+
+void AMyPlayerController::SendTimeRequest()
+{
+	ServerRequestTime(GetWorld()->GetTimeSeconds());
+}
+
+void AMyPlayerController::ServerRequestTime_Implementation(double ClientSendTime)
+{
+	ClientReportTime(ClientSendTime, GetWorld()->GetTimeSeconds());
+}
+
+void AMyPlayerController::ClientReportTime_Implementation(double ClientSendTime, double ServerTime)
+{
+	const double Now = GetWorld()->GetTimeSeconds();
+	const double Latency = (Now - ClientSendTime) * 0.5;
+	const double Offset = ServerTime + Latency - Now;
+
+	if (Samples.IsEmpty())
+	{
+		ServerTimeOffset = Offset; // 第一个样本立即生效
+	}
+	Samples.Add({ Latency, Offset });
+	if (Samples.Num() > 16)
+	{
+		Samples.RemoveAt(0); // 只保留最近的样本，适应网络变化
+	}
+	if (Samples.Num() < 5)
+	{
+		return;
+	}
+
+	// 按延迟排序，取中位数和标准差
+	TArray<FTimeSample> Sorted = Samples;
+	Sorted.Sort([](const FTimeSample& A, const FTimeSample& B) { return A.Latency < B.Latency; });
+	const double Median = Sorted[Sorted.Num() / 2].Latency;
+
+	double Mean = 0.0;
+	for (const FTimeSample& S : Sorted) { Mean += S.Latency; }
+	Mean /= Sorted.Num();
+	double Var = 0.0;
+	for (const FTimeSample& S : Sorted) { Var += FMath::Square(S.Latency - Mean); }
+	const double StdDev = FMath::Sqrt(Var / Sorted.Num());
+
+	// 丢掉比中位数高出一个标准差以上的样本，其余取平均
+	double Sum = 0.0;
+	int32 Count = 0;
+	for (const FTimeSample& S : Sorted)
+	{
+		if (S.Latency <= Median + StdDev)
+		{
+			Sum += S.Offset;
+			++Count;
+		}
+	}
+	ServerTimeOffset = Sum / Count;
+}
+
+double AMyPlayerController::GetSyncedServerTime() const
+{
+	const double Local = GetWorld()->GetTimeSeconds();
+	return HasAuthority() ? Local : Local + ServerTimeOffset;
+}
+```
+
+这里用的是 Unreliable RPC。UE 的网络层跑在 UDP 上，不可靠 RPC 丢了就丢了，不会像 TCP 那样重传后以异常延迟到达，所以 Simpson 当年要对付的重传问题不存在；但路由排队、带宽突发、服务器一帧的处理延迟同样会产生高延迟离群值，剔除步骤仍然有用。服务器端要注意 `ServerRequestTime` 的调用频率，防止客户端刷 RPC。
+
+## 容易踩的坑
+
+**直接把 `GetServerWorldTimeSeconds()` 当精确的服务器时间。** 它没有扣除单程延迟，延迟 100 ms 的客户端会慢大约 50 ms，更新间隔长时还会有额外漂移。
+
+**用平均数而不是中位数做基准。** 一个 800 ms 的离群样本就能把平均延迟拉高很多，剔除阈值跟着失效。
+
+**把同步后的偏差瞬间套上去。** 时钟往回跳会导致倒计时倒退、插值时间轴错乱。偏差变化较大时应该平滑过渡，UE 自带实现里 0.5 的系数就是这个用途。
+
+**混用不同的时间源。** `GetTimeSeconds()` 受时间膨胀和暂停影响，`GetRealTimeSeconds()` 不受暂停影响，`FPlatformTime::Seconds()` 是系统时间。发送、接收、使用必须是同一种时间。
+
+**以为多采样能消除不对称延迟。** 上下行延迟不对称造成的误差在每个样本里都一样，平均不掉。
