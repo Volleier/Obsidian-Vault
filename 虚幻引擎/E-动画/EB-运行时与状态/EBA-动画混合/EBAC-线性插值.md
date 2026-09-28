@@ -1,3 +1,5 @@
+#待重写
+
 线性插值（Linear Interpolation，简称 LERP）是动画和图形处理中常用的技术，用于在两个值之间进行平滑过渡。LERP 的基本原理是根据一个插值因子 \( t \) 来计算两个值之间的插值结果。公式如下：
 
 \[ \text{LERP}(a, b, t) = (1 - t) \cdot a + t \cdot b \]

@@ -1,3 +1,5 @@
+#待重写
+
 FABRIK（Forward And Backward Reaching Inverse Kinematics）是一种用于解决逆向运动学（Inverse Kinematics, IK）问题的算法。它由Aristid Lindenmayer和Heinz-Peter Habel于2000年提出，主要用于计算机器人臂、虚拟角色等运动系统的关节角度，使得末端执行器能够到达目标位置。
 
 ### 算法概述

@@ -1,3 +1,5 @@
+#待重写
+
 球面线性插值（SLERP, Spherical Linear Interpolation）是一种用于插值旋转的算法。与线性插值（LERP）不同，SLERP 在单位四元数的球面上进行插值，保证插值过程中的旋转是平滑和恒定速度的。
 
 ### 基本概念

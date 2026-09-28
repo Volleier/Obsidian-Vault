@@ -25,11 +25,24 @@
 比如：
 
 ```html
-<iframe width = "720" height = "360" src="https://www.bilibili.com/"></iframe>
+<iframe width = "720" height = "360" src="https://www.mihoyo.com/"></iframe>
 ```
 
 具体应用起来是这样的效果：
-<iframe width = "720" height = "360" src="https://www.bilibili.com/"></iframe>
+<div>
+	<iframe width = "720" height = "360" frameborder="0" 
+	src="https://www.mihoyo.com/">
+	</iframe>
+</div>
+
+<div>
+     <iframe width="500" height="400" frameborder="0" src="https://cn.bing.com/maps/embed?h=400&w=500&cp=nbck7gtxt5mp&lvl=11&typ=d&sty=r&src=SHELL&FORM=MBEDV8" scrolling="no">
+     </iframe>
+     <div style="white-space: nowrap; text-align: center; width: 500px; padding: 6px 0;">
+        <a id="largeMapLink" target="_blank" href="https://cn.bing.com/maps?cp=nbck7gtxt5mp&amp;sty=r&amp;lvl=11&amp;FORM=MBEDLD">查看放大的地图</a> &nbsp; | &nbsp;
+        <a id="dirMapLink" target="_blank" href="https://cn.bing.com/maps/directions?cp=nbck7gtxt5mp&amp;sty=r&amp;lvl=11&amp;rtp=~pos.nbck7g_txt5mp____&amp;FORM=MBEDLD">获取路线</a>
+    </div>
+</div>
 
 使用 iframe 嵌入网页的基本语法为：
 
@@ -52,7 +65,7 @@
 这个语法实际受到了 Markdown 相关语法的启发：
 
 1.  在 Markdown 中，`[Image](link.png)` 可以让链接指向图片，而 `![Image](link.png)` 能让图片嵌入到当前文档中。
-2.  而[内部链接](https://publish.obsidian.md/help-zh/%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/%E5%86%85%E9%83%A8%E9%93%BE%E6%8E%A5)的语法则基于以下设定：`[[My page]]` 是 `[My page](My page)` 的一个便捷写法（或者是“语法糖”）。
+2.  而[[BAD-内部链接]]的语法则基于以下设定：`[[My page]]` 是 `[My page](My page)` 的一个便捷写法（或者是“语法糖”）。
 
 综上，我们可以得到 `![[My page]]` 应该等效于 `![My page](My page)`。
 

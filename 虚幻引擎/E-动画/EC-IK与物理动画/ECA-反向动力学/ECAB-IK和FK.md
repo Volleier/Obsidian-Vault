@@ -1,3 +1,5 @@
+#待重写
+
 反向动力学（IK, Inverse Kinematics）和正向动力学（FK, Forward Kinematics）是角色动画中的两种重要技术，它们分别用于不同的动画需求。以下是对 IK 和 FK 的详细对比和应用介绍：
 
 # 正向动力学（FK）
