@@ -1,0 +1,29 @@
+{
+	"nodes":[
+		{"id":"265d06af9a5bf2d9","type":"text","text":"# 数据结构","x":-441,"y":-85,"width":250,"height":60},
+		{"id":"806117dd796ae3b3","type":"text","text":"## 非线性结构","x":-440,"y":66,"width":250,"height":60},
+		{"id":"f40e49e88d8df08b","type":"text","text":"## 线性结构","x":-441,"y":-260,"width":250,"height":60},
+		{"id":"e4ce0af8f914bfb4","type":"text","text":"### [[Sequential List 顺序表|顺序表]]","x":-287,"y":-480,"width":250,"height":60},
+		{"id":"4a9ea8f107183d3e","type":"text","text":"### [[Linked List 链表|链表]]","x":-566,"y":-480,"width":250,"height":60},
+		{"id":"07fc9160f616ae17","type":"text","text":"### 线性表","x":-858,"y":-480,"width":250,"height":60},
+		{"id":"a51ace919ae0707d","type":"text","text":"### [[Stack 栈 与 Queue 队列|栈与队列]]","x":13,"y":-480,"width":250,"height":60},
+		{"id":"aac0f35836863323","type":"text","text":"### [[Tree 树|树]]","x":-637,"y":263,"width":250,"height":60},
+		{"id":"f2b439852b035302","type":"text","text":"#### 平衡二叉树","x":-960,"y":547,"width":250,"height":60},
+		{"id":"6b6394668332ccd5","x":-960,"y":667,"width":250,"height":60,"type":"text","text":"#### 完全二叉树"},
+		{"id":"194bc382787b178b","x":-960,"y":787,"width":250,"height":60,"type":"text","text":"#### 二叉搜索树"},
+		{"id":"cd991747f30cbe53","x":-960,"y":440,"width":250,"height":60,"type":"text","text":"#### 二叉树"}
+	],
+	"edges":[
+		{"id":"8287be876de330de","fromNode":"265d06af9a5bf2d9","fromSide":"bottom","toNode":"806117dd796ae3b3","toSide":"top"},
+		{"id":"caa6497f8652b87c","fromNode":"265d06af9a5bf2d9","fromSide":"top","toNode":"f40e49e88d8df08b","toSide":"bottom"},
+		{"id":"ae6dcad13edee5c9","fromNode":"f40e49e88d8df08b","fromSide":"top","toNode":"07fc9160f616ae17","toSide":"bottom"},
+		{"id":"47917d0109824cb3","fromNode":"f40e49e88d8df08b","fromSide":"top","toNode":"4a9ea8f107183d3e","toSide":"bottom"},
+		{"id":"6dd146773d4ffa91","fromNode":"f40e49e88d8df08b","fromSide":"top","toNode":"e4ce0af8f914bfb4","toSide":"bottom"},
+		{"id":"51803604ede9a517","fromNode":"f40e49e88d8df08b","fromSide":"top","toNode":"a51ace919ae0707d","toSide":"bottom"},
+		{"id":"b3bc52f5741bced2","fromNode":"806117dd796ae3b3","fromSide":"bottom","toNode":"aac0f35836863323","toSide":"top"},
+		{"id":"4657835d4cd3853b","fromNode":"aac0f35836863323","fromSide":"bottom","toNode":"f2b439852b035302","toSide":"right"},
+		{"id":"ee8369ee413c4353","fromNode":"aac0f35836863323","fromSide":"bottom","toNode":"6b6394668332ccd5","toSide":"right"},
+		{"id":"c6d5b68b00981288","fromNode":"aac0f35836863323","fromSide":"bottom","toNode":"194bc382787b178b","toSide":"right"},
+		{"id":"8335e285e90c0511","fromNode":"aac0f35836863323","fromSide":"bottom","toNode":"cd991747f30cbe53","toSide":"right"}
+	]
+}

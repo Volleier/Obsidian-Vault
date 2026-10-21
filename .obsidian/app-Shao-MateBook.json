@@ -1,0 +1,15 @@
+{
+  "promptDelete": false,
+  "newFileLocation": "current",
+  "newFileFolderPath": "C:\\Users\\12066\\OneDrive\\Documents",
+  "attachmentFolderPath": "附件",
+  "newLinkFormat": "shortest",
+  "alwaysUpdateLinks": true,
+  "pdfExportSettings": {
+    "includeName": false,
+    "pageSize": "Letter",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 100
+  }
+}
