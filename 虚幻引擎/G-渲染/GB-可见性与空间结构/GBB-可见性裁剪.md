@@ -1,18 +1,18 @@
-﻿可见性裁剪（Visibility Culling）是计算机图形学中一种优化技术，用于减少渲染管线中不必要的渲染操作，提高渲染性能。它通过检测和剔除不在当前视图范围或视锥体内的对象或几何体，从而减少GPU处理的工作量，只渲染需要显示的内容。
+可见性裁剪（Visibility Culling）是计算机图形学中一种优化技术，用于减少渲染管线中不必要的渲染操作，提高渲染性能。它通过检测和剔除不在当前视图范围或视锥体内的对象或几何体，从而减少GPU处理的工作量，只渲染需要显示的内容。
 
 # 可见性裁剪的原理和方法
 
-## [[可见性裁剪/GBBB-入口裁剪|入口裁剪]]
-## [[可见性裁剪/GBBC-视锥裁剪|视锥裁剪（View Frustum Culling）]]
+## [[GBBB-入口裁剪|入口裁剪]]
+## [[GBBC-视锥裁剪|视锥裁剪（View Frustum Culling）]]
    - 视锥体裁剪是最基本和常见的裁剪技术。它利用视图投影矩阵定义的视锥体（View Frustum Culling）来确定哪些对象或几何体在当前相机视角下是可见的。只有位于视锥体内部的对象才会被送入渲染管线进一步处理，位于视锥体外部的对象则被剔除。
 
 ## 边界体积裁剪（Bounding Volume）：
    - 对于大型场景中的复杂对象，可以使用边界体积（Bounding Volume）进行裁剪。边界体积可以是简单的包围盒（AABB，Axis-Aligned Bounding Box）、包围球（Bounding Sphere）或者更复杂的包围体（Bounding Volume Hierarchy）。这些边界体积能够快速计算和检测，用于确定对象是否可能与当前视图或视锥体相交，进而决定是否需要进一步处理。
 
-## [[可见性裁剪/GBBD-遮挡剔除|遮挡剔除（Occlusion Culling）]]：
+## [[GBBD-遮挡剔除|遮挡剔除（Occlusion Culling）]]：
    - 遮挡剔除是一种高级的可见性裁剪技术，不仅考虑视锥体内外，还考虑到前方物体遮挡后方物体的情况。它可以通过射线或者其他技术来检测遮挡关系，只渲染对最终图像有贡献的可见物体，从而提高渲染效率。
 
-## [[可见性裁剪/GBBA-Potential Visibility Set|Potential Visibility Set]]
+## [[GBBA-Potential Visibility Set|Potential Visibility Set]]
 ## 级联裁剪：
    - 对于大规模场景，可以使用级联裁剪（Cascade Culling），将场景分割为多个层次，每个层次应用不同级别的裁剪技术。例如，使用粗略的视锥体裁剪来快速剔除大部分场景外的对象，再使用精细的边界体积裁剪和遮挡剔除技术处理剩余的可见对象。
 
